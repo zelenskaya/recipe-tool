@@ -1,0 +1,276 @@
+
+:root {
+  /* — surfaces — */
+  --ma-bg:        #FBF2EE;  /* app background      */
+  --ma-surface:   #FFFFFF;  /* cards & sheets       */
+  --ma-sunken:    #F7EAE4;  /* inputs & wells       */
+
+  /* — accents — */
+  --ma-primary:       #D45B6A;  /* berry-rose      */
+  --ma-primary-press: #BE4A59;  /* pressed/hover   */
+  --ma-secondary:     #E0993A;  /* honey           */
+
+  /* — text — */
+  --ma-text:    #33271F;  /* primary copy          */
+  --ma-muted:   #8C7B70;  /* captions, placeholder */
+
+  /* — lines & states — */
+  --ma-border:   #D2BBAC;
+  --ma-success:  #5E9E6B;
+  --ma-warning:  #E0993A;
+  --ma-error:    #C8434F;
+  --ma-focus:    rgba(212,91,106,.35);
+
+  /* — radius — */
+  --ma-r-sm: 8px;  --ma-r-input: 12px; --ma-r-banner: 12px;
+  --ma-r-btn: 16px; --ma-r-card: 20px; --ma-r-pill: 999px;
+
+  /* — space (base 4) — */
+  --ma-1: 4px;  --ma-2: 8px;  --ma-3: 12px; --ma-4: 16px;
+  --ma-5: 20px; --ma-6: 24px; --ma-8: 32px; --ma-10: 40px;
+
+  /* — type — */
+  --ma-font-display: 'Bitter', Georgia, serif;
+  --ma-font-ui:      'Mulish', system-ui, sans-serif;
+
+  /* - font sizes - */
+  --ma-font-size-h1: 30px;
+  --ma-line-height-h1: 36px;
+  --ma-font-weight-h1:700;
+
+  --ma-font-size-h2: 20px;
+  --ma-line-height-h2: 24px;
+  --ma-font-weight-h2: 600;
+
+  --ma-font-size-accent: 16px;
+  --ma-line-height-accent: 24px;
+  --ma-font-weight-accent: 600;
+
+  --ma-font-size-text: 16px;
+  --ma-line-height-text: 20px;
+  --ma-font-weight-text: 400;
+
+  --ma-font-size-small: 12px;
+  --ma-line-height-small: 20px;
+  --ma-font-weight-small: 400;
+
+  /* - sizes - */
+  --ma-s: 120px;
+  --ma-max-width: 500px;
+
+  /* - recipe categories - */
+  --ma-category-breakfast-background: #FBEAD2;
+  --ma-category-breakfast-color: #9C6A1F; 
+  --ma-category-uncategorized-background: #E3EEEF;
+  --ma-category-uncategorized-color: #3F6E72; 
+  --ma-category-vegetables-background: #FBE0E2;
+  --ma-category-vegetables-color: #A83F4C;
+  --ma-category-snack-background: #FCE6DA;
+  --ma-category-snack-color: #A85B37;
+  --ma-category-meat-background: #FBE3EC;
+  --ma-category-meat-color: #A2426A;
+  --ma-category-soup-background: #E3EEEF;
+  --ma-category-soup-color: #3F6E72;
+
+  /* - tags - */
+  --ma-tag-background: #E7EFE2;
+  --ma-tag-color: #4F6C46; 
+
+  /* - backgrounds - */
+  --ma-tip-background: #FBE9D2;
+
+  
+ 
+
+  
+}
+
+
+body {
+    background-color: var(--ma-bg);
+}
+
+h1{
+    font-family: var(--ma-font-display);
+    font-weight: var(--ma-font-weight-h1);
+    font-size: var(--ma-font-size-h1);
+    line-height: var(--ma-line-height-h1);
+    color: var(--ma-text);
+}
+
+h2{
+    font-family: var(--ma-font-display);
+    font-weight: var(--ma-font-weight-h2); 
+    color: var(--ma-text);
+    font-size: var(--ma-font-size-h2);
+    line-height: var(--ma-line-height-h2);
+}
+
+span, div {
+    font-family: var(--ma-font-ui);
+    font-weight: var(--ma-font-weight-text);
+    font-size: var(--ma-font-size-text);
+    line-height: var(--ma-line-height-text);
+    color: var(--ma-text);
+}
+
+.tags {
+    display: flex;
+    gap: var(--ma-2);
+    margin: var(--ma-3) 0;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ma-3);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.tag{
+    padding: var(--ma-1) var(--ma-2);
+    background: var(--ma-tag-background);
+    color: var(--ma-tag-color);
+    font-family: var(--ma-font-ui);
+    font-weight: var(--ma-font-weight-small);
+    font-size: var(--ma-font-size-small);
+    line-height: var(--ma-line-height-small);
+    display: inline-block;
+    border-radius: var(--ma-r-pill);
+    
+
+}
+
+.category-card {
+    display: flex;
+    flex-flow: column wrap;
+    border: 1px solid #D2BBAC;
+    padding: var(--ma-2);
+    border-radius: var(--ma-r-sm);
+    flex: 0 0 var(--ma-s);
+    gap: var(--ma-3);
+
+}
+
+.categories {
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--ma-4);
+}
+
+.recipe-card {
+    background: var(--ma-surface);
+    padding: var(--ma-4);
+    border-radius: var(--ma-r-card);
+    border: 1px solid var(--ma-border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ma-2);
+    max-width: var(--ma-max-width);
+   
+
+}
+
+.recipe-list {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: var(--ma-3);
+}
+
+.recipe-title {
+    font-family: var(--ma-font-display);
+    font-weight: var(--ma-font-weight-h2);
+    font-size: var(--ma-font-size-h2);
+}
+
+.recipe-description {
+    color: var(--ma-muted);
+}
+
+.recipe-category {
+    border-radius: var(--ma-r-pill);
+    padding: var(--ma-1) var(--ma-3);
+    display: inline-block;
+    align-self: flex-start;
+    font-family: var(--ma-font-ui);
+    font-weight: var(--ma-font-weight-accent);
+    font-size: var(--ma-font-size-accent);
+    line-height: var(--ma-line-height-accent);
+    background: var(--ma-category-breakfast-background);
+}
+
+/* chips for different recipe categories */
+#breakfast {
+    background: var(--ma-category-breakfast-background);
+    color: var(--ma-category-breakfast-color);
+}
+
+.tip{
+    display: flex;
+    align-items:center;
+    background: var(--ma-tip-background);
+    
+    padding: var(--ma-2) var(--ma-3);
+    gap: var(--ma-2);
+    margin: var(--ma-3);
+    border-radius: var(--ma-r-banner);
+    color: var(--ma-secondary);
+
+}
+
+.tip .span{
+color: var(--ma-text);
+}
+
+button {
+    font-family: var(--ma-font-ui);
+    font-size: var(--ma-font-size-accent);
+    line-height: var(--ma-line-height-accent);
+    font-weight: var(--ma-font-weight-accent);
+    padding: var(--ma-3) var(--ma-5);
+    border-radius: var(--ma-r-btn);
+    cursor:pointer;
+    margin: var(--ma-5);
+    max-width: var(--ma-max-width);
+
+}
+
+.primary {
+    background: var(--ma-primary);
+    color: var(--ma-surface);
+    border: none;
+}
+
+
+
+.secondary {
+    background: var(--ma-bg);
+    color: var(--ma-text);
+    border: 1px solid var(--ma-border);
+
+}
+
+fieldset {
+    display: flex;
+    flex-direction: column;
+    max-width: var(--ma-max-width);
+    gap: var(--ma-4);
+}
+
+input, select, textarea, fieldset{
+    max-width: var(--ma-max-width);
+    background: var(--ma-sunken);
+    border-radius: var(--ma-r-input);
+    border: 1px solid var(--ma-border);
+}
+
+textarea {
+    min-height: 120px;
+    width: 100%;
+    resize: vertical;
+}

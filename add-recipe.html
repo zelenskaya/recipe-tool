@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <title>Add recipe | Maya Approves 👌</title>
+       <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <a href="index.html">Back</a>
+        <h1>Add recipe</h1>
+        <form method="POST" action="">
+            <fieldset>
+                <div>
+                    <label for="recipe-title">Title</label>
+                    <input type="text" id="recipe-title" name="recipe-title-input-name">
+                </div>
+                <div>
+                    <label for="recipe-description">Recipe description</label>
+                    <textarea id="recipe-description" name="recipe-description-input-name" placeholder="Enter recipe..."></textarea>
+                                   
+                </div>
+                <div>
+
+                <label for="recipe-category">Category</label>
+                <select id="recipe-category" name="recipe-category">
+                    <option value="">Select category</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Vegetables</option>
+                    <option value="soups">Soups</option>
+                    <option value="snacks">Snacks</option>
+                    <option value="meat">Meat</option>
+                </select>
+                </div>
+                
+                <!--<button>Add tag</button>
+                <button>Add tip</button>-->
+                <button id="save-button" type="button" class="primary">Save</button>
+                <button id="clear-button" type="button" class="secondary">Clear all recipes</button>
+            </fieldset>
+            </form>
+            <h2>Recipe titles:</h2>
+            <div id="recipe-list" class="recipe-list">
+
+            </div>
+            <script src="add-recipe.js"></script>
+    </body>
+</html>
