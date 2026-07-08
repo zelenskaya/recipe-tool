@@ -6,7 +6,8 @@
   --ma-sunken:    #F7EAE4;  /* inputs & wells       */
 
   /* — accents — */
-  --ma-primary:       #D45B6A;  /* berry-rose      */
+  --ma-primary: #D45B6A;  /* berry-rose      */
+  --ma-primary-rgb: 212, 91, 106;
   --ma-primary-press: #BE4A59;  /* pressed/hover   */
   --ma-secondary:     #E0993A;  /* honey           */
 
@@ -15,14 +16,16 @@
   --ma-muted:   #8C7B70;  /* captions, placeholder */
 
   /* — lines & states — */
-  --ma-border:   #D2BBAC;
+  --ma-input-border:   #d7b199;
+  --ma-button-border:   #d7b199;
+  --ma-fieldset-border: #edcfbc;
   --ma-success:  #5E9E6B;
   --ma-warning:  #E0993A;
   --ma-error:    #C8434F;
   --ma-focus:    rgba(212,91,106,.35);
 
   /* — radius — */
-  --ma-r-sm: 8px;  --ma-r-input: 12px; --ma-r-banner: 12px;
+  --ma-r-sm: 8px;  --ma-r-input: 8px; --ma-r-banner: 12px;
   --ma-r-btn: 16px; --ma-r-card: 20px; --ma-r-pill: 999px;
 
   /* — space (base 4) — */
@@ -58,6 +61,12 @@
   --ma-s: 120px;
   --ma-max-width: 500px;
 
+  /* - inputs - */
+    --ma-input-height: 48px;
+    --ma-input-focus-color:#3F6E72; 
+    --ma-input-padding-inline: 12px;
+    --ma-input-padding-block: 12px;
+
   /* - recipe categories - */
   --ma-category-breakfast-background: #FBEAD2;
   --ma-category-breakfast-color: #9C6A1F; 
@@ -65,12 +74,12 @@
   --ma-category-uncategorized-color: #3F6E72; 
   --ma-category-vegetables-background: #FBE0E2;
   --ma-category-vegetables-color: #A83F4C;
-  --ma-category-snack-background: #FCE6DA;
-  --ma-category-snack-color: #A85B37;
+  --ma-category-snacks-background: #FCE6DA;
+  --ma-category-snacks-color: #A85B37;
   --ma-category-meat-background: #FBE3EC;
   --ma-category-meat-color: #A2426A;
-  --ma-category-soup-background: #E3EEEF;
-  --ma-category-soup-color: #3F6E72;
+  --ma-category-soups-background: #E3EEEF;
+  --ma-category-soups-color: #3F6E72;
 
   /* - tags - */
   --ma-tag-background: #E7EFE2;
@@ -79,15 +88,29 @@
   /* - backgrounds - */
   --ma-tip-background: #FBE9D2;
 
-  
- 
-
-  
 }
 
+* {
+    box-sizing: border-box;
+}
 
 body {
     background-color: var(--ma-bg);
+    display: flex;
+    flex-flow: column nowrap;
+    gap: var(--ma-5);
+    margin-top: var(--ma-6);
+   
+}
+
+h1, h2, ul, li, p, section {
+    margin:0;
+}
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ma-2);
 }
 
 h1{
@@ -96,6 +119,8 @@ h1{
     font-size: var(--ma-font-size-h1);
     line-height: var(--ma-line-height-h1);
     color: var(--ma-text);
+    
+  
 }
 
 h2{
@@ -104,6 +129,7 @@ h2{
     color: var(--ma-text);
     font-size: var(--ma-font-size-h2);
     line-height: var(--ma-line-height-h2);
+   
 }
 
 span, div {
@@ -114,10 +140,13 @@ span, div {
     color: var(--ma-text);
 }
 
+.logo {
+    height: 48px;
+    width: auto;
+}
 .tags {
     display: flex;
     gap: var(--ma-2);
-    margin: var(--ma-3) 0;
 }
 
 form {
@@ -129,6 +158,7 @@ form {
 nav {
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
     
 }
 
@@ -149,18 +179,51 @@ nav {
 .category-card {
     display: flex;
     flex-flow: column wrap;
-    border: 1px solid #D2BBAC;
-    padding: var(--ma-2);
+    /*border: 1px solid #D2BBAC;*/
+    padding: var(--ma-4);
     border-radius: var(--ma-r-sm);
     flex: 0 0 var(--ma-s);
-    gap: var(--ma-3);
+    gap: var(--ma-1);
+    background: var(--ma-surface);
+    
 
 }
+
+
 
 .categories {
     display: flex;
     flex-flow: row wrap;
     gap: var(--ma-4);
+}
+
+.category-breakfast {
+    background: var(--ma-category-breakfast-background);
+    color: var(--ma-category-breakfast-color);
+}
+
+.category-breakfast .category-icon {
+    color: var(--ma-category-breakfast-color);
+}
+
+.category-meat {
+    background: var(--ma-category-meat-background);
+    color: var(--ma-category-meat-color);
+}
+
+.category-snacks {
+    background: var(--ma-category-snacks-background);
+    color: var(--ma-category-snacks-color);
+}
+
+.category-vegetables {
+    background: var(--ma-category-vegetables-background);
+    color: var(--ma-category-vegetables-color);
+}
+
+.category-soups {
+    background: var(--ma-category-soups-background);
+    color: var(--ma-category-soups-color);
 }
 
 .recipe-card {
@@ -201,14 +264,8 @@ nav {
     font-weight: var(--ma-font-weight-accent);
     font-size: var(--ma-font-size-accent);
     line-height: var(--ma-line-height-accent);
-    background: var(--ma-category-breakfast-background);
 }
 
-/* chips for different recipe categories */
-#breakfast {
-    background: var(--ma-category-breakfast-background);
-    color: var(--ma-category-breakfast-color);
-}
 
 .tip{
     display: flex;
@@ -217,7 +274,7 @@ nav {
     
     padding: var(--ma-2) var(--ma-3);
     gap: var(--ma-2);
-    margin: var(--ma-3);
+   
     border-radius: var(--ma-r-banner);
     color: var(--ma-secondary);
 
@@ -235,8 +292,11 @@ button {
     padding: var(--ma-3) var(--ma-5);
     border-radius: var(--ma-r-btn);
     cursor:pointer;
-    margin: var(--ma-5);
+    
     max-width: var(--ma-max-width);
+    width: 100%;
+
+   
 
 }
 
@@ -244,6 +304,7 @@ button {
     background: var(--ma-primary);
     color: var(--ma-surface);
     border: none;
+    box-shadow: 2px 2px 8px 4px rgba(var(--ma-primary-rgb), 0.2);
 }
 
 
@@ -251,26 +312,55 @@ button {
 .secondary {
     background: var(--ma-bg);
     color: var(--ma-text);
-    border: 1px solid var(--ma-border);
+    border: 1px solid var(--ma-button-border);
 
+}
+
+.back-button {
+    max-width: var(--ma-s);
 }
 
 fieldset {
     display: flex;
     flex-direction: column;
     max-width: var(--ma-max-width);
-    gap: var(--ma-4);
+    gap: var(--ma-5);
+    padding: var(--ma-5);
+    border: 0px solid var(--ma-fieldset-border);
+   
+}
+
+.form-field {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: var(--ma-2);
+    
+    max-width: var(--ma-max-width);
+    
+}
+
+.form-field label {
+    font-size: var(--ma-font-size-text);
 }
 
 input, select, textarea, fieldset{
     max-width: var(--ma-max-width);
     background: var(--ma-sunken);
+    border-radius: var(--ma-r-card);
+    
+    width: 100%;
+}
+
+input, select, textarea {
+    height: var(--ma-input-height);
     border-radius: var(--ma-r-input);
-    border: 1px solid var(--ma-border);
+    padding-inline: var(--ma-input-padding-inline);
+    padding-block: var(--ma-input-padding-block);
+    border: 1px solid var(--ma-input-border);
+
 }
 
 textarea {
     min-height: 120px;
-    width: 100%;
     resize: vertical;
 }

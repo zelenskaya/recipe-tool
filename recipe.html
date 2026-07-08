@@ -3,34 +3,40 @@
     <head>
         <link rel="stylesheet" href="styles.css">
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, intial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Oat Egg Crepe Recipe | Maya Approves 👌</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
-    </head>
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">    
+</head>
     <body>
-         <nav><span><a href="index.html">Maya Approves</a></span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></nav>
+         <nav><a href="index.html"><img class="logo" src="images/logo.svg" alt="Maya Approves"></a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></nav>
        
-        <h1>Oat Egg Crepe</h1>
-        <div class="tags">
+        <h1 id="recipe-title">Oat Egg Crepe</h1>
+        <!--<div class="tags">
             <span class="tag">#dairy_free</span> <span class="tag">#quick</span>
-        </div>
-        <span class="recipe-category" id="breakfast">Breakfast</span>
-        <ul>
+        </div>-->
+        <span class="recipe-category" id="recipe-category">Breakfast</span>
+        <!--<ul>
             <li>2 tbsp rolled oats</li>
             <li>1 egg</li>
             <li>½ banana, mashed</li>
             <li>2 tbsp wheat flour</li>
 
-        </ul>
+        </ul>-->
 
-        <div> Mix everything and cook on low heat until golden from both sides</div>
-        <div class="tip"><i data-lucide="circle-alert"></i><span>How to mix batter with no lumps</span></div>
-        <button>Cooking mode</button>
+        <div id="recipe-description"> Mix everything and cook on low heat until golden from both sides</div>
+        <!--<div class="tip"><i data-lucide="circle-alert"></i><span>How to mix batter with no lumps</span></div>
+        <button>Cooking mode</button>-->
+        <button type="buton" class="primary" id="edit-button">Edit</button>
+        <button type="button" class="secondary" id="delete-button">Delete</button>
         <script src="https://unpkg.com/lucide@latest"></script>
     <script>
       lucide.createIcons();
     </script>
+    <script src="recipes.js"></script>
+    <script src="recipe.js"></script>
+    
     </body>
 </html>
