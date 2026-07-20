@@ -1,6 +1,8 @@
 
 let recipeParameters = new URLSearchParams(window.location.search);
 const recipeNumber = Number(recipeParameters.get("i"));
+backButton.addEventListener("click", returnBack);
+
 const recipeItem = recipes[recipeNumber];
 if (!recipeItem){
     location.href = "index.html";
@@ -14,16 +16,26 @@ if (!recipeItem){
     const recipeDescription = document.getElementById("recipe-description");
     recipeDescription.textContent = recipeItem.description;
     const deleteButton = document.getElementById("delete-button");
-    deleteButton.addEventListener("click", deleteRecipe);
-    function deleteRecipe(){
-        recipes.splice(recipeNumber,1);
-        localStorage.setItem("recipesKey",JSON.stringify(recipes));
-        location.href = "index.html";
+    deleteButton.addEventListener("click", handleDelete);
+
+  
+
+    function handleDelete(){
+        const userConfirmed = confirm("Are you sure you want to delete this recipe?")
+        if (userConfirmed){
+            deleteRecipe(recipeNumber);
+            location.href = "index.html"
+        } 
     }
+
+   
     const editButton = document.getElementById("edit-button");
     editButton.addEventListener("click", editRecipe);
     function editRecipe(){
         
         location.href = `add-recipe.html?i=${recipeNumber}`
     }
+
+   
+    
 }

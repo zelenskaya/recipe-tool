@@ -24,46 +24,55 @@
              <input type="search" id="search" name="search">
         </div>
         
-       
-        <h1>What should we cook?</h1>
-        <section class="categories">
-        <span class="category-card category-breakfast">
-                <i data-lucide="egg-fried"></i>
-                Breakfast</span>
-            <span class="category-card category-vegetables"><i data-lucide="carrot"></i>Vegetables</span>
-            <span class="category-card category-soups"><i data-lucide="soup"></i>Soups</span>
-            <span class="category-card category-snacks"><i data-lucide="cookie"></i>Snacks</span>
-            <span class="category-card category-meat"><i data-lucide="beef"></i>Meat</span>
+       <main>
+            <h1>What should we cook?</h1>
+            <section class="categories">
+            <span class="category-card category-breakfast">
+                    <i data-lucide="egg-fried"></i>
+                    Breakfast</span>
+                <span class="category-card category-vegetables"><i data-lucide="carrot"></i>Vegetables</span>
+                <span class="category-card category-soups"><i data-lucide="soup"></i>Soups</span>
+                <span class="category-card category-snacks"><i data-lucide="cookie"></i>Snacks</span>
+                <span class="category-card category-meat"><i data-lucide="beef"></i>Meat</span>
 
-        </section>
-        <section>
-        <h2>Haven't made in a while</h2>
-        <span class="recipe-rediscovery-card">Lentil sweet potato mash</span>
-        <span class="recipe-rediscovery-card">Carrot ginger soup</span>
-        </section>
+            </section>
+            <section>
+            <!--<h2>Haven't made in a while</h2>
+            <span class="recipe-rediscovery-card">Lentil sweet potato mash</span>
+            <span class="recipe-rediscovery-card">Carrot ginger soup</span>
+            </section>
 
-        <section>
-            <h2>Recently viewed</h2>
-            <ul>
-                <li><a href="recipe.html">Lasagna</a></li>
-                <li><a href="recipe.html">Chicken Rice Soup</a></li>
-                <li><a href="recipe.html">Blueberry Yogurt Bowl</a></li>
-            </ul>
-        </section>
+            <section>
+                <h2>Recently viewed</h2>
+                <ul>
+                    <li><a href="recipe.html">Lasagna</a></li>
+                    <li><a href="recipe.html">Chicken Rice Soup</a></li>
+                    <li><a href="recipe.html">Blueberry Yogurt Bowl</a></li>
+                </ul>
+            </section>
 
-        <section>
-            <h2>Popular tags</h2>
-            <div class="tags"><span>#quick</span><span>#dairy_free</span><span>#meat</span></div>
-        </section>
-        <h2>Recipe titles:</h2>
-            <div id="recipe-list" class="recipe-list">
+            <section>
+                <h2>Popular tags</h2>
+                <div class="tags"><span>#quick</span><span>#dairy_free</span><span>#meat</span></div>
+            </section>-->
+            <section id="recipes-section">
+                <h2>Recipes</h2>
+                <div id="recipe-list" class="recipe-list">
 
-            </div>
-       <div class="form-field"><a href="add-recipe.html"><button id="add-recipe-button" type="button" class="primary">Add recipe</button></a></div> 
+                </div>
+            </section>
+            <section id="empty-state">
+                <h2>No recipes yet</h2>
+                <div>Start building your cookbook.</div>
+            </section>
+            
+        <a href="add-recipe.html" id="add-recipe-button" class="button button--primary">Add recipe</a> 
+       </main>
+        
         
 
 
-    <!-- ...all your page content (nav, h1, sections, cards) above... -->
+    
 
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
