@@ -4,6 +4,7 @@ let iValue = recipeParameters.get("i");
 let recipeNumber;
 let recipeItem;
 let liveValidationStarted = false;
+const pageTitle = document.getElementById("page-title");
 
 const validationRules = {
     title: {
@@ -26,6 +27,10 @@ recipeItem = recipes[recipeNumber];
     recipeItem=null;
 }
 
+if (recipeItem) {
+    pageTitle.textContent = "Edit recipe";
+}
+
 const addRecipeForm = document.getElementById("add-recipe-form");
 const titleInput = document.getElementById("recipe-title");
 const descriptionInput = document.getElementById("recipe-description");
@@ -34,6 +39,22 @@ const categoryInput = document.getElementById("recipe-category");
 
 backButton.addEventListener("click", returnBack);
 function returnBack(){
+    event.preventDefault();
+    if (recipeItem) {
+        
+        if (
+            titleInput.value !== recipeItem.title ||
+            descriptionInput.value !== recipeItem.description ||
+            categoryInput.value !== recipeItem.category
+        ){
+            const leavePage = confirm("Leave without saving?");
+
+            if(!leavePage){
+                return;
+            }
+        }
+    }
+    
     history.back();
 }
 

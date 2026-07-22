@@ -13,7 +13,7 @@ if (!recipeItem){
     const recipeCategory = document.getElementById("recipe-category");
     recipeCategory.textContent = recipeItem.category;
     recipeCategory.classList.add(`category-${recipeItem.category.toLowerCase()}`);
-    const recipeDescription = document.getElementById("recipe-description");
+    const recipeDescription = document.getElementById("recipe-description-text");
     recipeDescription.textContent = recipeItem.description;
     const deleteButton = document.getElementById("delete-button");
     deleteButton.addEventListener("click", handleDelete);
