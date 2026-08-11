@@ -426,8 +426,6 @@ color: var(--ma-text);
 }
 
 
-
-
 .button--primary:hover{
     background: var(--ma-primary-press);
 }
@@ -476,6 +474,16 @@ color: var(--ma-text);
 
 .button--full-width {
     width: 100%;
+}
+
+
+.button--sticky-on-bottom {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: var(--ma-5);
+    z-index: 10;
+    margin-inline: auto;
 }
 
 .cluster--buttons {
@@ -581,3 +589,4 @@ a {
     color: var(--ma-text);
     font-family: var(--ma-font-ui);
 }
+

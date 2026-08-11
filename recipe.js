@@ -1,10 +1,12 @@
 
 let recipeParameters = new URLSearchParams(window.location.search);
-const recipeNumber = Number(recipeParameters.get("i"));
+const recipeId = recipeParameters.get("recipeId");
 backButton.addEventListener("click", returnBack);
 
-const recipeItem = recipes[recipeNumber];
-if (!recipeItem){
+const recipeItem = recipes.find(recipe => recipe.id === recipeId);
+
+
+if (recipeItem === undefined){
     location.href = "index.html";
 } else {
    
@@ -23,7 +25,7 @@ if (!recipeItem){
     function handleDelete(){
         const userConfirmed = confirm("Are you sure you want to delete this recipe?")
         if (userConfirmed){
-            deleteRecipe(recipeNumber);
+            deleteRecipe(recipeId);
             location.href = "index.html"
         } 
     }
@@ -33,7 +35,7 @@ if (!recipeItem){
     editButton.addEventListener("click", editRecipe);
     function editRecipe(){
         
-        location.href = `add-recipe.html?i=${recipeNumber}`
+        location.href = `add-recipe.html?recipeId=${recipeId}`
     }
 
    

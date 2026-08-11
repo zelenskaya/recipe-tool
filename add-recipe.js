@@ -1,8 +1,6 @@
 
 let recipeParameters = new URLSearchParams(window.location.search);
-let iValue = recipeParameters.get("i");
-let recipeNumber;
-let recipeItem;
+let recipeId = recipeParameters.get("recipeId");
 let liveValidationStarted = false;
 const pageTitle = document.getElementById("page-title");
 
@@ -19,15 +17,12 @@ const validationRules = {
         event: "change"
     }
 };
-if(iValue){
-recipeNumber = Number(iValue);
-recipeItem = recipes[recipeNumber];
-} else {
-    recipeNumber=null;
-    recipeItem=null;
-}
 
-if (recipeItem) {
+const recipeItem = recipes.find(recipe => recipe.id === recipeId);
+
+
+
+if (recipeItem!==undefined) {
     pageTitle.textContent = "Edit recipe";
 }
 
@@ -86,6 +81,7 @@ function inputIsValid(formFieldID, validationMessage) {
 function formIsValid(){
     const titleIsValid = inputIsValid(validationRules.title.id, validationRules.title.message);
     const categoryIsValid = inputIsValid(validationRules.category.id, validationRules.category.message);
+    
     return titleIsValid && categoryIsValid;
 }
 
@@ -93,18 +89,40 @@ addRecipeForm.addEventListener("submit",handleSubmit);
 
 function handleSubmit(event){
     event.preventDefault();
+    
     if (formIsValid()) {
+        let recipeId;
+
+         if (recipeItem){
+            
+            recipeId = recipeItem.id;
+        }
+            
+         else
+        {
+            
+            recipeId= crypto.randomUUID();
+        }
+
         const recipe={
         title: titleInput.value,
         description: descriptionInput.value,
-        category: categoryInput.value
+        category: categoryInput.value,
+        id: recipeId
         };
+
         if (recipeItem){
-            recipes[recipeNumber]=recipe;
-        } else
+            const recipeIndex = recipes.findIndex(recipe => recipe.id === recipeId);
+            recipes[recipeIndex]=recipe;
+           
+        }
+            
+         else
         {
             recipes.push(recipe);
+            
         }
+       
         
         localStorage.setItem("recipesKey",JSON.stringify(recipes));
         
@@ -122,10 +140,6 @@ function handleSubmit(event){
             });
         }
 
-    }
-    
-    
-    
-    
+    }    
 }
 
