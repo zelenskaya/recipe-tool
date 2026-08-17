@@ -1,6 +1,15 @@
 let recipes = [];
+let storedRecipes = localStorage.getItem("recipesKey");
+if (storedRecipes === null){
+    console.log("seeding");
+    recipes = seedRecipes;
+    localStorage.setItem("recipesKey",JSON.stringify(seedRecipes));
+}  else {
+    console.log("loading");
+    recipes = JSON.parse(storedRecipes);
+}
 const recipesContainer = document.getElementById("recipe-list");
-const storedRecipes = localStorage.getItem("recipesKey");
+
 const recipesSection = document.getElementById("recipes-section");
 const emptyState = document.getElementById("empty-state");
 const emptyStateTitle = document.getElementById("empty-state-title");
@@ -10,6 +19,10 @@ const backButton = document.getElementById("back-button");
 let recipeTitle = document.getElementById("recipes-section-title");
 const addRecipeButton = document.getElementById("add-recipe-button");
 const searchResultsClearSearchButton = document.getElementById("search-results-clear-search");
+
+
+console.log(seedRecipes);
+
 
 
 function returnBack()
@@ -153,9 +166,6 @@ function displayRecipes(recipesView)
         }
 
     }
-if (storedRecipes) {
-    recipes = JSON.parse(storedRecipes)
-    
-}
+
 
 displayRecipes({recipes:recipes, isFiltered: false, searchText: ""});

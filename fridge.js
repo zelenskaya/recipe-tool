@@ -142,14 +142,7 @@ function handleFindRecipes(){
                     emptyStateMessageFridge.textContent = "Please try a different search";
                     return;
                 }
-                else
-                {
-                    emptyStateFridge.classList.add("hidden");
-                    
-                    
-                    
-                    
-                }
+                
 
     partialMatchingRecipes.sort((a,b) => {
         return (b.score.matched / b.score.total) - (a.score.matched / a.score.total);
