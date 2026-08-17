@@ -203,6 +203,7 @@ span, div {
 }
 .tags {
     display: flex;
+    flex-wrap: wrap;
     gap: var(--ma-cluster-gap);
 }
 
@@ -217,6 +218,7 @@ nav {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
+    align-items: center;
     
 }
 
@@ -231,6 +233,18 @@ nav {
     display: inline-block;
     border-radius: var(--ma-r-pill);
     
+
+}
+
+.chip{
+    padding: var(--ma-pill-vertical-padding) var(--ma-pill-horizontal-padding);
+    border: 1px solid var(--ma-fieldset-border);
+    color: var(--ma-text-color);
+    font-family: var(--ma-font-ui);
+    font-weight: var(--ma-font-weight-small);
+    line-height: var(--ma-line-height-small);
+    display: inline-block;
+    border-radius: var(--ma-r-pill);
 
 }
 
@@ -500,6 +514,15 @@ color: var(--ma-text);
     align-self: start;
 }
 
+.navigation-actions {
+    display: inline-flex;
+    gap: var(--ma-button-cluster-gap);
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    align-self: stretch;
+}
+
 .navigation-action svg{
     width: var(--ma-icon-size-m);
     height: var(--ma-icon-size-m);
@@ -590,3 +613,6 @@ a {
     font-family: var(--ma-font-ui);
 }
 
+.hidden {
+    display:none;
+}

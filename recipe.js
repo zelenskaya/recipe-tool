@@ -1,5 +1,6 @@
 
 let recipeParameters = new URLSearchParams(window.location.search);
+
 const recipeId = recipeParameters.get("recipeId");
 backButton.addEventListener("click", returnBack);
 
@@ -9,7 +10,16 @@ const recipeItem = recipes.find(recipe => recipe.id === recipeId);
 if (recipeItem === undefined){
     location.href = "index.html";
 } else {
-   
+    const ingredientList = document.getElementById("ingredient-list");
+    if ((recipeItem.ingredients)&&(recipeItem.ingredients.length>0)){
+        for (const i of recipeItem.ingredients){
+            const ingredient = document.createElement("li");
+            ingredient.textContent = i;
+            ingredientList.append(ingredient);
+        }
+
+    }
+
     const recipeTitle = document.getElementById("recipe-title");
     recipeTitle.textContent = recipeItem.title;
     const recipeCategory = document.getElementById("recipe-category");

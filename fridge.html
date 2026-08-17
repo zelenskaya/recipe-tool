@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="styles.css">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Maya Approves Recipe Tool
+        </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+</head>
+    <body>
+       <nav> <a href="index.html"><img class="logo" src="images/logo.svg" alt="Maya Approves"></a>
+           <div class="navigation-actions">
+                <a href="fridge.html">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cooking-pot-icon lucide-cooking-pot"><path d="M2 12h20"/><path d="M20 12v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-8"/><path d="m4 8 16-4"/><path d="m8.86 6.78-.45-1.81a2 2 0 0 1 1.45-2.43l1.94-.48a2 2 0 0 1 2.43 1.46l.45 1.8"/></svg>
+                
+                </a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+
+            </div>
+        </nav>
+        <main>
+            <h1>Get a recipe based on what's in your fridge</h1>
+            <section>
+                <div class="form-field">
+                        <label>Ingredients</label>
+                        <input type="text" id="ingredient-item-fridge-mode">
+                        <button type="button" id="add-ingredient-button-fridge-mode">Add</button>
+                        <div id="selected-ingredients-fridge-mode" class="tags"></div>
+                    </div>
+            <div class="tags" id="ingredient-buttons">
+                <button type="button" class="chip">Eggs</button>
+                <button type="button" class="chip">Milk</button>
+                <button type="button" class="chip">Banana</button>
+                <button type="button" class="chip">Oat</button>
+                <button type="button" class="chip">Chicken</button>
+                <button type="button" class="chip">Beef</button>
+                
+              
+            </div>
+            <button class="button button--primary" id="find-recipes-fridge-mode" type="submit">Find recipes</button>
+            </section>
+
+            <section id="top-scored-recipes-section" class="hidden">
+                <h2>Top matches</h2>
+                <div id="top-scored-recipes" class="recipe-list">
+
+                </div>
+            </section>
+
+            <section id="partial-matches-recipes-section" class="hidden">
+                <h2>Partial matches</h2>
+                <div id="partial-matches-recipes" class="recipe-list">
+                    
+                </div>
+            </section>
+
+            <section id="empty-state-fridge" class="hidden">
+                <h2 id="empty-state-title-fridge"></h2>
+                <div id="empty-state-message-fridge"></div>
+                
+            </section>
+           
+
+        </main>
+
+    </body>
+    <script src="recipes.js"></script>
+    <script src="fridge.js"></script>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+
+</html>
