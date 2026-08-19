@@ -1,14 +1,71 @@
 
 let currentIngredients = [];
 const ingredientItem = document.getElementById("ingredient-item");
-const addIngredientButton = document.getElementById("add-ingredient-button");
+const addRecipeAddIngredient = document.getElementById("add-recipe-add-ingredient");
 const chipsContainer = document.getElementById("chips-container");
 let recipeParameters = new URLSearchParams(window.location.search);
 let recipeId = recipeParameters.get("recipeId");
 let liveValidationStarted = false;
-const pageTitle = document.getElementById("page-title");
+const addRecipeTitle = document.getElementById("add-recipe-title");
+const addRecipeBackButton = document.getElementById("add-recipe-back-button");
+addRecipeBackButton.addEventListener("click", confirmLeaveIfUnsaved);
+const addRecipeBackCaption = document.getElementById("add-recipe-back-caption")
+const addRecipeIngredientsLabel = document.getElementById("add-recipe-ingredients-label");
+const recipeDescriptionLabel = document.getElementById("recipe-description-label");
+const recipeDescriptionTextArea = document.getElementById("recipe-description-textarea");
+const addRecipeCategory = document.getElementById("add-recipe-category");
+const addRecipeSaveButton = document.getElementById("add-recipe-save-button");
+const addRecipeTitleLabel = document.getElementById("add-recipe-title-label");
+const categoryPlaceholder = document.getElementById("category-placeholder");
+const categorySelect = document.getElementById("recipe-category");
+
+for (const key in UI.categories) {
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = UI.categories[key];
+    categorySelect.appendChild(option);
+}
+
+
+function applyAddRecipeStrings(){
+    addRecipeBackCaption.textContent = UI.common.back;
+    addRecipeTitle.textContent = UI.common.addRecipe;
+    addRecipeIngredientsLabel.textContent = UI.recipe.ingredients;
+    addRecipeAddIngredient.textContent = UI.common.add;
+    recipeDescriptionLabel.textContent = UI.recipe.description;
+    recipeDescriptionTextArea.placeholder = UI.recipe.descriptionPlaceholder;
+    addRecipeCategory.textContent = UI.recipe.category;
+    addRecipeSaveButton.textContent = UI.common.save;
+    document.title = UI.addRecipe.metaTitleAdd;
+    addRecipeTitleLabel.textContent = UI.recipe.title;
+    categoryPlaceholder.textContent = UI.addRecipe.selectCategory;
+}
+
+function confirmLeaveIfUnsaved(event){
+    
+    if (recipeItem) {
+        
+        if (
+            titleInput.value !== recipeItem.title ||
+            recipeDescriptionTextArea.value !== recipeItem.description ||
+            categoryInput.value !== recipeItem.category ||
+            JSON.stringify(currentIngredients) !== JSON.stringify(recipeItem.ingredients ?? [])
+        ){
+            const leavePage = confirm(UI.common.confirmLeave);
+
+            if(!leavePage){
+                event.preventDefault();
+                return;
+            } 
+        }
+    }
+    
+    returnBack(event);
+}
+
+
 ingredientItem.addEventListener("keydown", handleKeyDown);
-function handleKeyDown() {
+function handleKeyDown(event) {
             if(event.key === "Enter"){
                 event.preventDefault();
                 handleAddIngredient();
@@ -18,7 +75,7 @@ function handleKeyDown() {
 
 function renderIngredients(){
     chipsContainer.textContent = "";
-    for (const i of currentIngredients){
+    for (const [index,i] of currentIngredients.entries()){
         const ingredientChip = document.createElement("span");
         ingredientChip.classList.add("chip");
         ingredientChip.textContent=i;
@@ -26,13 +83,14 @@ function renderIngredients(){
         const removeIngredient = document.createElement("button");
         const removeIngredientIcon = document.createElement("i");
         removeIngredientIcon.setAttribute("data-lucide","x");
+        removeIngredient.classList.add("removeIcon");
         removeIngredient.append(removeIngredientIcon);
         removeIngredient.addEventListener("click", handleRemoveIngredient);
         
        
         function handleRemoveIngredient(){
-            const position = currentIngredients.indexOf(i);
-            currentIngredients.splice(position,1);
+            
+            currentIngredients.splice(index,1);
             renderIngredients();
         }
         ingredientChip.append(removeIngredient);
@@ -40,10 +98,11 @@ function renderIngredients(){
     lucide.createIcons();
 }
 
-addIngredientButton.addEventListener("click", handleAddIngredient);
+addRecipeAddIngredient.addEventListener("click", handleAddIngredient);
 function handleAddIngredient(){
-    if (ingredientItem.value.trim!==""){
-        currentIngredients.push(ingredientItem.value);
+    const ingredientName = ingredientItem.value.trim().toLowerCase();
+    if (ingredientName!==""){
+        currentIngredients.push(ingredientName);
         ingredientItem.value="";
         renderIngredients();
     }
@@ -52,13 +111,13 @@ function handleAddIngredient(){
 const validationRules = {
     title: {
         id: "recipe-title",
-        message: "Please name your recipe",
+        message: UI.validationRules.title,
         event: "input"
     },
 
     category: {
         id: "recipe-category",
-        message: "Please select a category for your recipe",
+        message: UI.validationRules.category,
         event: "change"
     }
 };
@@ -68,40 +127,23 @@ const recipeItem = recipes.find(recipe => recipe.id === recipeId);
 
 
 if (recipeItem!==undefined) {
-    pageTitle.textContent = "Edit recipe";
+    addRecipeTitle.textContent = UI.common.editRecipe;
+    document.title = UI.addRecipe.metaTitleEdit;
 }
 
 const addRecipeForm = document.getElementById("add-recipe-form");
 const titleInput = document.getElementById("recipe-title");
-const descriptionInput = document.getElementById("recipe-description");
+
 const categoryInput = document.getElementById("recipe-category");
 
 
-backButton.addEventListener("click", returnBack);
-function returnBack(){
-    event.preventDefault();
-    if (recipeItem) {
-        
-        if (
-            titleInput.value !== recipeItem.title ||
-            descriptionInput.value !== recipeItem.description ||
-            categoryInput.value !== recipeItem.category ||
-            JSON.stringify(currentIngredients) !== JSON.stringify(recipeItem.ingredients ?? [])
-        ){
-            const leavePage = confirm("Leave without saving?");
 
-            if(!leavePage){
-                return;
-            }
-        }
-    }
-    
-    history.back();
-}
+
+
 
 if (recipeItem){
     titleInput.value=recipeItem.title;
-    descriptionInput.value=recipeItem.description;
+    recipeDescriptionTextArea.value=recipeItem.description;
     categoryInput.value=recipeItem.category;
     if(recipeItem.ingredients){
         currentIngredients = [...recipeItem.ingredients];
@@ -156,7 +198,7 @@ function handleSubmit(event){
 
         const recipe={
         title: titleInput.value,
-        description: descriptionInput.value,
+        description: recipeDescriptionTextArea.value,
         category: categoryInput.value,
         id: recipeId,
         ingredients: currentIngredients
@@ -194,3 +236,4 @@ function handleSubmit(event){
     }    
 }
 
+applyAddRecipeStrings();

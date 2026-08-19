@@ -4,55 +4,51 @@
         <link rel="stylesheet" href="styles.css">
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Add recipe | Maya Approves 👌</title>
+        <title>Maya Approves 👌</title>
        <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg">    
 </head>
     <body>
-        <a class="navigation-action" href="index.html" id="back-button">
+        <a class="navigation-action" href="index.html" id="add-recipe-back-button">
             <i data-lucide = "chevron-left"></i>
-            <span>Back</span>
+            <span id="add-recipe-back-caption"></span>
         </a>
         
         <main>
-            <h1 id="page-title">Add recipe</h1>
+            <h1 id="add-recipe-title"></h1>
             <form method="POST" action="" id="add-recipe-form">
                 <fieldset>
                     <div class="form-field">
-                        <label for="recipe-title">Title</label>
+                        <label for="recipe-title" id="add-recipe-title-label"></label>
                         <input type="text" id="recipe-title" name="recipe-title-input-name" required>
                         <div class="form-field_error"></div>
                     </div>
                     <div class="form-field">
-                        <label>Ingredients</label>
+                        <label id="add-recipe-ingredients-label" for="ingredient-item"></label>
                         <input type="text" id="ingredient-item">
-                        <button type="button" id="add-ingredient-button">Add</button>
+                        <button type="button" id="add-recipe-add-ingredient" class="button button--secondary"></button>
                         <div id="chips-container" class="tags"></div>
                     </div>
                     <div class="form-field">
-                        <label for="recipe-description">Recipe description</label>
-                        <textarea id="recipe-description" name="recipe-description-input-name" placeholder="Enter recipe..."></textarea>
+                        <label for="recipe-description" id="recipe-description-label"></label>
+                        <textarea id="recipe-description-textarea" name="recipe-description-input-name" ></textarea>
                         <div class="form-field_error"></div>           
                     </div>
                     <div class="form-field">
 
-                    <label for="recipe-category">Category</label>
+                    <label for="recipe-category" id="add-recipe-category"></label>
                     <select id="recipe-category" name="recipe-category" required>
-                        <option value="">Select category</option>
-                        <option value="breakfast">Breakfast</option>
-                        <option value="vegetables">Vegetables</option>
-                        <option value="soups">Soups</option>
-                        <option value="snacks">Snacks</option>
-                        <option value="meat">Meat</option>
+                        <option value="" id="category-placeholder"></option>
+                        
                     </select>
                     <div class="form-field_error"></div>
                     </div>
                     
                     <!--<button>Add tag</button>
                     <button>Add tip</button>-->
-                    <button class="button button--primary" id="save-button" type="submit">Save</button>
+                    <button class="button button--primary" id="add-recipe-save-button" type="submit"></button>
                     
                 </fieldset>
                 </form>
@@ -63,7 +59,8 @@
     <script>
       lucide.createIcons();
     </script>
-            <script src="seed-recipes.js"></script>
+            <script src="strings.js"></script>
+    <script src="seed-recipes.js"></script>
             <script src="recipes.js"></script>
             <script src="add-recipe.js"></script>
     </body>

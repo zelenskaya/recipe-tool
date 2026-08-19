@@ -1,27 +1,27 @@
 
 :root {
   /* — surfaces — */
-  --ma-bg:        #FBF2EE;  /* app background      */
+  --ma-bg:        #Fff;  /* app background      */
   --ma-surface:   #FFFFFF;  /* cards & sheets       */
-  --ma-sunken:    #F7EAE4;  /* inputs & wells       */
+  --ma-sunken:    #e4eaf7;  /* inputs & wells       */
 
   /* — accents — */
-  --ma-primary: #D45B6A;  /* berry-rose      */
-  --ma-primary-rgb: 212, 91, 106;
-  --ma-primary-press: #BE4A59;  /* pressed/hover   */
-  --ma-secondary:     #E0993A;  /* honey           */
-  --ma-primary-bg-disabled: #a69a9c;
-  --ma-secondary-bg-disabled: #ccc7c8;
+  --ma-primary: #1D80FF;  /* berry-rose      */
+  --ma-primary-rgb: 29, 128, 255;
+  --ma-primary-press: #0267E9;  /* pressed/hover   */
+  --ma-secondary:     #6EBADD;  /* honey           */
+  --ma-primary-bg-disabled: #a5a5a5;
+  --ma-secondary-bg-disabled: #c7c7cc;
 
   /* — text — */
-  --ma-text:    #33271F;  /* primary copy          */
+  --ma-text:    #2f2e47;  /* primary copy          */
   --ma-muted:   #8C7B70;  /* captions, placeholder */
 
   /* — lines & states — */
-  --ma-input-border:   #d7b199;
-  --ma-button-border:   #d7b199;
-  --ma-button-border-hover: #bd9175;
-  --ma-fieldset-border: #edcfbc;
+  --ma-input-border:   #b0b2b3;
+  --ma-button-border:   #8e8e90;
+  --ma-button-border-hover: #7775bd;
+  --ma-fieldset-border: #adaec6;
   --ma-success:  #5E9E6B;
   --ma-warning:  #E0993A;
   --ma-error:    #C8434F;
@@ -36,8 +36,8 @@
   --ma-5: 20px; --ma-6: 24px; --ma-8: 32px; --ma-10: 40px;
 
   /* — type — */
-  --ma-font-display: 'Bitter', Georgia, serif;
-  --ma-font-ui:      'Mulish', system-ui, sans-serif;
+  --ma-font-display: 'Montserrat', system-ui, serif;
+  --ma-font-ui:      'Montserrat', system-ui, sans-serif;
 
   /* - font sizes - */
   --ma-font-size-h1: 30px;
@@ -102,7 +102,7 @@
 
   --ma-card-collection-gap: var(--ma-5);
 
-  --ma-field-gap: var(--ma-2);
+  --ma-field-gap: var(--ma-1);
 
   --ma-section-gap: var(--ma-4);
   --ma-section-padding: var(--ma-4);
@@ -243,10 +243,8 @@ nav {
     font-family: var(--ma-font-ui);
     font-weight: var(--ma-font-weight-small);
     line-height: var(--ma-line-height-small);
-    display: inline-flex;
+    display: inline-block;
     border-radius: var(--ma-r-pill);
-    align-items: center;
-    gap: var(--ma-field-gap);
 
 }
 
@@ -617,19 +615,4 @@ a {
 
 .hidden {
     display:none;
-}
-
-.removeIcon {
-    background: none;
-    border: none;
-    padding: 0;
-
-    display: inline-flex;
-    cursor: pointer;
-    
-}
-
-.removeIcon svg {
-    width: 12px;
-    height: 12px;
 }

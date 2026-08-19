@@ -1,22 +1,60 @@
 let selectedIngredients = [];
 const units = ["ml", "g", "kg", "tbsp", "tsp", "cup"];
-const quickPickButtons = document.querySelectorAll("#ingredient-buttons button");
-const selectedIngredientsContainer = document.getElementById("selected-ingredients-fridge-mode");
-const ingredientItemFridgeMode = document.getElementById("ingredient-item-fridge-mode");
-const findRecipesButton = document.getElementById("find-recipes-fridge-mode");
-const topScoredRecipesContainer = document.getElementById("top-scored-recipes");
-const partialMatchesRecipesContainer = document.getElementById("partial-matches-recipes");
-const emptyStateFridge = document.getElementById("empty-state-fridge");
-const topScoredRecipesSection = document.getElementById("top-scored-recipes-section");
-const partialMatchesRecipesSection = document.getElementById("partial-matches-recipes-section");
-const emptyStateTitleFridge = document.getElementById("empty-state-title-fridge");
-const emptyStateMessageFridge = document.getElementById("empty-state-message-fridge");
+const fridgeSelectedIngredients = document.getElementById("fridge-selected-ingredients");
+const fridgeIngredientInput = document.getElementById("fridge-ingredient-input");
+const fridgeFindRecipes = document.getElementById("fridge-find-recipes");
+const topMatchesList = document.getElementById("top-matches-list");
+const partialMatchesList = document.getElementById("partial-matches-list");
+const fridgeEmptyState = document.getElementById("fridge-empty-state");
+const topMatchesSection = document.getElementById("top-matches-section");
+const partialMatchesSection = document.getElementById("partial-matches-section");
+const fridgeEmptyStateTitle = document.getElementById("fridge-empty-state-title");
+const fridgeEmptyStateMessage = document.getElementById("fridge-empty-state-message");
+const fridgePageTitle = document.getElementById("fridge-page-title");
+const topMatchesHeading = document.getElementById("top-matches-heading");
+const partialMatchesHeading = document.getElementById("partial-matches-heading");
+const fridgeIngredientButtons = document.getElementById("fridge-ingredient-buttons");
+const fridgeIngredientLabel = document.getElementById("fridge-ingredient-label");
+const fridgeAddIngredient = document.getElementById("fridge-add-ingredient");
+const fridgeSearchResultsClearSearch = document.getElementById("fridge-search-results-clear-search");
+fridgeSearchResultsClearSearch.addEventListener("click", fridgeClearSearch);
 
 
 
-ingredientItemFridgeMode.addEventListener("keydown", handleKeyDownFridgeMode);
+function applyFridgeStrings(){
+    document.title = UI.fridge.metaTitle;
+    fridgePageTitle.textContent = UI.fridge.pageTitle;
+    fridgeFindRecipes.textContent = UI.fridge.findRecipes;
+    topMatchesHeading.textContent = UI.fridge.topMatches;
+    partialMatchesHeading.textContent = UI.fridge.partialMatches;
+    fridgeIngredientLabel.textContent = UI.fridge.ingredientLabel;
+    fridgeAddIngredient.textContent = UI.common.add;
+    fridgeSearchResultsClearSearch.textContent = UI.common.clearSearch;
+    
 
-function handleKeyDownFridgeMode(){
+    
+
+}
+
+function fridgeClearSearch (){
+    selectedIngredients.length = 0;
+    renderSelectedChips();
+    handleFindRecipes();
+}
+
+for (const pick of UI.fridge.quickPicks) {
+    const chip = document.createElement("button");
+    chip.type = "button";
+    chip.classList.add("chip");
+    chip.textContent = pick;
+    chip.addEventListener("click", handleQuickPickSelection);
+    fridgeIngredientButtons.appendChild(chip);
+}
+
+fridgeIngredientInput.addEventListener("keydown", handleKeyDownFridgeMode);
+fridgeAddIngredient.addEventListener("click", handleAddIngredientFridgeMode);
+
+function handleKeyDownFridgeMode(event){
     if(event.key === "Enter"){
                 event.preventDefault();
                 handleAddIngredientFridgeMode();
@@ -25,9 +63,10 @@ function handleKeyDownFridgeMode(){
 
 function handleAddIngredientFridgeMode(event){
     
-    if (ingredientItemFridgeMode.value.trim()!==""){
-        selectedIngredients.push(ingredientItemFridgeMode.value);
-        ingredientItemFridgeMode.value="";
+    if (fridgeIngredientInput.value.trim()!==""){
+        const ingredientName = fridgeIngredientInput.value.trim().toLowerCase();
+        selectedIngredients.push(ingredientName);
+        fridgeIngredientInput.value="";
         renderSelectedChips();
     
 }
@@ -43,27 +82,28 @@ function handleQuickPickSelection(event){
 }
 
 function renderSelectedChips(){
-    selectedIngredientsContainer.textContent = "";
-    for (const i of selectedIngredients){
+    fridgeSelectedIngredients.textContent = "";
+    for (const [index,i] of selectedIngredients.entries()){
         const ingredientChip = document.createElement("span");
         ingredientChip.classList.add("chip");
         ingredientChip.textContent = i;
-        selectedIngredientsContainer.append(ingredientChip);
+        fridgeSelectedIngredients.append(ingredientChip);
 
         const removeIngredient = document.createElement("button");
         const removeIngredientIcon = document.createElement("i");
         removeIngredientIcon.setAttribute("data-lucide","x");
         removeIngredient.append(removeIngredientIcon);
+        removeIngredient.classList.add("removeIcon");
         removeIngredient.addEventListener("click", handleRemoveIngredient);
 
         function handleRemoveIngredient(){
-            const position = selectedIngredients.indexOf(i);
-            selectedIngredients.splice(position,1);
+            selectedIngredients.splice(index,1);
             renderSelectedChips();
         }
 
         ingredientChip.append(removeIngredient);
     }
+    fridgeSearchResultsClearSearch.classList.toggle("hidden", selectedIngredients.length === 0);
     lucide.createIcons();
 
 
@@ -71,26 +111,23 @@ function renderSelectedChips(){
 
 
 
-for (const q of quickPickButtons){
-    q.addEventListener("click", handleQuickPickSelection);
-    
-}
 
-findRecipesButton.addEventListener("click", handleFindRecipes);
+
+fridgeFindRecipes.addEventListener("click", handleFindRecipes);
 
 function handleFindRecipes(){
 
-    emptyStateFridge.classList.add("hidden");
-    topScoredRecipesSection.classList.add("hidden");
-    partialMatchesRecipesSection.classList.add("hidden");
+    fridgeEmptyState.classList.add("hidden");
+    topMatchesSection.classList.add("hidden");
+    partialMatchesSection.classList.add("hidden");
    
     const scoredRecipes = [];
 
     if (recipes.length === 0){
        
-        emptyStateFridge.classList.remove("hidden");
-        emptyStateTitleFridge.textContent = "No recipes yet";
-        emptyStateMessageFridge.textContent = "Start building your cookbook";
+        fridgeEmptyState.classList.remove("hidden");
+        fridgeEmptyStateTitle.textContent = UI.library.emptyTitle;
+        fridgeEmptyStateMessage.textContent = UI.library.emptyMessage;
         return;
 
     }
@@ -98,9 +135,9 @@ function handleFindRecipes(){
          if (selectedIngredients.length === 0)
             {
                 
-                emptyStateFridge.classList.remove("hidden");
-                emptyStateTitleFridge.textContent = "No ingredients added yet";
-                emptyStateMessageFridge.textContent = "Enter some ingredients to find recipes";
+                fridgeEmptyState.classList.remove("hidden");
+                fridgeEmptyStateTitle.textContent = UI.fridge.noIngredientsTitle;
+                fridgeEmptyStateMessage.textContent = UI.fridge.noIngredientsMessage;
                 return;
 
         }
@@ -113,9 +150,6 @@ function handleFindRecipes(){
                 }
         }
 
-   
-    
-    
     const topMatchingRecipes = [];
     const partialMatchingRecipes = [];
     const restOfRecipes = [];
@@ -137,9 +171,9 @@ function handleFindRecipes(){
  if((topMatchingRecipes.length === 0) && (partialMatchingRecipes.length === 0))
                 {
                   
-                    emptyStateFridge.classList.remove("hidden");
-                    emptyStateTitleFridge.textContent = "No recipes with these ingredients found";
-                    emptyStateMessageFridge.textContent = "Please try a different search";
+                    fridgeEmptyState.classList.remove("hidden");
+                    fridgeEmptyStateTitle.textContent = UI.library.nothingFoundTitle;
+                    fridgeEmptyStateMessage.textContent = UI.library.nothingFoundMessage;
                     return;
                 }
                 
@@ -151,8 +185,8 @@ function handleFindRecipes(){
 
     if (topMatchingRecipes.length > 0){
        
-        topScoredRecipesSection.classList.remove("hidden");
-        topScoredRecipesContainer.textContent = "";
+        topMatchesSection.classList.remove("hidden");
+        topMatchesList.textContent = "";
 
         for (const topRecipe of topMatchingRecipes){
             const wrapperRecipeCard = document.createElement("div");
@@ -166,7 +200,7 @@ function handleFindRecipes(){
             link.href=`recipe.html?recipeId=${topRecipe.recipe.id}`;
             link.appendChild(categoryLeaf);
             wrapperRecipeCard.appendChild(link);
-            topScoredRecipesContainer.appendChild(wrapperRecipeCard);        
+            topMatchesList.appendChild(wrapperRecipeCard);        
         }
 
     }
@@ -174,9 +208,9 @@ function handleFindRecipes(){
     
 
     if (partialMatchingRecipes.length > 0){
-        partialMatchesRecipesSection.classList.remove("hidden");
+        partialMatchesSection.classList.remove("hidden");
        
-        partialMatchesRecipesContainer.textContent = "";
+        partialMatchesList.textContent = "";
         for (const partialRecipe of partialMatchingRecipes){
         const wrapperRecipeCard = document.createElement("div");
         const link = document.createElement("a");
@@ -191,9 +225,9 @@ function handleFindRecipes(){
         wrapperRecipeCard.appendChild(link);
         const missingIngredients = document.createElement("div");
 
-        missingIngredients.textContent = "Missing: " + partialRecipe.score.missing.join(", ");
+        missingIngredients.textContent = UI.fridge.missingCardPrefix + partialRecipe.score.missing.join(", ");
         wrapperRecipeCard.appendChild(missingIngredients);
-        partialMatchesRecipesContainer.appendChild(wrapperRecipeCard);
+        partialMatchesList.appendChild(wrapperRecipeCard);
     }
     }
     
@@ -245,3 +279,5 @@ function scoreRecipe(fridgeIngredients, recipe) {
 }
 
 
+
+applyFridgeStrings();

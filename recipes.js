@@ -1,33 +1,32 @@
 let recipes = [];
 let storedRecipes = localStorage.getItem("recipesKey");
 if (storedRecipes === null){
-    console.log("seeding");
+    
     recipes = seedRecipes;
     localStorage.setItem("recipesKey",JSON.stringify(seedRecipes));
 }  else {
-    console.log("loading");
+    
     recipes = JSON.parse(storedRecipes);
 }
 const recipesContainer = document.getElementById("recipe-list");
 
 const recipesSection = document.getElementById("recipes-section");
-const emptyState = document.getElementById("empty-state");
-const emptyStateTitle = document.getElementById("empty-state-title");
-const emptyStateMessage = document.getElementById("empty-state-message");
+const indexEmptyState = document.getElementById("index-empty-state");
+const indexEmptyStateTitle = document.getElementById("index-empty-state-title");
+const indexEmptyStateMessage = document.getElementById("index-empty-state-message");
 const emptyStateClearSearch = document.getElementById("empty-state-clear-search");
-const backButton = document.getElementById("back-button");
-let recipeTitle = document.getElementById("recipes-section-title");
-const addRecipeButton = document.getElementById("add-recipe-button");
+let recipesSectionTitle = document.getElementById("recipes-section-title");
+const indexAddRecipeButton = document.getElementById("index-add-recipe-button");
 const searchResultsClearSearchButton = document.getElementById("search-results-clear-search");
 
 
-console.log(seedRecipes);
 
 
 
-function returnBack()
+
+function returnBack(event)
 {
-    const cameFromApp = document.referrer.includes("index.html") || (document.referrer.includes("recipe.html")) || (document.referrer.includes("add-recipe.html"));
+    const cameFromApp = document.referrer.startsWith(window.location.origin);
     if (cameFromApp)
         {
             event.preventDefault()
@@ -70,48 +69,52 @@ function displayRecipes(recipesView)
                     if (isFiltered && (recipes.length > 0))
                         {
                             recipesSection.style.display = "none";
-                            emptyState.style.display = "";
-                            emptyStateTitle.textContent = "No matching results";
-                            emptyStateMessage.textContent = "Try searching in a different way."
+                            indexEmptyState.style.display = "";
+                            indexEmptyStateTitle.textContent = UI.library.nothingFoundTitle;
+                            indexEmptyStateMessage.textContent = UI.library.nothingFoundMessage;
                             emptyStateClearSearch.style.display = "";
                             emptyStateClearSearch.classList.add("button");
                             emptyStateClearSearch.classList.add("button--primary");
-                            addRecipeButton.classList.add("button--secondary");
-                            addRecipeButton.classList.remove("button--primary");
+                            indexAddRecipeButton.classList.add("button--secondary");
+                            indexAddRecipeButton.classList.remove("button--primary");
                             searchResultsClearSearchButton.style.display = "";
                         }
                         else 
                         {
                                 recipesSection.style.display = "none";
-                                emptyState.style.display = "";
-                                emptyStateTitle.textContent = "No recipes yet";
-                                emptyStateMessage.textContent = "Start building your cookbook."
+                                indexEmptyState.style.display = "";
+                                indexEmptyStateTitle.textContent = UI.library.emptyTitle;
+                                indexEmptyStateMessage.textContent = UI.library.emptyMessage;
                                 emptyStateClearSearch.style.display = "none";
-                                addRecipeButton.classList.add("button--primary");
-                                addRecipeButton.classList.remove("button--secondary");
+                                indexAddRecipeButton.classList.add("button--primary");
+                                indexAddRecipeButton.classList.remove("button--secondary");
                         }
                         return;
                 }
              else 
                 {
-                    emptyState.style.display = "none";
-                    addRecipeButton.classList.add("button--primary");
-                                addRecipeButton.classList.remove("button--secondary");
+                    indexEmptyState.style.display = "none";
+                    indexAddRecipeButton.classList.add("button--primary");
+                                indexAddRecipeButton.classList.remove("button--secondary");
                     if (isFiltered){
                         searchResultsClearSearchButton.style.display="";
                         if (recipeArray.length === 1)
                         {
-                            recipeTitle.textContent = "1 recipe found";
+                            
+                            recipesSectionTitle.textContent = UI.library.oneRecipeFoundMessage;
                             
                         }
                     else
                         {
-                            recipeTitle.textContent = recipeArray.length + " recipes found matching the search for " + searchText ;
+                            /*recipesSectionTitle.textContent = recipeArray.length + " recipes found matching the search for " + searchText ;*/
+                            recipesSectionTitle.textContent = UI.index.searchResults
+      .replace("{count}", recipeArray.length)
+      .replace("{query}", searchText);
                         }
 
                     }
                     else {
-                        recipeTitle.textContent = "Recipes";
+                        recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
                         searchResultsClearSearchButton.style.display = "none";
                     }
                     recipesSection.style.display = ""; 
@@ -121,19 +124,19 @@ function displayRecipes(recipesView)
                         const wrapperRecipeActions = document.createElement("div");
                         wrapperRecipeActions.classList.add("cluster--buttons");
                         const editButton = document.createElement("button");
-                        editButton.textContent = "Edit";
+                        editButton.textContent = UI.common.edit;
                         editButton.classList.add("button");
                         editButton.classList.add("button--secondary");
                         editButton.addEventListener("click", function(){
                             location.href = `add-recipe.html?recipeId=${recipe.id}`;
                         })
                         const deleteButton = document.createElement ("button");
-                        deleteButton.textContent = "Delete";
+                        deleteButton.textContent = UI.common.delete;
                         deleteButton.classList.add("button");
                         deleteButton.classList.add("button--secondary");
                         deleteButton.classList.add("button--danger");
                         deleteButton.addEventListener("click", function(){
-                            const userConfirmed = confirm ("Are you sure you want to delete this recipe?");
+                            const userConfirmed = confirm (UI.common.confirmDelete);
                             if (userConfirmed) {
                                 deleteRecipe(recipe.id);
                                 if (isFiltered) {

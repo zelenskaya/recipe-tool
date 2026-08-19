@@ -1,12 +1,23 @@
 let filteredRecipes = [];
 
-const clearSearchButton = document.getElementById("empty-state-clear-search");
 const searchInput = document.getElementById("search");
 searchInput.addEventListener("input", handleSearch);
-const resultsClearSearchButton = document.getElementById("search-results-clear-search");
-resultsClearSearchButton.addEventListener("click", clearSearch);
+const indexSearchLabel = document.getElementById("index-search-label");
+const indexPageTitle = document.getElementById("index-page-title");
+searchResultsClearSearchButton.addEventListener("click",clearSearch);
+
+function applyIndexStrings() {
+    document.title = UI.index.metaTitle;
+    indexSearchLabel.textContent = UI.common.search;
+    indexPageTitle.textContent = UI.index.title;
+    recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
+    
+    searchResultsClearSearchButton.textContent = UI.common.clearSearch;
+    indexAddRecipeButton.textContent = UI.common.addRecipe;
 
 
+
+}
 
 function handleSearch(event) {
     const userTypedText = event.target.value;
@@ -32,8 +43,10 @@ function filterAndDisplay(searchText){
    
 }
 
-clearSearchButton.addEventListener("click", clearSearch);
+emptyStateClearSearch.addEventListener("click", clearSearch);
 function clearSearch(){
     searchInput.value = "";
     filterAndDisplay("");
 }
+
+applyIndexStrings();
