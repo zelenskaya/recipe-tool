@@ -12,6 +12,7 @@ const UI = {
     
         confirmDelete: "Are you sure you want to delete this recipe?",
         confirmLeave: "Leave without saving?"
+       
     },
 
     library: {
@@ -27,7 +28,10 @@ const UI = {
         metaTitle: "Recipe tool",
         title: "What should we cook?",
         recipesSectionTitle: "Recipes",
-        searchResults: "{count} recipes found for \"{query}\""
+        searchResults: "{count} recipes found for \"{query}\"",
+        indexFridgeLink: "Find recipes based on what's in your fridge.",
+        fridgeButton: "Fridge mode"
+        
         
     },
 
