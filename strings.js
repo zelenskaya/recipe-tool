@@ -24,7 +24,7 @@ const UI = {
     },
 
     index: {
-        metaTitle: "Maya Approves recipe tool",
+        metaTitle: "Recipe tool",
         title: "What should we cook?",
         recipesSectionTitle: "Recipes",
         searchResults: "{count} recipes found for \"{query}\""
@@ -34,7 +34,7 @@ const UI = {
 
 
     recipe:{
-        metaTitle:"Maya Approves recipe tool · Recipe details",
+        metaTitle:"Recipe tool · Recipe details",
         method: "Method",
         title: "Title",
         ingredients: "Ingredients",
@@ -50,8 +50,8 @@ const UI = {
     },
    
     addRecipe: {
-        metaTitleAdd: "Maya Approves recipe tool · Add recipe",
-        metaTitleEdit: "Maya Approves recipe tool · Edit recipe",
+        metaTitleAdd: "Recipe tool · Add recipe",
+        metaTitleEdit: "Recipe tool · Edit recipe",
         selectCategory: "Select category"
     },
 
