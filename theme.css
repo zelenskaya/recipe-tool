@@ -1,0 +1,144 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+:root {
+  /* — surfaces — */
+  --ma-bg:        #FBF2EE;  /* app background      */
+  --ma-surface:   #FFFFFF;  /* cards & sheets       */
+  --ma-sunken:    #F7EAE4;  /* inputs & wells       */
+  --ma-chips: #dbdbdb;
+
+  /* — accents — */
+  --ma-primary: #D45B6A;  /* berry-rose      */
+  --ma-primary-rgb: 212, 91, 106;
+  --ma-primary-press: #BE4A59;  /* pressed/hover   */
+  --ma-secondary:     #E0993A;  /* honey           */
+  --ma-primary-bg-disabled: #a69a9c;
+  --ma-secondary-bg-disabled: #ccc7c8;
+
+  /* — text — */
+  --ma-text:    #33271F;  /* primary copy          */
+  --ma-muted:   #8C7B70;  /* captions, placeholder */
+  --ma-on-secondary: #fff;
+
+  /* — lines & states — */
+  --ma-input-border:   transparent;
+  --ma-button-border:   transparent;
+  --ma-button-border-hover: #bd9175;
+  --ma-fieldset-border: transparent;
+  --ma-success:  #5E9E6B;
+  --ma-warning:  #E0993A;
+  --ma-error:    #C8434F;
+  --ma-focus:    rgba(212,91,106,.8);
+
+  /* — radius — */
+  
+  --ma-r-2: 8px; --ma-r-3: 12px; --ma-r-4: 16px; --ma-r-5: 20px; --ma-r-pill: 999px;
+
+  /* — space (base 4) — */
+  --ma-1: 4px;  --ma-2: 8px;  --ma-3: 12px; --ma-4: 16px;
+  --ma-5: 20px; --ma-6: 24px; --ma-8: 32px; --ma-10: 40px;
+
+  /* — type — */
+  --ma-font-display: 'Montserrat', Georgia, serif;
+  --ma-font-ui:      'Montserrat', system-ui, sans-serif;
+
+  /* - font sizes - */
+  --ma-font-size-h1: 30px;
+  --ma-line-height-h1: 36px;
+  --ma-font-weight-h1:700;
+
+  --ma-font-size-h2: 20px;
+  --ma-line-height-h2: 24px;
+  --ma-font-weight-h2: 600;
+
+  --ma-font-size-accent: 16px;
+  --ma-line-height-accent: 24px;
+  --ma-font-weight-accent: 600;
+
+  --ma-font-size-text: 16px;
+  --ma-line-height-text: 20px;
+  --ma-font-weight-text: 400;
+
+  --ma-font-size-small: 12px;
+  --ma-line-height-small: 20px;
+  --ma-font-weight-small: 400;
+
+  /* - sizes - */
+  --ma-s: 120px;
+  --ma-max-width: 600px;
+  --ma-max-content-width: 600px;
+  --ma-min-width: 120px;
+
+  /* - inputs - */
+    --ma-input-height: 48px;
+    --ma-input-focus-color:#3F6E72; 
+
+
+  /* - recipe categories - */
+  --ma-category-breakfast-background: #FBEAD2;
+  --ma-category-breakfast-color: #9C6A1F; 
+  --ma-category-uncategorized-background: #E3EEEF;
+  --ma-category-uncategorized-color: #3F6E72; 
+  --ma-category-vegetables-background: #FBE0E2;
+  --ma-category-vegetables-color: #A83F4C;
+  --ma-category-snacks-background: #FCE6DA;
+  --ma-category-snacks-color: #A85B37;
+  --ma-category-meat-background: #FBE3EC;
+  --ma-category-meat-color: #A2426A;
+  --ma-category-soups-background: #E3EEEF;
+  --ma-category-soups-color: #3F6E72;
+
+  /* - tags - */
+  --ma-tag-background: #E7EFE2;
+  --ma-tag-color: #4F6C46; 
+
+  /* - backgrounds - */
+  --ma-tip-background: #FBE9D2;
+
+  /* - semantic tokens - */
+
+  --ma-page-gap: var(--ma-8);
+  --ma-page-padding-block: var(--ma-2);
+  --ma-page-padding-inline: var(--ma-6);
+
+  --ma-main-gap: var(--ma-5);
+
+  --ma-card-collection-gap: var(--ma-5);
+
+  --ma-field-gap: var(--ma-2);
+
+  --ma-section-gap: var(--ma-4);
+  --ma-section-padding: var(--ma-4);
+
+  --ma-form-gap: var(--ma-5);
+  --ma-form-padding: var(--ma-6);
+
+  --ma-card-gap: var(--ma-4);
+  --ma-card-padding: var(--ma-5);
+
+  --ma-list-gap: var(--ma-2);
+  --ma-list-padding: var(--ma-2);
+
+  --ma-cluster-gap: var(--ma-1);
+
+  --ma-button-vertical-padding: var(--ma-3);
+  --ma-button-horizontal-padding: var(--ma-5);
+
+  --ma-input-horizontal-padding: var(--ma-3);
+  --ma-input-vertical-padding: var(--ma-3);
+
+  --ma-pill-vertical-padding: var(--ma-1);
+  --ma-pill-horizontal-padding: var(--ma-2);
+
+  --ma-r-button: var(--ma-r-4);
+  --ma-r-input: var(--ma-r-2);
+  --ma-r-card: var(--ma-r-5);
+
+  --ma-button-cluster-gap: var(--ma-3);
+
+  --ma-shadow-card: 0 1px 3px rgba(51,39,31,.05); 
+  --ma-shadow-card-hover: 0 4px 12px rgba(51,39,31,0.12);
+
+  --ma-icon-size-m: 22px;
+}

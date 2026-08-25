@@ -12,6 +12,7 @@ const UI = {
     
         confirmDelete: "Are you sure you want to delete this recipe?",
         confirmLeave: "Leave without saving?"
+       
     },
 
     library: {
@@ -24,17 +25,20 @@ const UI = {
     },
 
     index: {
-        metaTitle: "Maya Approves recipe tool",
+        metaTitle: "Recipe tool",
         title: "What should we cook?",
         recipesSectionTitle: "Recipes",
-        searchResults: "{count} recipes found for \"{query}\""
+        searchResults: "{count} recipes found for \"{query}\"",
+        indexFridgeLink: "Find recipes based on what's in your fridge.",
+        fridgeButton: "Fridge mode"
+        
         
     },
 
 
 
     recipe:{
-        metaTitle:"Maya Approves recipe tool · Recipe details",
+        metaTitle:"Recipe tool · Recipe details",
         method: "Method",
         title: "Title",
         ingredients: "Ingredients",
@@ -50,8 +54,8 @@ const UI = {
     },
    
     addRecipe: {
-        metaTitleAdd: "Maya Approves recipe tool · Add recipe",
-        metaTitleEdit: "Maya Approves recipe tool · Edit recipe",
+        metaTitleAdd: "Recipe tool · Add recipe",
+        metaTitleEdit: "Recipe tool · Edit recipe",
         selectCategory: "Select category"
     },
 
@@ -62,7 +66,7 @@ const UI = {
     },
     
     fridge: {
-        metaTitle: "Maya Approves recipe tool: fridge mode",
+        metaTitle: "Recipe tool: fridge mode",
         findRecipes:"Find recipes", topMatches:
         "Top matches",
         partialMatches: "Partial matches",
