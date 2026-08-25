@@ -66,7 +66,7 @@ const UI = {
     },
     
     fridge: {
-        metaTitle: "Maya Approves recipe tool: fridge mode",
+        metaTitle: "Recipe tool: fridge mode",
         findRecipes:"Find recipes", topMatches:
         "Top matches",
         partialMatches: "Partial matches",
