@@ -297,7 +297,7 @@ color: var(--ma-text);
 
 
 .button--secondary {
-    background: var(--ma-bg);
+    background: transparent;
     color: var(--ma-text);
     border: 1px solid var(--ma-button-border);
 

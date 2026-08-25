@@ -22,8 +22,8 @@
   --ma-on-secondary: #fff;
 
   /* — lines & states — */
-  --ma-input-border:   transparent;
-  --ma-button-border:   transparent;
+  --ma-input-border:   #d7b199;
+  --ma-button-border:   #d7b199;
   --ma-button-border-hover: #bd9175;
   --ma-fieldset-border: transparent;
   --ma-success:  #5E9E6B;
