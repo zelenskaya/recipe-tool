@@ -8,6 +8,7 @@ const indexPageTitle = document.getElementById("index-page-title");
 searchResultsClearSearchButton.addEventListener("click",clearSearch);
 const indexFridgeLinkButton = document.getElementById("index-fridge-link-button");
 
+
 function applyIndexStrings() {
     document.title = UI.index.metaTitle;
     indexSearchLabel.textContent = UI.common.search;

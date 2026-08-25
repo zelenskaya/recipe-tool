@@ -81,5 +81,3 @@ const UI = {
         quickPicks: ["Eggs", "Milk", "Banana", "Oat", "Chicken", "Beef"]
     }
 };
-
-console.log(UI);

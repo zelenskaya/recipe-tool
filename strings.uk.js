@@ -28,7 +28,7 @@ const UI = {
         metaTitle: "Кулінарна книга",
         title: "Що приготуємо?",
         recipesSectionTitle: "Рецепти",
-        searchResults: "{count} рецептів за запиом \"{query}\"",
+        searchResults: "{count} рецептів за запитом \"{query}\"",
         indexFridgeLink: "Знайдіть рецепти для продуктів, які у вас є.",
         fridgeButton: "Режим холодильника"
         
@@ -82,4 +82,3 @@ const UI = {
     }
 };
 
-console.log(UI);

@@ -156,7 +156,11 @@ function displayRecipes(recipesView)
                         link.appendChild(leafMaker(recipe.title,"recipe-title"));
                         link.appendChild(leafMaker(recipe.description,"recipe-description"));
                         const categoryLeaf = leafMaker(recipe.category, "recipe-category");
-                        categoryLeaf.classList.add(`category-${recipe.category.toLowerCase()}`)
+                        const categoryToLowerCase = recipe.category?.toLowerCase();
+                        if (categoryToLowerCase) {
+                            categoryLeaf.classList.add(`category-${categoryToLowerCase}`);
+                        }
+                        
                         link.href=`recipe.html?recipeId=${recipe.id}`;
                         link.appendChild(categoryLeaf);
                         wrapperRecipeCard.appendChild(link);
