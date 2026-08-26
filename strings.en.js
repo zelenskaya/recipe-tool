@@ -66,7 +66,7 @@ const UI = {
     },
     
     fridge: {
-        metaTitle: "Recipe tool: fridge mode",
+        metaTitle: "Recipe tool",
         findRecipes:"Find recipes", topMatches:
         "Top matches",
         partialMatches: "Partial matches",
@@ -76,7 +76,7 @@ const UI = {
         pageTitle:"Get a recipe based on what's in your fridge",
        
         missingCardPrefix: "Missing: ",
-        ingredientLabel: "Ingredients",
+        ingredientLabel: "What's in your fridge:",
         
         quickPicks: ["Eggs", "Milk", "Banana", "Oat", "Chicken", "Beef"]
     }

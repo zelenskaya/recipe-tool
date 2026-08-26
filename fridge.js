@@ -18,12 +18,13 @@ const fridgeIngredientLabel = document.getElementById("fridge-ingredient-label")
 const fridgeAddIngredient = document.getElementById("fridge-add-ingredient");
 const fridgeSearchResultsClearSearch = document.getElementById("fridge-search-results-clear-search");
 fridgeSearchResultsClearSearch.addEventListener("click", fridgeClearSearch);
+const fridgeIngredientInputFormField = document.getElementById("fridge-ingredient-input-form-field");
 
 
 
 function applyFridgeStrings(){
     document.title = UI.fridge.metaTitle;
-    fridgePageTitle.textContent = UI.fridge.pageTitle;
+    /*fridgePageTitle.textContent = UI.fridge.pageTitle;*/
     fridgeFindRecipes.textContent = UI.fridge.findRecipes;
     topMatchesHeading.textContent = UI.fridge.topMatches;
     partialMatchesHeading.textContent = UI.fridge.partialMatches;
@@ -116,7 +117,11 @@ function renderSelectedChips(){
 fridgeFindRecipes.addEventListener("click", handleFindRecipes);
 
 function handleFindRecipes(){
-
+    if (recipes.length === 0) {
+        fridgeIngredientInputFormField.classList.add("hidden");
+        fridgeIngredientButtons.classList.add("hidden");
+        fridgeFindRecipes.classList.add("hidden");
+    }
     fridgeEmptyState.classList.add("hidden");
     topMatchesSection.classList.add("hidden");
     partialMatchesSection.classList.add("hidden");
@@ -125,9 +130,9 @@ function handleFindRecipes(){
 
     if (recipes.length === 0){
        
-        fridgeEmptyState.classList.remove("hidden");
+       /* fridgeEmptyState.classList.remove("hidden");
         fridgeEmptyStateTitle.textContent = UI.library.emptyTitle;
-        fridgeEmptyStateMessage.textContent = UI.library.emptyMessage;
+        fridgeEmptyStateMessage.textContent = UI.library.emptyMessage;*/
         return;
 
     }
@@ -138,6 +143,7 @@ function handleFindRecipes(){
                 fridgeEmptyState.classList.remove("hidden");
                 fridgeEmptyStateTitle.textContent = UI.fridge.noIngredientsTitle;
                 fridgeEmptyStateMessage.textContent = UI.fridge.noIngredientsMessage;
+                recipesSection.classList.remove("hidden");
                 return;
 
         }
@@ -174,6 +180,7 @@ function handleFindRecipes(){
                     fridgeEmptyState.classList.remove("hidden");
                     fridgeEmptyStateTitle.textContent = UI.library.nothingFoundTitle;
                     fridgeEmptyStateMessage.textContent = UI.library.nothingFoundMessage;
+                    recipesSection.classList.remove("hidden");
                     return;
                 }
                 
@@ -185,6 +192,7 @@ function handleFindRecipes(){
 
     if (topMatchingRecipes.length > 0){
        
+        recipesSection.classList.add("hidden");
         topMatchesSection.classList.remove("hidden");
         topMatchesList.textContent = "";
 
@@ -208,6 +216,7 @@ function handleFindRecipes(){
     
 
     if (partialMatchingRecipes.length > 0){
+        recipesSection.classList.add("hidden");
         partialMatchesSection.classList.remove("hidden");
        
         partialMatchesList.textContent = "";
@@ -278,6 +287,6 @@ function scoreRecipe(fridgeIngredients, recipe) {
     }
 }
 
-
-
 applyFridgeStrings();
+
+handleFindRecipes();
