@@ -66,7 +66,7 @@ const UI = {
     },
     
     fridge: {
-        metaTitle: "Recipe tool: fridge mode",
+        metaTitle: "Recipe tool",
         findRecipes:"Find recipes", topMatches:
         "Top matches",
         partialMatches: "Partial matches",

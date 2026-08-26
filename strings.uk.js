@@ -66,7 +66,7 @@ const UI = {
     },
     
     fridge: {
-        metaTitle: "Кулінарна книга · Режим холодильника",
+        metaTitle: "Кулінарна книга",
         findRecipes:"Знайти рецепти", topMatches:
         "Найбільш підходять",
         partialMatches: "Частково підходять",
