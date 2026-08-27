@@ -79,5 +79,10 @@ const UI = {
         ingredientLabel: "What's in your fridge:",
         
         quickPicks: ["Eggs", "Milk", "Banana", "Oat", "Chicken", "Beef"]
+    },
+
+    search: {
+        metaTitle: "Search results",
+        pageTitle: "{count} recipes found for \"{query}\""
     }
 };
