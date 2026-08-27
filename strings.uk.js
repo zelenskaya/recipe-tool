@@ -82,7 +82,10 @@ const UI = {
     },
     search: {
         metaTitle: "Результати пошуку",
-        pageTitle: "{count} рецептів за запитом \"{query}\""
+        pageTitle: "{count} рецептів за запитом \"{query}\"",
+         promptState: "Введіть пошуковий запит",
+        nothingFoundTitle: "Не знайдено рецептів за запитом \"{query}\"",
+        nothingFoundMessage: "Будь ласка, спробуйте інший пошук."
         
     }
 };

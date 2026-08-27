@@ -83,6 +83,9 @@ const UI = {
 
     search: {
         metaTitle: "Search results",
-        pageTitle: "{count} recipes found for \"{query}\""
+        pageTitle: "{count} recipes found for \"{query}\"",
+        promptState: "Type something to search",
+        nothingFoundTitle: "No recipes found for \"{query}\"",
+        nothingFoundMessage: "Please try a different search."
     }
 };
