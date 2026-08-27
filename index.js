@@ -18,9 +18,6 @@ function applyIndexStrings() {
     
     searchResultsClearSearchButton.textContent = UI.common.clearSearch;
     indexAddRecipeButton.textContent = UI.common.addRecipe;
-  
-
-
 
 }
 
@@ -40,8 +37,6 @@ function filterAndDisplay(searchText){
         
     }
     
-    
-   
     
     const isFiltered = searchText !== "";
     displayRecipes({recipes:filteredRecipes, isFiltered, searchText});

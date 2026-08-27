@@ -1,13 +1,19 @@
 let recipes = [];
-let storedRecipes = localStorage.getItem("recipesKey");
-if (storedRecipes === null){
+
+function getRecipes(){
+    let storedRecipes = localStorage.getItem("recipesKey");
+    if (storedRecipes === null){
     
     recipes = seedRecipes;
     localStorage.setItem("recipesKey",JSON.stringify(seedRecipes));
-}  else {
-    
+    }  else {
     recipes = JSON.parse(storedRecipes);
+    }
+    return recipes;
 }
+
+recipes=getRecipes();
+
 const recipesContainer = document.getElementById("recipe-list");
 
 const recipesSection = document.getElementById("recipes-section");
@@ -21,7 +27,27 @@ const searchResultsClearSearchButton = document.getElementById("search-results-c
 
 
 
+function makeRecipeCard(recipe){
 
+    const wrapperRecipeCard=document.createElement("div");
+    const link = document.createElement("a");
+    link.classList.add("recipe-card-top-part");
+    wrapperRecipeCard.classList.add("recipe-card");
+    link.appendChild(leafMaker(recipe.title,"recipe-title"));
+    link.appendChild(leafMaker(recipe.description,"recipe-description"));
+    const categoryLeaf = leafMaker(recipe.category, "recipe-category");
+    const categoryToLowerCase = recipe.category?.toLowerCase();
+    if (categoryToLowerCase) {
+                            categoryLeaf.classList.add(`category-${categoryToLowerCase}`);
+                        }
+                        
+    link.href=`recipe.html?recipeId=${recipe.id}`;
+    link.appendChild(categoryLeaf);
+    wrapperRecipeCard.appendChild(link);
+    recipesContainer.appendChild(wrapperRecipeCard);      
+    return (wrapperRecipeCard);  
+    
+}
 
 
 function returnBack(event)
@@ -120,7 +146,7 @@ function displayRecipes(recipesView)
                     recipesSection.style.display = ""; 
                     for (const recipe of recipeArray)
                     {
-                        const wrapperRecipeCard=document.createElement("div");
+                        const wrapperRecipeCard = makeRecipeCard(recipe);
                         const wrapperRecipeActions = document.createElement("div");
                         wrapperRecipeActions.classList.add("cluster--buttons");
                         const editButton = document.createElement("button");
@@ -150,20 +176,8 @@ function displayRecipes(recipesView)
                             };
                         
                         });   
-                        const link = document.createElement("a");
-                        link.classList.add("recipe-card-top-part");
-                        wrapperRecipeCard.classList.add("recipe-card");
-                        link.appendChild(leafMaker(recipe.title,"recipe-title"));
-                        link.appendChild(leafMaker(recipe.description,"recipe-description"));
-                        const categoryLeaf = leafMaker(recipe.category, "recipe-category");
-                        const categoryToLowerCase = recipe.category?.toLowerCase();
-                        if (categoryToLowerCase) {
-                            categoryLeaf.classList.add(`category-${categoryToLowerCase}`);
-                        }
-                        
-                        link.href=`recipe.html?recipeId=${recipe.id}`;
-                        link.appendChild(categoryLeaf);
-                        wrapperRecipeCard.appendChild(link);
+                      
+                       
                         wrapperRecipeActions.appendChild(editButton);
                         wrapperRecipeActions.appendChild(deleteButton);
                         wrapperRecipeCard.appendChild(wrapperRecipeActions);

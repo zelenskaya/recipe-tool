@@ -3,6 +3,7 @@
 // Ingredients are kept as clean single tokens so the fridge matcher scores them correctly.
 // Category values are the app's stable keys (breakfast/vegetables/soups/snacks/meat) — never translated.
 // ids are stable placeholder slugs; regenerate with crypto.randomUUID() if you prefer.
+/*const seedRecipes = [];*/
 
 const seedRecipes = [
     {

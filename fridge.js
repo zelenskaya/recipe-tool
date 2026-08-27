@@ -31,10 +31,6 @@ function applyFridgeStrings(){
     fridgeIngredientLabel.textContent = UI.fridge.ingredientLabel;
     fridgeAddIngredient.textContent = UI.common.add;
     fridgeSearchResultsClearSearch.textContent = UI.common.clearSearch;
-    
-
-    
-
 }
 
 function fridgeClearSearch (){
@@ -197,18 +193,8 @@ function handleFindRecipes(){
         topMatchesList.textContent = "";
 
         for (const topRecipe of topMatchingRecipes){
-            const wrapperRecipeCard = document.createElement("div");
-            const link = document.createElement("a");
-            link.classList.add("recipe-card-top-part");
-            wrapperRecipeCard.classList.add("recipe-card");
-            link.appendChild(leafMaker(topRecipe.recipe.title,"recipe-title"));
-            link.appendChild(leafMaker(topRecipe.recipe.description,"recipe-description"));
-            const categoryLeaf = leafMaker(topRecipe.recipe.category, "recipe-category");
-            categoryLeaf.classList.add(`category-${topRecipe.recipe.category.toLowerCase()}`);
-            link.href=`recipe.html?recipeId=${topRecipe.recipe.id}`;
-            link.appendChild(categoryLeaf);
-            wrapperRecipeCard.appendChild(link);
-            topMatchesList.appendChild(wrapperRecipeCard);        
+            const card = makeRecipeCard(topRecipe.recipe);
+            topMatchesList.appendChild(card);     
         }
 
     }
@@ -221,22 +207,13 @@ function handleFindRecipes(){
        
         partialMatchesList.textContent = "";
         for (const partialRecipe of partialMatchingRecipes){
-        const wrapperRecipeCard = document.createElement("div");
-        const link = document.createElement("a");
-        link.classList.add("recipe-card-top-part");
-        wrapperRecipeCard.classList.add("recipe-card");
-        link.appendChild(leafMaker(partialRecipe.recipe.title,"recipe-title"));
-        link.appendChild(leafMaker(partialRecipe.recipe.description,"recipe-description"));
-        const categoryLeaf = leafMaker(partialRecipe.recipe.category, "recipe-category");
-        categoryLeaf.classList.add(`category-${partialRecipe.recipe.category.toLowerCase()}`);
-        link.href=`recipe.html?recipeId=${partialRecipe.recipe.id}`;
-        link.appendChild(categoryLeaf);
-        wrapperRecipeCard.appendChild(link);
+            const card = makeRecipeCard(partialRecipe.recipe);
+        
         const missingIngredients = document.createElement("div");
 
         missingIngredients.textContent = UI.fridge.missingCardPrefix + partialRecipe.score.missing.join(", ");
-        wrapperRecipeCard.appendChild(missingIngredients);
-        partialMatchesList.appendChild(wrapperRecipeCard);
+        card.appendChild(missingIngredients);
+        partialMatchesList.appendChild(card);
     }
     }
     
