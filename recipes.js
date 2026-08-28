@@ -39,10 +39,10 @@ const recipesSection = document.getElementById("recipes-section");
 const indexEmptyState = document.getElementById("index-empty-state");
 const indexEmptyStateTitle = document.getElementById("index-empty-state-title");
 const indexEmptyStateMessage = document.getElementById("index-empty-state-message");
-const emptyStateClearSearch = document.getElementById("empty-state-clear-search");
+
 let recipesSectionTitle = document.getElementById("recipes-section-title");
 const indexAddRecipeButton = document.getElementById("index-add-recipe-button");
-const searchResultsClearSearchButton = document.getElementById("search-results-clear-search");
+
 
 
 
@@ -102,65 +102,28 @@ function leafMaker(text,className){
 function displayRecipes(recipesView)
 {
     const recipeArray = recipesView.recipes;
-    const isFiltered = recipesView.isFiltered;
-    const searchText = recipesView.searchText;
+    
 
     if (recipesContainer)
         {
             recipesContainer.textContent="";
             if (recipeArray.length === 0)
                 {
-                    if (isFiltered && (recipes.length > 0))
-                        {
-                            recipesSection.style.display = "none";
-                            indexEmptyState.style.display = "";
-                            indexEmptyStateTitle.textContent = UI.library.nothingFoundTitle;
-                            indexEmptyStateMessage.textContent = UI.library.nothingFoundMessage;
-                            emptyStateClearSearch.style.display = "";
-                            emptyStateClearSearch.classList.add("button");
-                            emptyStateClearSearch.classList.add("button--primary");
-                            indexAddRecipeButton.classList.add("button--secondary");
-                            indexAddRecipeButton.classList.remove("button--primary");
-                            searchResultsClearSearchButton.style.display = "";
-                        }
-                        else 
-                        {
-                                recipesSection.style.display = "none";
-                                indexEmptyState.style.display = "";
-                                indexEmptyStateTitle.textContent = UI.library.emptyTitle;
-                                indexEmptyStateMessage.textContent = UI.library.emptyMessage;
-                                emptyStateClearSearch.style.display = "none";
-                                indexAddRecipeButton.classList.add("button--primary");
-                                indexAddRecipeButton.classList.remove("button--secondary");
-                        }
-                        return;
+                   recipesSection.style.display = "none";
+                    indexEmptyState.style.display = "";
+                    indexEmptyStateTitle.textContent = UI.library.nothingFoundTitle;
+                    indexEmptyStateMessage.textContent = UI.library.nothingFoundMessage;
+                    indexAddRecipeButton.classList.add("button--secondary");
+                    indexAddRecipeButton.classList.remove("button--primary");
+                    return;
                 }
-             else 
+             
                 {
                     indexEmptyState.style.display = "none";
                     indexAddRecipeButton.classList.add("button--primary");
-                                indexAddRecipeButton.classList.remove("button--secondary");
-                    if (isFiltered){
-                        searchResultsClearSearchButton.style.display="";
-                        if (recipeArray.length === 1)
-                        {
-                            
-                            recipesSectionTitle.textContent = UI.library.oneRecipeFoundMessage;
-                            
-                        }
-                    else
-                        {
-                            /*recipesSectionTitle.textContent = recipeArray.length + " recipes found matching the search for " + searchText ;*/
-                            recipesSectionTitle.textContent = UI.index.searchResults
-      .replace("{count}", recipeArray.length)
-      .replace("{query}", searchText);
-                        }
-
-                    }
-                    else {
-                        recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
-                        searchResultsClearSearchButton.style.display = "none";
-                    }
+                    indexAddRecipeButton.classList.remove("button--secondary");
+                    recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
+                    
                     recipesSection.style.display = ""; 
                     for (const recipe of recipeArray)
                     {
@@ -174,7 +137,7 @@ function displayRecipes(recipesView)
                         editButton.addEventListener("click", function(){
                             location.href = `add-recipe.html?recipeId=${recipe.id}`;
                         })
-                        const deleteButton = document.createElement ("button");
+                        const deleteButton = document.createElement("button");
                         deleteButton.textContent = UI.common.delete;
                         deleteButton.classList.add("button");
                         deleteButton.classList.add("button--secondary");
@@ -183,15 +146,10 @@ function displayRecipes(recipesView)
                             const userConfirmed = confirm (UI.common.confirmDelete);
                             if (userConfirmed) {
                                 deleteRecipe(recipe.id);
-                                if (isFiltered) {
-                                    filterAndDisplay(searchText); 
-                                }
-                                else
-                                {
-                                    displayRecipes({recipes:recipes, isFiltered: false, searchText: ""});
-                                }
+                                displayRecipes({recipes: recipes});
                                 
-                            };
+                                
+                            }
                         
                         });   
                       
@@ -207,6 +165,6 @@ function displayRecipes(recipesView)
     }
 
 
-displayRecipes({recipes:recipes, isFiltered: false, searchText: ""});
+displayRecipes({recipes:recipes});
 
 applyNavStrings();
