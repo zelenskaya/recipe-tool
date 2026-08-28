@@ -12,7 +12,11 @@
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg">    
 </head>
     <body>
-         <nav><a href="index.html"><img class="logo" src="images/logo.svg" alt="Recipe tool"></a><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></nav>
+         <nav><a href="index.html"><img class="logo" src="images/logo.svg" alt="Recipe tool"></a>
+        <form id="search-form">
+               <input type="search" id="search" name="search">
+            </form>
+        </nav>
         <!--<div class="tag">Maya approved</div>-->
         <a class="navigation-action" href="index.html" id="recipe-page-back-button">
             <i data-lucide="chevron-left"></i>
@@ -28,10 +32,11 @@
             </div>
             
             <div class="recipe-method">
+               
                 <ul id="ingredient-list">
 
                 </ul>
-            <div class="section-label" id="recipe-method-title"></div>    
+            <div class="section-label" id="recipe-method-label"></div>    
             <div id="recipe-description-text"> </div>
             <!--<div class="tip"><i data-lucide="circle-alert"></i><span>How to mix batter with no lumps</span></div>
             <button>Cooking mode</button>-->

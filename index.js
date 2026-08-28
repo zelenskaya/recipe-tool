@@ -1,8 +1,8 @@
 let filteredRecipes = [];
 
 
-const searchInput = document.getElementById("search");
-searchInput.addEventListener("input", handleSearch);
+
+
 const indexSearchLabel = document.getElementById("index-search-label");
 const indexPageTitle = document.getElementById("index-page-title");
 searchResultsClearSearchButton.addEventListener("click",clearSearch);
@@ -11,7 +11,7 @@ searchResultsClearSearchButton.addEventListener("click",clearSearch);
 
 function applyIndexStrings() {
     document.title = UI.index.metaTitle;
-    indexSearchLabel.textContent = UI.common.search;
+    
     indexPageTitle.textContent = UI.index.title;
     recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
     
@@ -21,10 +21,7 @@ function applyIndexStrings() {
 
 }
 
-function handleSearch(event) {
-    const userTypedText = event.target.value;
-    filterAndDisplay(userTypedText);
-}
+
 
 function filterAndDisplay(searchText){
     filteredRecipes = [];

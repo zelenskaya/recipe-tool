@@ -1,4 +1,23 @@
 let recipes = [];
+const searchInput = document.getElementById("search");
+const searchForm = document.getElementById("search-form");
+if (searchForm){
+    searchForm.addEventListener("submit", handleSearch);
+}
+
+
+function applyNavStrings() {
+       searchInput.placeholder = UI.common.search;
+
+}
+
+function handleSearch(event) {
+    event.preventDefault();
+    const searchQuery = new URLSearchParams(location.search).get('q');
+    const trimmedSearchQuery = searchInput.value.trim();
+    
+    location = 'search.html?q=' + encodeURIComponent(trimmedSearchQuery); 
+}
 
 function getRecipes(){
     let storedRecipes = localStorage.getItem("recipesKey");
@@ -189,3 +208,5 @@ function displayRecipes(recipesView)
 
 
 displayRecipes({recipes:recipes, isFiltered: false, searchText: ""});
+
+applyNavStrings();

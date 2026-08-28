@@ -12,11 +12,16 @@
 <link rel="icon" type="image/svg+xml" href="images/favicon.svg">    
 </head>
     <body>
+        <nav><a href="index.html"><img class="logo" src="images/logo.svg" alt="Recipe tool"></a>
+        <form id="search-form">
+               <input type="search" id="search" name="search">
+            </form>
+            
+        </nav>
         <a class="navigation-action" href="index.html" id="add-recipe-back-button">
-            <i data-lucide = "chevron-left"></i>
+            <i data-lucide="chevron-left"></i>
             <span id="add-recipe-back-caption"></span>
         </a>
-        
         <main>
             <h1 id="add-recipe-title"></h1>
             <form method="POST" action="" id="add-recipe-form">

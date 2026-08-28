@@ -12,6 +12,7 @@ body {
     padding: var(--ma-page-padding-block) var(--ma-page-padding-inline);
     max-width: var(--ma-max-content-width);
     margin-inline: auto;
+    font-family: var(--ma-font-ui);
    
 }
 
@@ -424,7 +425,7 @@ fieldset {
 
 
 
-input, select, textarea, fieldset{
+form, input, select, textarea, fieldset{
    
    
     border-radius: var(--ma-r-input);
