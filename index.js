@@ -33,7 +33,7 @@ function applyIndexStrings(){
     fridgeSearchResultsClearSearch.textContent = UI.common.clearSearch;
     indexPageTitle.textContent = UI.index.title;
     recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
-    indexAddRecipeButton.textContent = UI.common.addRecipes;
+    indexAddRecipeButton.textContent = UI.common.addRecipe;
 }
 
 function fridgeClearSearch (){
@@ -45,7 +45,7 @@ function fridgeClearSearch (){
 for (const pick of UI.fridge.quickPicks) {
     const chip = document.createElement("button");
     chip.type = "button";
-    chip.classList.add("chip");
+    chip.classList.add("chip", "chip--pickable");
     chip.textContent = pick;
     chip.addEventListener("click", handleQuickPickSelection);
     fridgeIngredientButtons.appendChild(chip);
@@ -65,7 +65,10 @@ function handleAddIngredientFridgeMode(event){
     
     if (fridgeIngredientInput.value.trim()!==""){
         const ingredientName = fridgeIngredientInput.value.trim().toLowerCase();
-        selectedIngredients.push(ingredientName);
+        if (!selectedIngredients.includes(ingredientName)) {
+            selectedIngredients.push(ingredientName);
+        }
+        
         fridgeIngredientInput.value="";
         renderSelectedChips();
     
@@ -84,24 +87,16 @@ function handleQuickPickSelection(event){
 function renderSelectedChips(){
     fridgeSelectedIngredients.textContent = "";
     for (const [index,i] of selectedIngredients.entries()){
-        const ingredientChip = document.createElement("span");
-        ingredientChip.classList.add("chip");
-        ingredientChip.textContent = i;
-        fridgeSelectedIngredients.append(ingredientChip);
-
-        const removeIngredient = document.createElement("button");
-        const removeIngredientIcon = document.createElement("i");
-        removeIngredientIcon.setAttribute("data-lucide","x");
-        removeIngredient.append(removeIngredientIcon);
-        removeIngredient.classList.add("removeIcon");
-        removeIngredient.addEventListener("click", handleRemoveIngredient);
+        const chip = makeChip(i, handleRemoveIngredient);
+        fridgeSelectedIngredients.append(chip);
+        
 
         function handleRemoveIngredient(){
             selectedIngredients.splice(index,1);
             renderSelectedChips();
         }
 
-        ingredientChip.append(removeIngredient);
+       
     }
     fridgeSearchResultsClearSearch.classList.toggle("hidden", selectedIngredients.length === 0);
     lucide.createIcons();
@@ -132,6 +127,7 @@ function handleFindRecipes(){
        /* fridgeEmptyState.classList.remove("hidden");
         fridgeEmptyStateTitle.textContent = UI.library.emptyTitle;
         fridgeEmptyStateMessage.textContent = UI.library.emptyMessage;*/
+        recipesSection.classList.add("hidden");
         return;
 
     }

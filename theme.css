@@ -37,7 +37,7 @@
 
   /* — space (base 4) — */
   --ma-1: 4px;  --ma-2: 8px;  --ma-3: 12px; --ma-4: 16px;
-  --ma-5: 20px; --ma-6: 24px; --ma-8: 32px; --ma-10: 40px;
+  --ma-5: 20px; --ma-6: 24px; --ma-8: 32px; --ma-10: 40px; --ma-16: 64px;
 
   /* — type — */
   --ma-font-display: 'Bitter', Georgia, serif;

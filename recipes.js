@@ -109,10 +109,10 @@ function displayRecipes(recipesView)
             recipesContainer.textContent="";
             if (recipeArray.length === 0)
                 {
-                    recipesSection.classList.add("hidden");
+                    
                     indexEmptyState.classList.remove("hidden");
-                    indexEmptyStateTitle.textContent = UI.library.nothingFoundTitle;
-                    indexEmptyStateMessage.textContent = UI.library.nothingFoundMessage;
+                    indexEmptyStateTitle.textContent = UI.library.emptyTitle;
+                    indexEmptyStateMessage.textContent = UI.library.emptyMessage;
                     indexAddRecipeButton.classList.add("button--secondary");
                     indexAddRecipeButton.classList.remove("button--primary");
                     return;
@@ -124,7 +124,7 @@ function displayRecipes(recipesView)
                     indexAddRecipeButton.classList.remove("button--secondary");
                     recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
                     
-                    recipesSection.classList.remove("hidden"); 
+                    
                     for (const recipe of recipeArray)
                     {
                         const wrapperRecipeCard = makeRecipeCard(recipe);
@@ -147,6 +147,7 @@ function displayRecipes(recipesView)
                             if (userConfirmed) {
                                 deleteRecipe(recipe.id);
                                 displayRecipes({recipes: recipes});
+                                handleFindRecipes();
                                 
                                 
                             }
@@ -164,6 +165,22 @@ function displayRecipes(recipesView)
 
     }
 
+
+function makeChip(label, onRemove){
+    const chip = document.createElement("span");
+    chip.textContent = label;
+    chip.classList.add("chip");
+    const removeIcon = document.createElement("i");
+    removeIcon.setAttribute("data-lucide", "x");
+    const removeButton = document.createElement("button");
+    removeButton.type = "button";
+    removeButton.appendChild(removeIcon);
+    removeButton.classList.add("removeIcon");
+    removeButton.addEventListener("click", onRemove);
+    chip.appendChild(removeButton);
+    return chip;
+
+}    
 
 displayRecipes({recipes:recipes});
 

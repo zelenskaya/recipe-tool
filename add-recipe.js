@@ -76,24 +76,16 @@ function handleKeyDown(event) {
 function renderIngredients(){
     chipsContainer.textContent = "";
     for (const [index,i] of currentIngredients.entries()){
-        const ingredientChip = document.createElement("span");
-        ingredientChip.classList.add("chip");
-        ingredientChip.textContent=i;
-        chipsContainer.append(ingredientChip);
-        const removeIngredient = document.createElement("button");
-        const removeIngredientIcon = document.createElement("i");
-        removeIngredientIcon.setAttribute("data-lucide","x");
-        removeIngredient.classList.add("removeIcon");
-        removeIngredient.append(removeIngredientIcon);
-        removeIngredient.addEventListener("click", handleRemoveIngredient);
-        
-       
         function handleRemoveIngredient(){
             
             currentIngredients.splice(index,1);
             renderIngredients();
         }
-        ingredientChip.append(removeIngredient);
+
+        const chip = makeChip(i, handleRemoveIngredient);
+        chipsContainer.append(chip);
+
+      
     }
     lucide.createIcons();
 }

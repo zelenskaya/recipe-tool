@@ -26,6 +26,10 @@ main {
     gap: var(--ma-main-gap);
 }
 
+main:has(.button--sticky-on-bottom) {
+    padding-bottom: var(--ma-16);
+}
+
 section {
     display: flex;
     flex-direction: column;
@@ -111,6 +115,10 @@ nav {
     align-items: center;
     gap: var(--ma-field-gap);
 
+}
+
+.chip--pickable {
+    cursor: pointer;
 }
 
 .category-card {
