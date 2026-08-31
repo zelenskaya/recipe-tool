@@ -109,8 +109,8 @@ function displayRecipes(recipesView)
             recipesContainer.textContent="";
             if (recipeArray.length === 0)
                 {
-                   recipesSection.style.display = "none";
-                    indexEmptyState.style.display = "";
+                    recipesSection.classList.add("hidden");
+                    indexEmptyState.classList.remove("hidden");
                     indexEmptyStateTitle.textContent = UI.library.nothingFoundTitle;
                     indexEmptyStateMessage.textContent = UI.library.nothingFoundMessage;
                     indexAddRecipeButton.classList.add("button--secondary");
@@ -119,12 +119,12 @@ function displayRecipes(recipesView)
                 }
              
                 {
-                    indexEmptyState.style.display = "none";
+                    indexEmptyState.classList.add("hidden");
                     indexAddRecipeButton.classList.add("button--primary");
                     indexAddRecipeButton.classList.remove("button--secondary");
                     recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
                     
-                    recipesSection.style.display = ""; 
+                    recipesSection.classList.remove("hidden"); 
                     for (const recipe of recipeArray)
                     {
                         const wrapperRecipeCard = makeRecipeCard(recipe);
