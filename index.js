@@ -2,7 +2,7 @@ let selectedIngredients = [];
 const units = ["ml", "g", "kg", "tbsp", "tsp", "cup"];
 const fridgeSelectedIngredients = document.getElementById("fridge-selected-ingredients");
 const fridgeIngredientInput = document.getElementById("fridge-ingredient-input");
-const fridgeFindRecipes = document.getElementById("fridge-find-recipes");
+/*const fridgeFindRecipes = document.getElementById("fridge-find-recipes");*/
 const topMatchesList = document.getElementById("top-matches-list");
 const partialMatchesList = document.getElementById("partial-matches-list");
 const fridgeEmptyState = document.getElementById("fridge-empty-state");
@@ -24,8 +24,8 @@ const indexPageTitle = document.getElementById("index-page-title");
 
 function applyIndexStrings(){
     document.title = UI.index.metaTitle;
-    /*fridgePageTitle.textContent = UI.fridge.pageTitle;*/
-    fridgeFindRecipes.textContent = UI.fridge.findRecipes;
+    /*fridgePageTitle.textContent = UI.fridge.pageTitle;
+    fridgeFindRecipes.textContent = UI.fridge.findRecipes;*/
     topMatchesHeading.textContent = UI.fridge.topMatches;
     partialMatchesHeading.textContent = UI.fridge.partialMatches;
     fridgeIngredientLabel.textContent = UI.fridge.ingredientLabel;
@@ -101,20 +101,20 @@ function renderSelectedChips(){
     fridgeSearchResultsClearSearch.classList.toggle("hidden", selectedIngredients.length === 0);
     lucide.createIcons();
 
-
+    handleFindRecipes();
 }
 
 
 
 
 
-fridgeFindRecipes.addEventListener("click", handleFindRecipes);
+/*fridgeFindRecipes.addEventListener("click", handleFindRecipes);*/
 
 function handleFindRecipes(){
     if (recipes.length === 0) {
         fridgeIngredientInputFormField.classList.add("hidden");
         fridgeIngredientButtons.classList.add("hidden");
-        fridgeFindRecipes.classList.add("hidden");
+        /*fridgeFindRecipes.classList.add("hidden");*/
     }
     fridgeEmptyState.classList.add("hidden");
     topMatchesSection.classList.add("hidden");

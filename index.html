@@ -29,9 +29,17 @@
            <section>
                 <div class="form-field" id="fridge-ingredient-input-form-field">
                         <label for="fridge-ingredient-input" id="fridge-ingredient-label"></label>
-                        <input type="text" id="fridge-ingredient-input">
-                        <button type="button" id="fridge-add-ingredient" class="button button--secondary"></button>
-                        <div id="fridge-selected-ingredients" class="tags"></div>
+                        <div class="chip-field">
+                            <div id="fridge-selected-ingredients" class="chip-field__chips"></div>
+                            <input type="text" id="fridge-ingredient-input" class="chip-field__input">
+                        </div>
+                        <div class="cluster--spread ">
+                            <button type="button" id="fridge-add-ingredient" class="button button--secondary"></button>
+                            <button id="fridge-search-results-clear-search" class="button button--secondary hidden"></button>
+                            
+
+                        </div>
+                        
                     </div>
             <div class="tags" id="fridge-ingredient-buttons">
             
@@ -40,8 +48,8 @@
               
             </div>
 
-            <button class="button button--primary" id="fridge-find-recipes" type="submit"></button>
-            <button id="fridge-search-results-clear-search" class="button button--secondary hidden"></button>
+            <!--<button class="button button--primary" id="fridge-find-recipes" type="submit"></button>-->
+           
            
             </section>
 

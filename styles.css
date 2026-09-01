@@ -105,7 +105,8 @@ nav {
 .chip{
     background: var(--ma-chips);
     padding: var(--ma-pill-vertical-padding) var(--ma-pill-horizontal-padding);
-    border: 1px solid var(--ma-fieldset-border);
+    border-color: transparent;
+    
     color: var(--ma-text);
     font-family: var(--ma-font-ui);
     font-weight: var(--ma-font-weight-small);
@@ -115,6 +116,11 @@ nav {
     align-items: center;
     gap: var(--ma-field-gap);
 
+}
+
+.chip-field .chip {
+    background: transparent;
+    border: 1px solid var(--ma-chip-in-input-border);
 }
 
 .chip--pickable {
@@ -366,16 +372,21 @@ color: var(--ma-text);
 
 .button--sticky-on-bottom {
     position: fixed;
-    left: 0;
-    right: 0;
+    left: var(--ma-page-padding-inline);
+    right: var(--ma-page-padding-inline);
     bottom: var(--ma-5);
     z-index: 10;
     margin-inline: auto;
 }
 
-.cluster--buttons {
+.cluster--spread {
     display: flex;
     gap: var(--ma-button-cluster-gap);
+}
+
+.cluster--buttons--spaced{
+    display: flex;
+    justify-content: space-between;
 }
 
 .navigation-action {
@@ -448,7 +459,7 @@ input, select, textarea {
     border-radius: var(--ma-r-input);
     padding: var(--ma-input-vertical-padding) var(--ma-input-horizontal-padding);
     border: 1px solid var(--ma-input-border);
-     background: var(--ma-surface);
+    background: var(--ma-surface);
 
 }
 
@@ -503,4 +514,38 @@ a {
 .removeIcon svg {
     width: 12px;
     height: 12px;
+}
+
+.chip-field {
+    display: flex;
+    
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: var(--ma-cluster-gap);
+    
+
+
+   
+    border-radius: var(--ma-r-input);
+    padding: var(--ma-input-vertical-padding) var(--ma-input-horizontal-padding);
+    border: 1px solid var(--ma-input-border);
+    background: var(--ma-surface);
+    
+}
+
+.chip-field__input {
+    border: none;
+    background: transparent;
+    outline: none;
+    padding: 0px;
+
+}
+
+.chip-field__input:focus {
+    outline: none;
+}
+
+
+.chip-field__chips {
+    display:contents;
 }

@@ -19,7 +19,7 @@ const UI = {
         emptyTitle: "No recipes yet",
         emptyMessage: "Start building your cookbook",
         nothingFoundTitle: "No recipes found",
-        nothingFoundMessage: "Please try a different search",
+        nothingFoundMessage: "Please try a different search or browse recipes below.",
         oneRecipeFoundMessage: "One recipe found"
 
     },

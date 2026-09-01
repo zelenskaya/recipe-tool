@@ -19,7 +19,7 @@ const UI = {
         emptyTitle: "Ще немає рецептів",
         emptyMessage: "Почніть створювати свою кулінарну книгу.",
         nothingFoundTitle: "Не знайдено рецептів",
-        nothingFoundMessage: "Будь ласка, спробуйте інший пошук.",
+        nothingFoundMessage: "Будь ласка, спробуйте інший пошук або перегляньте рецепти нижче.",
         oneRecipeFoundMessage: "Знайдено один рецепт"
 
     },
