@@ -6,7 +6,7 @@ const UI = {
         save: "Save",
         back: "Back",
         search: "Search",
-        clearSearch: "Clear search",
+        clearSearch: "Clear",
         addRecipe: "Add recipe",
         editRecipe: "Edit recipe",
     
@@ -71,11 +71,11 @@ const UI = {
         "Top matches",
         partialMatches: "Partial matches",
         noIngredientsTitle: "No ingredients added yet",
-        noIngredientsMessage: "Enter some ingredients to find recipes",
+        noIngredientsMessage: "Enter some ingredients to find recipes or browse recipes below.",
         
         pageTitle:"Get a recipe based on what's in your fridge",
        
-        missingCardPrefix: "Missing: ",
+        missingCardPrefix: "Missing",
         ingredientLabel: "What's in your fridge:",
         
         quickPicks: ["Eggs", "Milk", "Banana", "Oat", "Chicken", "Beef"]

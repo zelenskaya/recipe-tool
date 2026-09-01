@@ -8,7 +8,7 @@ const partialMatchesList = document.getElementById("partial-matches-list");
 const fridgeEmptyState = document.getElementById("fridge-empty-state");
 const topMatchesSection = document.getElementById("top-matches-section");
 const partialMatchesSection = document.getElementById("partial-matches-section");
-const fridgeEmptyStateTitle = document.getElementById("fridge-empty-state-title");
+/*const fridgeEmptyStateTitle = document.getElementById("fridge-empty-state-title");*/
 const fridgeEmptyStateMessage = document.getElementById("fridge-empty-state-message");
 const fridgePageTitle = document.getElementById("fridge-page-title");
 const topMatchesHeading = document.getElementById("top-matches-heading");
@@ -136,7 +136,7 @@ function handleFindRecipes(){
             {
                 
                 fridgeEmptyState.classList.remove("hidden");
-                fridgeEmptyStateTitle.textContent = UI.fridge.noIngredientsTitle;
+                /*fridgeEmptyStateTitle.textContent = UI.fridge.noIngredientsTitle;*/
                 fridgeEmptyStateMessage.textContent = UI.fridge.noIngredientsMessage;
                 recipesSection.classList.remove("hidden");
                 return;
@@ -173,7 +173,7 @@ function handleFindRecipes(){
                 {
                   
                     fridgeEmptyState.classList.remove("hidden");
-                    fridgeEmptyStateTitle.textContent = UI.library.nothingFoundTitle;
+                    /*fridgeEmptyStateTitle.textContent = UI.library.nothingFoundTitle;*/
                     fridgeEmptyStateMessage.textContent = UI.library.nothingFoundMessage;
                     recipesSection.classList.remove("hidden");
                     return;
@@ -207,11 +207,22 @@ function handleFindRecipes(){
         partialMatchesList.textContent = "";
         for (const partialRecipe of partialMatchingRecipes){
             const card = makeRecipeCard(partialRecipe.recipe);
+          const missingIngredientsWrapper = document.createElement("div");  
+          missingIngredientsWrapper.classList.add("missing-row");
         
-        const missingIngredients = document.createElement("div");
+        
+        const missingIngredientsLabel = document.createElement("span");
+        missingIngredientsLabel.classList.add("missing-label");
+        
+        missingIngredientsLabel.textContent = UI.fridge.missingCardPrefix;
+        const missingIngredientItem = document.createElement("span");
+        
+        missingIngredientItem.textContent = partialRecipe.score.missing.join(", ");
+        missingIngredientsWrapper.append(missingIngredientsLabel);
+        missingIngredientsWrapper.append(missingIngredientItem);
 
-        missingIngredients.textContent = UI.fridge.missingCardPrefix + partialRecipe.score.missing.join(", ");
-        card.appendChild(missingIngredients);
+       
+        card.appendChild(missingIngredientsWrapper);
         partialMatchesList.appendChild(card);
     }
     }

@@ -16,7 +16,7 @@ body {
    
 }
 
-h1, h2, ul, li, p, section, main {
+h1, h2, h3, ul, li, p, section, main, .recipe-title {
     margin:0;
 }
 
@@ -73,6 +73,26 @@ span, div {
     gap: var(--ma-cluster-gap);
 }
 
+.missing-row {
+    display: flex;
+    gap: var(--ma-field-gap);
+    background: var(--ma-sunken);
+    padding: var(--ma-list-padding);
+    border-radius: var(--ma-r-3);
+    align-items: center;
+}
+
+.missing-label {
+      text-transform: uppercase;
+      font-family: var(--ma-font-ui);
+    font-weight: var(--ma-font-weight-text);
+    font-size: var(--ma-font-size-text);
+    line-height: var(--ma-line-height-text);
+    color: var(--ma-text);
+    
+
+}
+
 form {
     display: flex;
     flex-direction: column;
@@ -103,9 +123,15 @@ nav {
 }
 
 .chip{
-    background: var(--ma-chips);
+
+   
+    
+    
+
+   background: var(--ma-chips);
+   border-color: transparent;
     padding: var(--ma-pill-vertical-padding) var(--ma-pill-horizontal-padding);
-    border-color: transparent;
+    
     
     color: var(--ma-text);
     font-family: var(--ma-font-ui);
@@ -125,6 +151,18 @@ nav {
 
 .chip--pickable {
     cursor: pointer;
+    background: transparent;
+    border: 1.5px solid var(--ma-button-border);
+    
+
+}
+.chip--pickable::before {
+    content: "+ ";
+}
+
+.chip--pickable:hover {
+    background: color-mix(in srgb, var(--ma-secondary) 40%, transparent);
+    border: 1.5px solid var(--ma-button-border-hover);
 }
 
 .category-card {
@@ -235,8 +273,17 @@ nav {
 
 .recipe-title {
     font-family: var(--ma-font-display);
-    font-weight: var(--ma-font-weight-h2);
-    font-size: var(--ma-font-size-h2);
+    font-weight: var(--ma-font-weight-h3);
+    line-height: var(--ma-line-height-h3);
+    font-size: var(--ma-font-size-h3);
+}
+
+
+h3 {
+    font-family: var(--ma-font-display);
+    font-weight: var(--ma-font-weight-h3);
+    font-size: var(--ma-font-size-h3);
+    line-height: var(--ma-line-height-h3);
 }
 
 #recipe-description {
@@ -297,7 +344,8 @@ color: var(--ma-text);
     min-width: var(--ma-min-width);
     max-width: var(--ma-max-width);
     align-self: start;
-    transition: background-color 150ms ease, border-color 150ms ease, transform 100ms ease;
+    
+      transition: background 150ms ease, border-color 150ms ease, transform 100ms ease;
 
    
 
@@ -329,6 +377,7 @@ color: var(--ma-text);
 
 
 .button--secondary:hover{
+    background: var(--ma-sunken);
     border: 1px solid var(--ma-button-border-hover);
 }
 .button--secondary:disabled{
@@ -346,22 +395,30 @@ color: var(--ma-text);
 
 }
 
-.button--danger:hover {
+.button--secondary.button--danger {
+    background: transparent;
+    border: 1px solid var(--ma-button-border);
+    color: var(--ma-text);
+}
+
+.button--secondary.button--danger:hover {
+    background: var(--ma-error-tint);
     border: 1px solid var(--ma-error);
     color: var(--ma-error);
 
 }
 
-.button--danger:focus {
+.button--secondary.button--danger:focus {
     border: 1px solid var(--ma-error);
     color: var(--ma-error);
 
 }
 
 
-.button--danger:active {
-    border: 1px solid var(--ma-primary-press);
-    color: var(--ma-primary-press);
+.button--secondary.button--danger:active {
+    
+    border: 1px solid var(--ma-error);
+    color: var(--ma-error);
 
 }
 
@@ -379,12 +436,12 @@ color: var(--ma-text);
     margin-inline: auto;
 }
 
-.cluster--spread {
+.cluster--buttons {
     display: flex;
     gap: var(--ma-button-cluster-gap);
 }
 
-.cluster--buttons--spaced{
+.cluster--spread{
     display: flex;
     justify-content: space-between;
 }
@@ -396,6 +453,15 @@ color: var(--ma-text);
     justify-content: center;
     vertical-align: middle;
     align-self: start;
+}
+
+.navigation-action:hover{
+    
+    color: var(--ma-primary);
+}
+
+.navigation-action:hover span {
+    color: var(--ma-primary);
 }
 
 .navigation-actions {
@@ -538,6 +604,8 @@ a {
     background: transparent;
     outline: none;
     padding: 0px;
+    flex: 1;
+    min-width: 6rem;
 
 }
 

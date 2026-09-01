@@ -7,6 +7,7 @@
   --ma-surface:   #FFFFFF;  /* cards & sheets       */
   --ma-sunken:    #F7EAE4;  /* inputs & wells       */
   --ma-chips: #dbdbdb;
+  
 
   /* — accents — */
   --ma-primary: #D45B6A;  /* berry-rose      */
@@ -30,6 +31,7 @@
   --ma-success:  #5E9E6B;
   --ma-warning:  #E0993A;
   --ma-error:    #C8434F;
+  --ma-error-tint: #FBEEEF;
   --ma-focus:    rgba(212,91,106,.8);
 
   /* — radius — */
@@ -45,17 +47,17 @@
   --ma-font-ui:      'Mulish', system-ui, sans-serif;
 
   /* - font sizes - */
-  --ma-font-size-h1: 30px;
-  --ma-line-height-h1: 36px;
+  --ma-font-size-h1: 36px;
+  --ma-line-height-h1: 44px;
   --ma-font-weight-h1:700;
 
-  --ma-font-size-h2: 20px;
-  --ma-line-height-h2: 24px;
+  --ma-font-size-h2: 24px;
+  --ma-line-height-h2: 32px;
   --ma-font-weight-h2: 600;
 
-  --ma-font-size-accent: 16px;
-  --ma-line-height-accent: 24px;
-  --ma-font-weight-accent: 600;
+  --ma-font-size-h3: 18px;
+  --ma-line-height-h3: 20px;
+  --ma-font-weight-h3: 600;
 
   --ma-font-size-text: 16px;
   --ma-line-height-text: 20px;

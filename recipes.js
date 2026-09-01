@@ -52,7 +52,7 @@ function makeRecipeCard(recipe){
     const link = document.createElement("a");
     link.classList.add("recipe-card-top-part");
     wrapperRecipeCard.classList.add("recipe-card");
-    link.appendChild(leafMaker(recipe.title,"recipe-title"));
+    link.appendChild(leafMaker(recipe.title,"recipe-title","h3"));
     link.appendChild(leafMaker(recipe.description,"recipe-description"));
     const categoryLeaf = leafMaker(recipe.category, "recipe-category");
     const categoryToLowerCase = recipe.category?.toLowerCase();
@@ -90,8 +90,8 @@ function deleteRecipe(recipeId){
    
 }
 
-function leafMaker(text,className){
-    const leaf=document.createElement("div");
+function leafMaker(text,className, tag = "div"){
+    const leaf=document.createElement(tag);
     leaf.textContent=text;
     leaf.classList.add(className);
     return(leaf);
@@ -141,7 +141,7 @@ function displayRecipes(recipesView)
                         deleteButton.textContent = UI.common.delete;
                         deleteButton.classList.add("button");
                         deleteButton.classList.add("button--secondary");
-                        deleteButton.classList.add("button--danger");
+                        deleteButton.classList.add("button", "button--secondary", "button--danger");
                         deleteButton.addEventListener("click", function(){
                             const userConfirmed = confirm (UI.common.confirmDelete);
                             if (userConfirmed) {
