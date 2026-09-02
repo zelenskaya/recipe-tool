@@ -29,10 +29,10 @@
   --ma-button-border-hover: #bd9175;
   --ma-fieldset-border: transparent;
   --ma-success:  #5E9E6B;
-  --ma-warning:  #E0993A;
+  --ma-warning:  #e0773a;
   --ma-error:    #C8434F;
   --ma-error-tint: #FBEEEF;
-  --ma-focus:    rgba(212,91,106,.8);
+  --ma-focus:  rgba(var(--ma-primary-rgb), .5);
 
   /* — radius — */
   

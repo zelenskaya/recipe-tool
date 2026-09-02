@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+:focus-visible {
+    outline: 1px solid var(--ma-focus);
+}
+
 body {
     background-color: var(--ma-bg);
     display: flex;
@@ -147,6 +151,11 @@ nav {
 .chip-field .chip {
     background: transparent;
     border: 1px solid var(--ma-chip-in-input-border);
+}
+
+.chip-field:focus-within {
+    outline: 1px solid var(--ma-focus);
+    border-color: var(--ma-focus);
 }
 
 .chip--pickable {
@@ -539,9 +548,7 @@ select {
     
 }
 
-:is(input, select, textarea):focus-visible {
-    outline: 1px solid var(--ma-input-focus-color);
-}
+
 
 :is(input, select, textarea):user-invalid {
     outline: 1px solid var(--ma-error);
@@ -584,13 +591,9 @@ a {
 
 .chip-field {
     display: flex;
-    
     align-items: flex-start;
     flex-wrap: wrap;
     gap: var(--ma-cluster-gap);
-    
-
-
    
     border-radius: var(--ma-r-input);
     padding: var(--ma-input-vertical-padding) var(--ma-input-horizontal-padding);

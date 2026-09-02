@@ -32,6 +32,7 @@ if(searchResults.length === 0){
    
     for (const recipeItem of searchResults){
         const resultCard = makeRecipeCard(recipeItem);
+        searchResultsContainer.classList.add("recipe-list");
         searchResultsContainer.append(resultCard);
     }
 }
