@@ -29,7 +29,10 @@ for (const key in UI.categories) {
 
 function applyAddRecipeStrings(){
     addRecipeBackCaption.textContent = UI.common.back;
-    addRecipeTitle.textContent = UI.common.addRecipe;
+    
+    /*addRecipeTitle.textContent = UI.common.addRecipe;*/
+    
+    
     addRecipeIngredientsLabel.textContent = UI.recipe.ingredients;
     addRecipeAddIngredient.textContent = UI.common.add;
     recipeDescriptionLabel.textContent = UI.recipe.description;
@@ -91,6 +94,7 @@ function renderIngredients(){
 }
 
 addRecipeAddIngredient.addEventListener("click", handleAddIngredient);
+
 function handleAddIngredient(){
     const ingredientName = ingredientItem.value.trim().toLowerCase();
     if (ingredientName!==""){
@@ -116,12 +120,24 @@ const validationRules = {
 
 const recipeItem = recipes.find(recipe => recipe.id === recipeId);
 
+function applyAddRecipeStrings(){
+    addRecipeTitle.textContent = recipeItem !== undefined
+        ? UI.common.editRecipe
+        : UI.common.addRecipe;
 
+    document.title = recipeItem !== undefined
+        ? UI.common.editRecipe
+        : UI.common.addRecipe;
 
-if (recipeItem!==undefined) {
+}
+applyAddRecipeStrings();
+
+/*if (recipeItem!==undefined) {
+    
     addRecipeTitle.textContent = UI.common.editRecipe;
     document.title = UI.addRecipe.metaTitleEdit;
-}
+    
+}*/
 
 const addRecipeForm = document.getElementById("add-recipe-form");
 const titleInput = document.getElementById("recipe-title");

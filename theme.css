@@ -56,15 +56,15 @@
   --ma-font-weight-h2: 600;
 
   --ma-font-size-h3: 18px;
-  --ma-line-height-h3: 20px;
+  --ma-line-height-h3: 24px;
   --ma-font-weight-h3: 600;
 
   --ma-font-size-text: 16px;
-  --ma-line-height-text: 20px;
+  --ma-line-height-text: 24px;
   --ma-font-weight-text: 400;
 
   --ma-font-size-small: 12px;
-  --ma-line-height-small: 20px;
+  --ma-line-height-small: 16px;
   --ma-font-weight-small: 400;
 
   /* - sizes - */
@@ -83,14 +83,14 @@
   --ma-category-breakfast-color: #9C6A1F; 
   --ma-category-uncategorized-background: #E3EEEF;
   --ma-category-uncategorized-color: #3F6E72; 
-  --ma-category-vegetables-background: #FBE0E2;
-  --ma-category-vegetables-color: #A83F4C;
+  --ma-category-vegetables-background: #E7EFE2;
+  --ma-category-vegetables-color: #4F6C46;
   --ma-category-snacks-background: #FCE6DA;
   --ma-category-snacks-color: #A85B37;
   --ma-category-meat-background: #FBE3EC;
   --ma-category-meat-color: #A2426A;
-  --ma-category-soups-background: #E3EEEF;
-  --ma-category-soups-color: #3F6E72;
+  --ma-category-soups-background: #E7EAF6;
+  --ma-category-soups-color: #2E4597;
 
   /* - tags - */
   --ma-tag-background: #E7EFE2;
@@ -123,7 +123,7 @@
   --ma-list-gap: var(--ma-2);
   --ma-list-padding: var(--ma-2);
 
-  --ma-cluster-gap: var(--ma-1);
+  --ma-cluster-gap: var(--ma-2);
 
   --ma-button-vertical-padding: var(--ma-3);
   --ma-button-horizontal-padding: var(--ma-5);
