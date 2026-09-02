@@ -33,9 +33,13 @@
                     </div>
                     <div class="form-field">
                         <label id="add-recipe-ingredients-label" for="ingredient-item"></label>
-                        <input type="text" id="ingredient-item">
+                        <div class="chip-field">
+                            <div id="chips-container" class="chip-field__chips"></div>
+                            <input type="text" id="ingredient-item" class="chip-field__input">
+                            
+                        </div>
                         <button type="button" id="add-recipe-add-ingredient" class="button button--secondary"></button>
-                        <div id="chips-container" class="tags"></div>
+                        
                     </div>
                     <div class="form-field">
                         <label for="recipe-description" id="recipe-description-label"></label>

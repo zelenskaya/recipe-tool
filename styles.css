@@ -127,16 +127,10 @@ nav {
 }
 
 .chip{
-
-   
+    background: transparent;
+    border: 1px solid var(--ma-chip-in-input-border);
     
-    
-
-   background: var(--ma-chips);
-   border-color: transparent;
     padding: var(--ma-pill-vertical-padding) var(--ma-pill-horizontal-padding);
-    
-    
     color: var(--ma-text);
     font-family: var(--ma-font-ui);
     font-weight: var(--ma-font-weight-small);
@@ -148,10 +142,10 @@ nav {
 
 }
 
-.chip-field .chip {
+/*.chip-field .chip {
     background: transparent;
     border: 1px solid var(--ma-chip-in-input-border);
-}
+}*/
 
 .chip-field:focus-within {
     outline: 1px solid var(--ma-focus);
