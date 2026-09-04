@@ -585,14 +585,15 @@ a {
 
 .chip-field {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
     gap: var(--ma-cluster-gap);
-   
     border-radius: var(--ma-r-input);
     padding: var(--ma-input-vertical-padding) var(--ma-input-horizontal-padding);
     border: 1px solid var(--ma-input-border);
     background: var(--ma-surface);
+    min-height: var(--ma-input-height);
+    
     
 }
 
@@ -603,6 +604,8 @@ a {
     padding: 0px;
     flex: 1;
     min-width: 6rem;
+    
+    height: auto;
 
 }
 
