@@ -617,3 +617,9 @@ a {
 .chip-field__chips {
     display:contents;
 }
+
+.touch-only {
+    @media (pointer: fine)and (hover: hover) {
+        display: none;
+    }
+}
