@@ -50,7 +50,7 @@ async function handleScanFridge(){
     for (const ingredientName of data){
         selectedIngredients.push(ingredientName);
     }
-    console.log(selectedIngredients);
+    renderSelectedChips();
 
 }
 
