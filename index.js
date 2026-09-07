@@ -46,7 +46,11 @@ function applyIndexStrings(){
 async function handleScanFridge(){
     const res = await fetch("/api/ingredients");
     const data = await res.json();
-    console.log(data);
+
+    for (const ingredientName of data){
+        selectedIngredients.push(ingredientName);
+    }
+    console.log(selectedIngredients);
 
 }
 
