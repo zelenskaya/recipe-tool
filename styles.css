@@ -398,6 +398,8 @@ color: var(--ma-text);
 
 }
 
+
+
 .button--secondary.button--danger {
     background: transparent;
     border: 1px solid var(--ma-button-border);
@@ -447,6 +449,7 @@ color: var(--ma-text);
 .cluster--spread{
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 .navigation-action {
@@ -609,6 +612,11 @@ a {
 
 }
 
+/*.chip-field:focus-within {
+    border-color: var(--ma-primary);
+    box-shadow: 0 0 0 3px var(--ma-focus);
+}*/
+
 .chip-field__input:focus {
     outline: none;
 }
@@ -618,8 +626,24 @@ a {
     display:contents;
 }
 
+.chip-field__hint {
+    color: var(--ma-muted);
+    font-weight: var(--ma-font-weight-small);
+    font-size: var(--ma-font-size-small);
+    line-height: var(--ma-line-height-small);
+
+
+}
+
 .touch-only {
-    @media (pointer: fine)and (hover: hover) {
+    @media (pointer: fine) and (hover: hover) {
         display: none;
     }
 }
+
+.mouse-only {
+    @media (pointer: coarse),(hover:none){
+        display:none;
+    }
+}
+

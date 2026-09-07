@@ -88,10 +88,15 @@ Single-writer (CSS): focus now has one base owner (`:focus-visible`) + intention
  
 ### Next
 - **Chunk 3 — merge `main` → `ukrainian-demo`** (branch hygiene; keep the two in sync). Drift is now wider — landed on `main` since last sync: fridge fold, chip atom, single-writer, **chip-collapse (two treatments, `--ma-chips` gone), `.chip-field` on add-recipe, and the focus system**. Expect a conflict on `index.html` (and `add-recipe.html` now): take main's structure, keep uk's `strings.uk.js` tags. Guard: `grep -l "strings.en.js" *.html` must be empty (covers `search.html` too). Re-verify uk pages + flows.
-### Backend (server-side)
-- **Cloudflare Pages Function holding the vision API key server-side.** This is the app's backend integration and the **prerequisite that gates every AI feature** — the browser never sees the key. Build the Function, then wire an explicit "analyze photo" trigger that feeds recognised ingredients into `selectedIngredients` → the existing instant-search funnel. (Backend here = the Function; distinct from any hypothetical recipe database — don't conflate the two.)
-### Phase 2 — Photo → ingredients (flagship)
-Upload a fridge photo → vision model identifies ingredients → they populate the fridge chips (editable). Sits downstream of the backend Function above. The image button is the *explicit* trigger (expensive async action); its handler only pushes ingredients into the array and lets the funnel re-decide — it must **not** re-implement search. Leads into the broader "cook with what's in my fridge" agent.
+- **Phase 2 — Photo → ingredients (flagship), sliced
+
+Upload a fridge photo → vision model → editable fridge chips. Sits behind a Cloudflare Pages Function (key server-side; browser never sees it). Built as five slices — keep a fake on the far side of each new boundary so only one thing is new per step. Each ships on its own. (Backend = the Function, distinct from any hypothetical recipe DB. Leads into the broader "cook with what's in my fridge" agent.)
+
+F1 — Hello Function. functions/api/ping.js returns a hardcoded string; fetch it from the browser. Proves functions/ deploys, branch preview serves it, browser reaches it. No key, no API, no UI. Smoke test.
+F2 — Fake result drives the funnel. Function returns hardcoded ["eggs","milk"]. Button handler fetches → pushes into selectedIngredients → calls renderSelectedChips. Whole UI pipeline runs on a fake backend. Discipline: handler pushes + lets the funnel re-decide; does not touch search (same rule as the image button).
+F3 — Secret + real API call. Function reads the key from a Cloudflare env var, sends one hardcoded base64 test image to the vision API, returns parsed ingredients. Verify by curling the endpoint — no UI. Isolates secret + Function→API leg; if it breaks it's the API, not the app.
+F4 — Real upload. Swap the image source only: file input → FileReader → base64 → POST to the Function. Diff from F3 is just where the base64 comes from; every other leg proven → real end-to-end in one small change.
+F5 — Async states. Loading / error / empty, attached to a call that's now genuinely slow and failable. Failure-state work, done when the failures are real.
  
 ### Parked / later
 - **Add/edit-recipe ingredient suggestions** — chip row or autocomplete below the ingredient field. Decide static-staples vs. frequency-ranked-from-existing-recipes (the latter also canonicalises ingredient spelling → cleaner `.includes` matching). Parked behind the chip-collapse refactor (now shipped) — pick static-vs-autocomplete on purpose when it comes up. Note: add-recipe has **no** suggestion row today, by design; this would add one.

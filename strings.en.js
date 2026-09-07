@@ -11,7 +11,8 @@ const UI = {
         editRecipe: "Edit recipe",
     
         confirmDelete: "Are you sure you want to delete this recipe?",
-        confirmLeave: "Leave without saving?"
+        confirmLeave: "Leave without saving?",
+        fieldHint: "Press Enter to add."
        
     },
 

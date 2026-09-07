@@ -20,6 +20,7 @@ const fridgeSearchResultsClearSearch = document.getElementById("fridge-search-re
 fridgeSearchResultsClearSearch.addEventListener("click", fridgeClearSearch);
 const fridgeIngredientInputFormField = document.getElementById("fridge-ingredient-input-form-field");
 const indexPageTitle = document.getElementById("index-page-title");
+const indexChipFieldHint = document.getElementById("index-chip-field-hint");
 
 
 function applyIndexStrings(){
@@ -34,6 +35,7 @@ function applyIndexStrings(){
     indexPageTitle.textContent = UI.index.title;
     recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
     indexAddRecipeButton.textContent = UI.common.addRecipe;
+    indexChipFieldHint.textContent = UI.common.fieldHint;
 }
 
 function fridgeClearSearch (){
