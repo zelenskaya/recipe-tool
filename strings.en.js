@@ -12,7 +12,9 @@ const UI = {
     
         confirmDelete: "Are you sure you want to delete this recipe?",
         confirmLeave: "Leave without saving?",
-        fieldHint: "Press Enter to add."
+        fieldHint: "Press Enter to add.",
+        scanFridge: "Scan your fridge"
+
        
     },
 

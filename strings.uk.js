@@ -12,7 +12,8 @@ const UI = {
     
         confirmDelete: "Видалити цей рецепт?",
         confirmLeave: "Вийти без збереження?",
-        fieldHint: "Натисніть Enter, щоб додати"
+        fieldHint: "Натисніть Enter, щоб додати",
+        scanFridge: "Сканувати холодильник"
        
     },
 

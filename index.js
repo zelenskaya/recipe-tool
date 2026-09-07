@@ -21,6 +21,10 @@ fridgeSearchResultsClearSearch.addEventListener("click", fridgeClearSearch);
 const fridgeIngredientInputFormField = document.getElementById("fridge-ingredient-input-form-field");
 const indexPageTitle = document.getElementById("index-page-title");
 const indexChipFieldHint = document.getElementById("index-chip-field-hint");
+const indexScanFridge = document.getElementById("index-scan-fridge");
+
+indexScanFridge.addEventListener("click", handleScanFridge);
+
 
 
 function applyIndexStrings(){
@@ -36,6 +40,14 @@ function applyIndexStrings(){
     recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
     indexAddRecipeButton.textContent = UI.common.addRecipe;
     indexChipFieldHint.textContent = UI.common.fieldHint;
+    indexScanFridge.textContent = UI.common.scanFridge;
+}
+
+async function handleScanFridge(){
+    const res = await fetch("/api/ingredients");
+    const data = await res.json();
+    console.log(data);
+
 }
 
 function fridgeClearSearch (){
@@ -43,6 +55,7 @@ function fridgeClearSearch (){
     renderSelectedChips();
     handleFindRecipes();
 }
+
 
 for (const pick of UI.fridge.quickPicks) {
     const chip = document.createElement("button");
