@@ -120,7 +120,7 @@ const validationRules = {
 
 const recipeItem = recipes.find(recipe => recipe.id === recipeId);
 
-function applyAddRecipeStrings(){
+function applyAddRecipeStringsTitle(){
     addRecipeTitle.textContent = recipeItem !== undefined
         ? UI.common.editRecipe
         : UI.common.addRecipe;
@@ -130,7 +130,7 @@ function applyAddRecipeStrings(){
         : UI.common.addRecipe;
 
 }
-applyAddRecipeStrings();
+applyAddRecipeStringsTitle();
 
 /*if (recipeItem!==undefined) {
     
