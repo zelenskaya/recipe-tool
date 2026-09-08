@@ -22,9 +22,11 @@ const fridgeIngredientInputFormField = document.getElementById("fridge-ingredien
 const indexPageTitle = document.getElementById("index-page-title");
 const indexChipFieldHint = document.getElementById("index-chip-field-hint");
 const indexScanFridge = document.getElementById("index-scan-fridge");
+const fridgePhotoInput = document.getElementById("fridge-photo-input");
+
 
 indexScanFridge.addEventListener("click", handleScanFridge);
-
+fridgePhotoInput.addEventListener("change", fridgePhotoUploadHandler);
 
 
 function applyIndexStrings(){
@@ -41,6 +43,28 @@ function applyIndexStrings(){
     indexAddRecipeButton.textContent = UI.common.addRecipe;
     indexChipFieldHint.textContent = UI.common.fieldHint;
     indexScanFridge.textContent = UI.common.scanFridge;
+}
+
+function fridgePhotoUploadHandler(event){
+    const file = event.target.files[0];
+    console.log(file);
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.addEventListener("load", async () => {
+        const result = reader.result;
+        const base64 = result.split(",")[1];
+        const res = await fetch("/api/ingredients", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({ image: base64 }),
+        });
+        const data = await res.json();
+        for (const ingredientName of data) {
+            selectedIngredients.push(ingredientName);
+        }
+        renderSelectedChips();
+    });
+    
 }
 
 async function handleScanFridge(){

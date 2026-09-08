@@ -54,6 +54,8 @@ Architecturally the app is built to be **re-skinnable and localisable** — each
 - **Chunk C — chip field on add-recipe.** Add-recipe ingredients wrapped in `.chip-field`; chips container class swapped `tags` → `.chip-field__chips` (reuses the fridge's `display: contents` class), `#chips-container` id kept as the render hook, input got `.chip-field__input`. Field now identical to the fridge (screenshot-1 parity). Enter guarded — `keydown` → `e.key === "Enter"` → `preventDefault()` → `handleAddIngredient()`, so the `<form>` doesn't submit/reload; Add button kept *outside* `.chip-field` as the safe commit path. A5 click-to-focus + `:focus-within` inherited free (bound to `.chip-field`, not the fridge element). No suggestion row (parked).
 - **Decision: instant search** — typed ingredient search is reactive; helper text replaces Add on the fridge.
 - **Decision: keep `recipes.js` name** (not `app.js`) — honest name; rename would churn 4 pages for no gain.
+
+- 
 ### 🔧 In progress — Chunk B: email-style chip field (Fridge)
 The ingredient input is a "To:"-style field — chips flow inline inside one bordered box with the text input.
 
@@ -86,18 +88,36 @@ Keep — load-bearing, don't "clean up":
 - `:is(…):user-invalid { … --ma-error }` — validity trigger, not focus. On a focused+invalid input, error wins by specificity (intentional).
 Single-writer (CSS): focus now has one base owner (`:focus-visible`) + intentional per-surface overrides. No stray `:focus` rules, so no click-vs-keyboard divergence.
  
-### Next
-- **Chunk 3 — merge `main` → `ukrainian-demo`** (branch hygiene; keep the two in sync). Drift is now wider — landed on `main` since last sync: fridge fold, chip atom, single-writer, **chip-collapse (two treatments, `--ma-chips` gone), `.chip-field` on add-recipe, and the focus system**. Expect a conflict on `index.html` (and `add-recipe.html` now): take main's structure, keep uk's `strings.uk.js` tags. Guard: `grep -l "strings.en.js" *.html` must be empty (covers `search.html` too). Re-verify uk pages + flows.
-- **Phase 2 — Photo → ingredients (flagship), sliced
+### 
+
+### Photo to ingredients
 
 Upload a fridge photo → vision model → editable fridge chips. Sits behind a Cloudflare Pages Function (key server-side; browser never sees it). Built as five slices — keep a fake on the far side of each new boundary so only one thing is new per step. Each ships on its own. (Backend = the Function, distinct from any hypothetical recipe DB. Leads into the broader "cook with what's in my fridge" agent.)
 
-F1 — Hello Function. functions/api/ping.js returns a hardcoded string; fetch it from the browser. Proves functions/ deploys, branch preview serves it, browser reaches it. No key, no API, no UI. Smoke test.
+
+✅ Done:
+- **F1 — Hello Function. functions/api/ping.js returns a hardcoded string; fetch it from the browser. Proves functions/ deploys, branch preview serves it, browser reaches it. No key, no API, no UI. Smoke test.
 F2 — Fake result drives the funnel. Function returns hardcoded ["eggs","milk"]. Button handler fetches → pushes into selectedIngredients → calls renderSelectedChips. Whole UI pipeline runs on a fake backend. Discipline: handler pushes + lets the funnel re-decide; does not touch search (same rule as the image button).
 F3 — Secret + real API call. Function reads the key from a Cloudflare env var, sends one hardcoded base64 test image to the vision API, returns parsed ingredients. Verify by curling the endpoint — no UI. Isolates secret + Function→API leg; if it breaks it's the API, not the app.
 F4 — Real upload. Swap the image source only: file input → FileReader → base64 → POST to the Function. Diff from F3 is just where the base64 comes from; every other leg proven → real end-to-end in one small change.
-F5 — Async states. Loading / error / empty, attached to a call that's now genuinely slow and failable. Failure-state work, done when the failures are real.
+
+- ### 🔧 In progress
+- F5 — Async states. Loading / error / empty, attached to a call that's now genuinely slow and failable. Failure-state work, done when the failures are real.
+- ### Parked / later
+- Parked items to log (these are the valuable byproduct — real, specific, discovered through the work):
+
+getIngredientsFromPhoto(file) extraction — shared upload pipe (FileReader + strip + POST + parse → returns names), extract when the recipe-screenshot feature lands, not before. Per-feature push+render stays separate (single-writer per chip surface).
+Recipe-screenshot upload feature — your planned second AI integration; the second caller that will justify the extraction above.
+media_type hardcoded to image/webp — breaks on jpeg/png. Real fix: derive type from the data-URL prefix [0] you currently discard. Belongs with F5 robustness.
+Shared addIngredient(name) (dedup + .trim().toLowerCase()) — still parked, now armed: real model output can return "Ham"/mixed-case, which renders a chip but silently fails recipe matching. Fridge + quick-pick + scan all want one guarded door.
+Custom file-input label — folds together localization (native "Choose File" can't be localized) + styling; hide native input, own label triggers it.
+File reset/remove — UX decision, revisit now that the scan flow exists.
+Deployed preview needs the key as a Cloudflare dashboard secret (.dev.vars is local-only) — do when you want the live URL working.
  
+
+Next
+- **Chunk 3 — merge `main` → `ukrainian-demo`** (branch hygiene; keep the two in sync). Drift is now wider — landed on `main` since last sync: fridge fold, chip atom, single-writer, **chip-collapse (two treatments, `--ma-chips` gone), `.chip-field` on add-recipe, and the focus system**. Expect a conflict on `index.html` (and `add-recipe.html` now): take main's structure, keep uk's `strings.uk.js` tags. Guard: `grep -l "strings.en.js" *.html` must be empty (covers `search.html` too). Re-verify uk pages + flows.
+
 ### Parked / later
 - **Add/edit-recipe ingredient suggestions** — chip row or autocomplete below the ingredient field. Decide static-staples vs. frequency-ranked-from-existing-recipes (the latter also canonicalises ingredient spelling → cleaner `.includes` matching). Parked behind the chip-collapse refactor (now shipped) — pick static-vs-autocomplete on purpose when it comes up. Note: add-recipe has **no** suggestion row today, by design; this would add one.
 - **Shared `addIngredient(name)` + dedupe** — both add paths (fridge + add-recipe `handleAddIngredient`) push without a dupe check; the add-recipe screenshot shows two `eggs`. Extract `addIngredient(name)` owning trim + lowercase + dedupe + render; both paths call it, fix lands once for both. Supersedes the old "only extract when a 3rd path appears" framing — the dupe bug is the trigger. Pair with the error-hint affordance below if shipping user-facing dupe feedback.
