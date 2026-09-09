@@ -1,26 +1,27 @@
 
-@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100..900;1,100..900&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 :root {
   /* — surfaces — */
-  --ma-bg:        #FBF2EE;  /* app background      */
+  --ma-bg:        #F4FBFF;  /* app background      */
   --ma-surface:   #FFFFFF;  /* cards & sheets       */
-  --ma-sunken:    #F7EAE4;  /* inputs & wells       */
+  --ma-sunken:    #F4FBFF;  /* inputs & wells       */
   
   
 
   /* — accents — */
-  --ma-primary: #D45B6A;  /* berry-rose      */
-  --ma-primary-rgb: 212, 91, 106;
+  --ma-primary: #23256E;  
+  --ma-primary-rgb: 35, 37, 110;
   --ma-primary-press: #BE4A59;  /* pressed/hover   */
-  --ma-secondary:     #E0993A;  /* honey           */
+  --ma-secondary:     #E4F3FB;  
   --ma-primary-bg-disabled: #a69a9c;
   --ma-secondary-bg-disabled: #ccc7c8;
 
   /* — text — */
-  --ma-text:    #33271F;  /* primary copy          */
-  --ma-muted:   #8C7B70;  /* captions, placeholder */
-  --ma-on-secondary: #fff;
+  --ma-text:    #23232E;  /* primary copy          */
+  --ma-muted:   #858592;  /* captions, placeholder */
+  --ma-on-secondary: #23232E;
 
   /* — lines & states — */
   --ma-input-border:   #cfbbaf;
@@ -43,8 +44,9 @@
   --ma-5: 20px; --ma-6: 24px; --ma-8: 32px; --ma-10: 40px; --ma-16: 64px;
 
   /* — type — */
-  --ma-font-display: 'Bitter', Georgia, serif;
-  --ma-font-ui:      'Mulish', system-ui, sans-serif;
+  --ma-font-display: 'Barlow', Georgia, serif;
+  --ma-font-ui:      'Barlow', system-ui, sans-serif;
+  --ma-font-caption: 'Shantell Sans', system-ui, sans-serif;
 
   /* - font sizes - */
   --ma-font-size-h1: 36px;
