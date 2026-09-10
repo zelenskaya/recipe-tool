@@ -68,10 +68,7 @@ span, div {
     color: var(--ma-text);
 }
 
-.logo {
-    height: 48px;
-    width: auto;
-}
+
 .tags {
     display: flex;
     flex-wrap: wrap;
@@ -648,3 +645,12 @@ a {
     }
 }
 
+.logo-link{
+    background-image: var(--ma-logo);
+    display: block;
+    height: var(--ma-logo-height);
+    width: var(--ma-logo-width);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: left;
+}
