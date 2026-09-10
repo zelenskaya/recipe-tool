@@ -72,6 +72,10 @@
   --ma-max-width: 600px;
   --ma-max-content-width: 600px;
   --ma-min-width: 120px;
+  --ma-logo-height: 40px;
+  --ma-logo-width: 200px;
+
+
 
   /* - inputs - */
     --ma-input-height: 48px;
@@ -144,4 +148,6 @@
   --ma-shadow-card-hover: 0 4px 12px rgba(51,39,31,0.12);
 
   --ma-icon-size-m: 22px;
+
+  --ma-logo: url("images/logo.svg");
 }

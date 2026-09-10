@@ -97,7 +97,9 @@ F2 — Fake result drives the funnel. Function returns hardcoded ["eggs","milk"]
 F3 — Secret + real API call. Function reads the key from a Cloudflare env var, sends one hardcoded base64 test image to the vision API, returns parsed ingredients. Verify by curling the endpoint — no UI. Isolates secret + Function→API leg; if it breaks it's the API, not the app.
 F4 — Real upload. Swap the image source only: file input → FileReader → base64 → POST to the Function. Diff from F3 is just where the base64 comes from; every other leg proven → real end-to-end in one small change.
 F5 — Async states. Loading / error / empty, attached to a call that's now genuinely slow and failable. Failure-state work, done when the failures are real.
- 
+
+German demos — ACTIVE (no longer parked). Reversal of the earlier "no brand-pitch work" stance: German-market outreach is now live, so branded German demos are real deliverables. strings.de.js lives on main (en↔de parity), inherited by every German branch — one translation, one place. Structure: main → german-demo (language template: only the en→de <script> swaps) → per-brand branches off it (hohenloher-molkerei-demo, +future), each swapping only logo.svg / favicon.svg / theme.css
+
 ### Parked / later
 - **Add/edit-recipe ingredient suggestions** — chip row or autocomplete below the ingredient field. Decide static-staples vs. frequency-ranked-from-existing-recipes (the latter also canonicalises ingredient spelling → cleaner `.includes` matching). Parked behind the chip-collapse refactor (now shipped) — pick static-vs-autocomplete on purpose when it comes up. Note: add-recipe has **no** suggestion row today, by design; this would add one.
 - **Shared `addIngredient(name)` + dedupe** — both add paths (fridge + add-recipe `handleAddIngredient`) push without a dupe check; the add-recipe screenshot shows two `eggs`. Extract `addIngredient(name)` owning trim + lowercase + dedupe + render; both paths call it, fix lands once for both. Supersedes the old "only extract when a 3rd path appears" framing — the dupe bug is the trigger. Pair with the error-hint affordance below if shipping user-facing dupe feedback.
@@ -108,7 +110,7 @@ F5 — Async states. Loading / error / empty, attached to a call that's now genu
 - **search.html no-results: "Browse all recipes" link → index.html** (decided; not built).
 - **Mobile safe-area** — sticky button `bottom` should clear the home indicator: `calc(var(--ma-5) + env(safe-area-inset-bottom))`. Low priority.
 - **`unpkg.com/lucide@latest`** is a third-party CDN on a moving version — fine for now; pin or vendor if reliability ever matters.
-- **German** (`strings.de.js`) — only if a native reviewer appears. No commercial driver.
+
 - **Custom domain** to prettify the `pages.dev` URLs.
 ---
  
