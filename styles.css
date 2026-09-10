@@ -46,6 +46,7 @@ h1{
     font-size: var(--ma-font-size-h1);
     line-height: var(--ma-line-height-h1);
     color: var(--ma-text);
+    text-transform: uppercase;
     
   
 }

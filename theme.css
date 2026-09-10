@@ -1,7 +1,4 @@
-
-
-@import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100..900;1,100..900&family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Shantell+Sans:wght@300;400;500;600;700;800&display=swap');
 :root {
   /* — surfaces — */
   --ma-bg:        #F4FBFF;  /* app background      */
@@ -13,20 +10,20 @@
   /* — accents — */
   --ma-primary: #23256E;  
   --ma-primary-rgb: 35, 37, 110;
-  --ma-primary-press: #BE4A59;  /* pressed/hover   */
+  --ma-primary-press: #171852;  /* pressed/hover   */
   --ma-secondary:     #E4F3FB;  
   --ma-primary-bg-disabled: #a69a9c;
   --ma-secondary-bg-disabled: #ccc7c8;
 
   /* — text — */
-  --ma-text:    #23232E;  /* primary copy          */
-  --ma-muted:   #858592;  /* captions, placeholder */
+  --ma-text:    #23256e;  /* primary copy          */
+  --ma-muted:   #6f6fa9;  /* captions, placeholder */
   --ma-on-secondary: #23232E;
 
   /* — lines & states — */
-  --ma-input-border:   #cfbbaf;
-  --ma-chip-in-input-border:#e9ddd6;
-  --ma-button-border:   #d7b199;
+  --ma-input-border:   #23256E;
+  --ma-chip-in-input-border:#23256E;
+  --ma-button-border:   #23256E;
   --ma-button-border-hover: #bd9175;
   --ma-fieldset-border: transparent;
   --ma-success:  #5E9E6B;
@@ -51,7 +48,7 @@
   /* - font sizes - */
   --ma-font-size-h1: 36px;
   --ma-line-height-h1: 44px;
-  --ma-font-weight-h1:700;
+  --ma-font-weight-h1:600;
 
   --ma-font-size-h2: 24px;
   --ma-line-height-h2: 32px;
