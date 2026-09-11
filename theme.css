@@ -1,36 +1,35 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Open+Sans+Condensed:wght@400;500;600;700&display=swap');
 :root {
   /* — surfaces — */
-  --ma-bg:        #FBF2EE;  /* app background      */
+  --ma-bg:        #F4FBFF;  /* app background      */
   --ma-surface:   #FFFFFF;  /* cards & sheets       */
-  --ma-sunken:    #F7EAE4;  /* inputs & wells       */
+  --ma-sunken:    #F4FBFF;  /* inputs & wells       */
+  --ma-topnav-bg: #004875;
   
   
 
   /* — accents — */
-  --ma-primary: #D45B6A;  /* berry-rose      */
-  --ma-primary-rgb: 212, 91, 106;
-  --ma-primary-press: #BE4A59;  /* pressed/hover   */
+  --ma-primary: #004875;  /* berry-rose      */
+  --ma-primary-rgb: 0, 72, 117;
+  --ma-primary-press: #013657;  /* pressed/hover   */
   --ma-secondary:     #E0993A;  /* honey           */
-  --ma-primary-bg-disabled: #a69a9c;
+  --ma-primary-bg-disabled: #57646f;
   --ma-secondary-bg-disabled: #ccc7c8;
 
   /* — text — */
-  --ma-text:    #33271F;  /* primary copy          */
-  --ma-muted:   #8C7B70;  /* captions, placeholder */
+  --ma-text:    #23232E;  /* primary copy          */
+  --ma-muted:   #858592;  /* captions, placeholder */
   --ma-on-secondary: #fff;
 
   /* — lines & states — */
-  --ma-input-border:   #cfbbaf;
-  --ma-chip-in-input-border:#e9ddd6;
-  --ma-button-border:   #d7b199;
-  --ma-button-border-hover: #bd9175;
+  --ma-input-border:   #858592;
+  --ma-chip-in-input-border:#858592;
+  --ma-button-border:   #858592;
+  --ma-button-border-hover: #49496d;
   --ma-fieldset-border: transparent;
   --ma-success:  #5E9E6B;
   --ma-warning:  #e0773a;
-  --ma-error:    #C8434F;
+  --ma-error:    #ff4f33;
   --ma-error-tint: #FBEEEF;
   --ma-focus:  rgba(var(--ma-primary-rgb), .5);
 
@@ -149,5 +148,5 @@
 
   --ma-icon-size-m: 22px;
 
-  --ma-logo: url("images/logo.svg");
+  --ma-logo: url("images/logo.png");
 }

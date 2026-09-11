@@ -653,3 +653,7 @@ a {
     background-size: contain;
     background-position: left;
 }
+
+.nav{
+    background: var(--ma-topnav-bg);
+}
