@@ -69,6 +69,11 @@ function fridgePhotoUploadHandler(event){
 
 async function handleScanFridge(){
     const res = await fetch("/api/ingredients");
+    if (!res.ok){
+        console.log("scan failed");
+        return;
+
+    }
     const data = await res.json();
 
     for (const ingredientName of data){
