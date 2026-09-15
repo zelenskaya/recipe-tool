@@ -26,6 +26,7 @@ const fridgePhotoInput = document.getElementById("fridge-photo-input");
 let selectedFile = null;
 let scanStatus = "idle";
 const fridgeScanStatus = document.getElementById("fridge-scan-status");
+const fridgeScanSpinner = document.getElementById("fridge-scan-spinner");
 
 function readFileAsDataURL(file) {
     return new Promise((resolve, reject) => {
@@ -119,6 +120,7 @@ function renderScanStatus(){
     }
 
    indexScanFridge.disabled = (scanStatus === "inFlight");
+   fridgeScanSpinner.classList.toggle("hidden", scanStatus !== "inFlight");
 
 }
 

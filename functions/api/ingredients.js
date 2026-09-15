@@ -23,12 +23,21 @@ export async function onRequest(context) {
                 }],
             }),
         });
+        if(!apiRes.ok){
+           
+            return Response.json({ error: "upstream failed" }, { status: 500 });
+        }
         const data = await apiRes.json();
         console.log(JSON.stringify(data));
         const text = data.content[0].text;
         const cleaned = text.replaceAll("```json", "").replaceAll("```","").trim();
+        try {
+            const list = JSON.parse(cleaned);
+            return Response.json(list);
+        } catch (err) {
+            return Response.json({ error: "parse failed"}, {status:500});
+
+        }
         
         
-        const list = JSON.parse(cleaned);
-        return Response.json(list);
     }

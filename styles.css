@@ -647,3 +647,15 @@ a {
     }
 }
 
+.spinner {
+    width: var(--ma-6);
+    height: var(--ma-6);
+    border: 3px solid var(--ma-input-border);
+    border-top-color: var(--ma-primary);
+    border-radius: 50%;
+    animation: spin 1.1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg);}
+}
