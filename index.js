@@ -77,21 +77,30 @@ async function handleScanFridge(){
         }
     scanStatus = "inFlight";
     renderScanStatus();
-    const dataURL = await readFileAsDataURL(selectedFile);
-    
-    const base64 = dataURL.split(",")[1];
-    const res = await fetch("/api/ingredients", {
+     try {
+        const dataURL = await readFileAsDataURL(selectedFile);
+        const base64 = dataURL.split(",")[1];
+        const res = await fetch("/api/ingredients", {
         method: "POST",
         headers: {"content-type": "application/json"},
         body: JSON.stringify({ image: base64 }),
-    });
-    if (!res.ok)
-    {
+        });
+        if (!res.ok)
+        {
+            scanStatus = "failed";
+            renderScanStatus();
+            return; 
+        }
+        const data = await res.json();
+
+    }
+
+    catch (err) {
         scanStatus = "failed";
         renderScanStatus();
-        return; 
+        console.log(err);
     }
-    const data = await res.json();
+    
     if (data.length === 0) {
         scanStatus = "successEmpty";
         renderScanStatus();
