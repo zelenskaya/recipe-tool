@@ -77,14 +77,16 @@ async function handleScanFridge(){
         }
     scanStatus = "inFlight";
     renderScanStatus();
-     try {
+    try
+    {
         const dataURL = await readFileAsDataURL(selectedFile);
         const base64 = dataURL.split(",")[1];
-        const res = await fetch("/api/ingredients", {
-        method: "POST",
-        headers: {"content-type": "application/json"},
-        body: JSON.stringify({ image: base64 }),
-        });
+        const res = await fetch("/api/ingredients", 
+            {
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            body: JSON.stringify({ image: base64 }),
+            });
         if (!res.ok)
         {
             scanStatus = "failed";
@@ -92,26 +94,28 @@ async function handleScanFridge(){
             return; 
         }
         const data = await res.json();
-
+        if (data.length === 0) {
+            scanStatus = "successEmpty";
+            renderScanStatus();
+        }
+        else {
+            scanStatus = "successNonEmpty";
+            for (const ingredientName of data) {
+            selectedIngredients.push(ingredientName);
+            }               
+            renderScanStatus();
+            renderSelectedChips();
+        }
     }
-
     catch (err) {
         scanStatus = "failed";
         renderScanStatus();
         console.log(err);
     }
+
+   
     
-    if (data.length === 0) {
-        scanStatus = "successEmpty";
-        renderScanStatus();
-    } else {
-        scanStatus = "successNonEmpty";
-        for (const ingredientName of data) {
-        selectedIngredients.push(ingredientName);
-    }
-    renderScanStatus();
-    renderSelectedChips();
-    }
+    
 }
 
 function renderScanStatus(){
