@@ -90,5 +90,10 @@ const UI = {
         promptState: "Type something to search",
         nothingFoundTitle: "No recipes found for \"{query}\"",
         nothingFoundMessage: "Please try a different search."
+    },
+
+    fridgeScan: {
+        scanStatusFailed: "Something went wrong on our side. Try again, or enter ingredients manually",
+        scanStatusSuccessEmpty: "No ingredients found. Enter ingredients manually, or make sure the food is visible and well-lit."
     }
 };
