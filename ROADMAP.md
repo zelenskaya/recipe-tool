@@ -43,8 +43,8 @@ _(tackle as a cluster before or with the photo-scan merge)_
 - **Remove/replace fridge photo** once uploaded — UX gap now the scan flow exists.
 
 ### Known bugs
-- **Edit-recipe: save-button label vanishes** after changing an ingredient (saves fine). Likely the same `applyStrings`/`textContent` family as other label-loss bugs.
-- **Search input too wide in top nav on `recipe.html`** — width inheriting oddly; isolate vs. pages where it's fine.
+- **Edit-recipe: save-button label vanishes** after changing an ingredient (saves fine). Likely the same `applyStrings`/`textContent` family as other label-loss bugs. - not reproducing on main
+- **Search input too wide in top nav on `recipe.html`** — width inheriting oddly; isolate vs. pages where it's fine. - not reproducing on main
 - **Empty-cookbook exit** — verify the add-recipe button works when the library is empty (reproduce by clearing all recipes).
 
 ### Features / decisions

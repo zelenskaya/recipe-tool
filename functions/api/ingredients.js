@@ -1,7 +1,9 @@
 export async function onRequest(context) {
     /*const IMG = "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z8AAAAMBAQDJ/pLvAAAAAElFTkSuQmCC";*/
     const body = await context.request.json();
-    const base64 = body.image;
+    const file = body.file;
+    const [dataURLPrefix, fileBase64] = file.split(",");
+    const mediaType = dataURLPrefix.split(":")[1].split(";")[0];
     const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: {
@@ -17,7 +19,7 @@ export async function onRequest(context) {
                 role: "user",
                 content: [
                     {
-                        type: "image", source: { type: "base64", media_type: "image/webp", data: base64, } },
+                        type: "image", source: { type: "base64", media_type: mediaType, data: fileBase64, } },
                         { type: "text", text: "List the food ingredients you see. Reply with only a JSON array of lowercase strings, nothing else."},
                     ],
                 }],

@@ -80,12 +80,12 @@ async function handleScanFridge(){
     try
     {
         const dataURL = await readFileAsDataURL(selectedFile);
-        const base64 = dataURL.split(",")[1];
+      
         const res = await fetch("/api/ingredients", 
             {
             method: "POST",
             headers: {"content-type": "application/json"},
-            body: JSON.stringify({ image: base64 }),
+            body: JSON.stringify({ file: dataURL }),
             });
         if (!res.ok)
         {
