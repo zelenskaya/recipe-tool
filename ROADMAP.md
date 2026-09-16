@@ -35,7 +35,7 @@ The app is built to be **re-skinnable and localisable** — each brand/language 
 
 ### Scan robustness
 _(tackle as a cluster before or with the photo-scan merge)_
-- **media_type hardcoded to `image/webp`** — confirmed bug: internet JPEG/PNGs get rejected. Derive type from the data-URL prefix `[0]` (currently discarded).
+
 - **Repeat-scan stacks duplicates** — pressing Scan twice pushes the same ingredients again. Check whether the shared-dedupe item below fixes it, or if scan needs its own re-run guard.
 - **Shared `addIngredient(name)` + dedupe** — fridge + add-recipe + scan all push without trim/lowercase/dedupe. One guarded function for all three. (Live proof: scan read "bananas", recipe had "banana" → no match.)
 - **File-format validation** — no check the upload is a supported image type. Untrusted-input guard, separate from the null-check.
@@ -46,6 +46,13 @@ _(tackle as a cluster before or with the photo-scan merge)_
 - **Edit-recipe: save-button label vanishes** after changing an ingredient (saves fine). Likely the same `applyStrings`/`textContent` family as other label-loss bugs. - not reproducing on main
 - **Search input too wide in top nav on `recipe.html`** — width inheriting oddly; isolate vs. pages where it's fine. - not reproducing on main
 - **Empty-cookbook exit** — verify the add-recipe button works when the library is empty (reproduce by clearing all recipes).
+- **Food only** — medicine should not go to ingredients
+- **Only absent from fridge in suggested chips** — if an ingredient is recognized in the fridge contents it should disappear from the suggested chips
+- **Missing cards ingredient alignment** — in the recipe cards on the index page, in the MISSING part on the card bottom, where the missing ingredients are displayed, if there are more than one line of missing ingredients, lines with the missing ingredients should be top aligned with that MISSING label. now they are center aligned.
+
+
+
+
 
 ### Features / decisions
 - **Add/edit-recipe ingredient suggestions** — chip row or autocomplete below the field. Decide static-staples vs. frequency-ranked-from-recipes (latter also canonicalises spelling → cleaner matching). Add-recipe has no suggestion row today, by design.
@@ -54,6 +61,7 @@ _(tackle as a cluster before or with the photo-scan merge)_
 - **Confirm ingredient-chip page count** — does a separate edit-recipe page exist? If so it needs the same `.chip-field`. If add-recipe is the only one, this is closed.
 
 ### Polish / someday
+- **Scan accurateness** — the model was not good at recognizing my food. result was not accurate. later i am considering testing other models or maybe giving them more detailed instructions.
 - **Mobile safe-area** — sticky button `bottom` should clear the home indicator: `calc(var(--ma-5) + env(safe-area-inset-bottom))`.
 - **`unpkg.com/lucide@latest`** — third-party CDN on a moving version; pin or vendor if reliability matters.
 - **Custom domain** to prettify the `pages.dev` URLs.
