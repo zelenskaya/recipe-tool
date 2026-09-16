@@ -12,7 +12,8 @@ const UI = {
     
         confirmDelete: "Möchtest Du dieses Rezept wirklich löschen?",
         confirmLeave: "Ohne Speichern verlassen?",
-        fieldHint: "Zum Hinzufügen Enter drücken."
+        fieldHint: "Zum Hinzufügen Enter drücken.",
+        scanFridge: "Kühlschrank scannen"
        
     },
 
