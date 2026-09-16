@@ -21,6 +21,29 @@ fridgeSearchResultsClearSearch.addEventListener("click", fridgeClearSearch);
 const fridgeIngredientInputFormField = document.getElementById("fridge-ingredient-input-form-field");
 const indexPageTitle = document.getElementById("index-page-title");
 const indexChipFieldHint = document.getElementById("index-chip-field-hint");
+const indexScanFridge = document.getElementById("index-scan-fridge");
+const fridgePhotoInput = document.getElementById("fridge-photo-input");
+let selectedFile = null;
+let scanStatus = "idle";
+const fridgeScanStatus = document.getElementById("fridge-scan-status");
+const fridgeScanSpinner = document.getElementById("fridge-scan-spinner");
+
+function readFileAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        
+        reader.addEventListener("load", () => {
+            resolve(reader.result);
+        });
+        reader.addEventListener("error", () => {
+            reject(reader.error);
+        });
+        reader.readAsDataURL(file);
+    });
+}
+
+indexScanFridge.addEventListener("click", handleScanFridge);
+fridgePhotoInput.addEventListener("change", fridgePhotoUploadHandler);
 
 
 function applyIndexStrings(){
@@ -36,6 +59,82 @@ function applyIndexStrings(){
     recipesSectionTitle.textContent = UI.index.recipesSectionTitle;
     indexAddRecipeButton.textContent = UI.common.addRecipe;
     indexChipFieldHint.textContent = UI.common.fieldHint;
+    indexScanFridge.textContent = UI.common.scanFridge;
+}
+
+function fridgePhotoUploadHandler(event){
+    selectedFile = event.target.files[0];
+    console.log(selectedFile);
+    
+    
+}
+
+async function handleScanFridge(){
+    if (!selectedFile)
+        { 
+            
+            return; //* user did not upload file. show message they need to upload file? disable fridge scan button?
+        }
+    scanStatus = "inFlight";
+    renderScanStatus();
+    try
+    {
+        const dataURL = await readFileAsDataURL(selectedFile);
+      
+        const res = await fetch("/api/ingredients", 
+            {
+            method: "POST",
+            headers: {"content-type": "application/json"},
+            body: JSON.stringify({ file: dataURL }),
+            });
+        if (!res.ok)
+        {
+            scanStatus = "failed";
+            renderScanStatus();
+            return; 
+        }
+        const data = await res.json();
+        if (data.length === 0) {
+            scanStatus = "successEmpty";
+            renderScanStatus();
+        }
+        else {
+            scanStatus = "successNonEmpty";
+            for (const ingredientName of data) {
+            selectedIngredients.push(ingredientName);
+            }               
+            renderScanStatus();
+            renderSelectedChips();
+        }
+    }
+    catch (err) {
+        scanStatus = "failed";
+        renderScanStatus();
+        console.log(err);
+    }
+
+   
+    
+    
+}
+
+function renderScanStatus(){
+    const showMessage = (scanStatus === "failed" || scanStatus === "successEmpty");
+    fridgeScanStatus.classList.toggle("hidden", !showMessage);
+
+    if (scanStatus === "failed") {
+       
+        fridgeScanStatus.textContent = UI.fridgeScan.scanStatusFailed;
+    }
+
+    if (scanStatus === "successEmpty") {
+       
+        fridgeScanStatus.textContent = UI.fridgeScan.scanStatusSuccessEmpty;
+    }
+
+   indexScanFridge.disabled = (scanStatus === "inFlight");
+   fridgeScanSpinner.classList.toggle("hidden", scanStatus !== "inFlight");
+
 }
 
 function fridgeClearSearch (){
@@ -43,6 +142,7 @@ function fridgeClearSearch (){
     renderSelectedChips();
     handleFindRecipes();
 }
+
 
 for (const pick of UI.fridge.quickPicks) {
     const chip = document.createElement("button");
