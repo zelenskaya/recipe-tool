@@ -26,10 +26,10 @@ The app is built to be **re-skinnable and localisable** — each brand/language 
 
 ## Next
 
-1. **Finish English scan on `photo-scan`** — clear the scan-robustness bugs (see Parked), get it clean.
-2. **Merge `photo-scan` → `main`.** Lands the scan feature; en + uk `fridgeScan` keys travel with it.
-3. **Add the two German `fridgeScan` keys to `strings.de.js` on `main`** — regain en/uk/de key parity (translations in notes). Only string not carried by the merge, since scan touched en + uk only.
-4. **Sync all branches to `main`** — `ukrainian-demo`, `german-demo`, `hohenloher-molkerei-demo`, `hubermuehle-demo`, `lifeway-demo` each merge `main`. Guard on lang branches: `grep -l "strings.en.js" *.html` empty.
+
+1. **Merge `photo-scan` → `main`.** Lands the scan feature; en + uk `fridgeScan` keys travel with it.
+2. **Add the two German `fridgeScan` keys to `strings.de.js` on `main`** — regain en/uk/de key parity (translations in notes). Only string not carried by the merge, since scan touched en + uk only.
+3. **Sync all branches to `main`** — `ukrainian-demo`, `german-demo`, `hohenloher-molkerei-demo`, `hubermuehle-demo`, `lifeway-demo` each merge `main`. Guard on lang branches: `grep -l "strings.en.js" *.html` empty.
 
 ## Parked
 
