@@ -8,13 +8,15 @@ const recipeDescription = document.getElementById("recipe-description-text");
 const recipeBackCaption = document.getElementById("recipe-back-caption");
 const recipePageBackButton = document.getElementById("recipe-page-back-button");
 const recipeMethodLabel = document.getElementById("recipe-method-label");
-        
-    
+const recipeContainer = document.querySelector(".recipe-container");        
+recipeContainer.style.viewTransitionName = "recipe-card-" + recipeId;    
 
 const recipeId = recipeParameters.get("recipeId");
 recipePageBackButton.addEventListener("click", returnBack);
 
 const recipeItem = recipes.find(recipe => recipe.id === recipeId);
+
+
 
 
 function applyRecipeStrings(){

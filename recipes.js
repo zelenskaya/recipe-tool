@@ -62,7 +62,8 @@ function makeRecipeCard(recipe){
                         
     link.href=`recipe.html?recipeId=${recipe.id}`;
     link.appendChild(categoryLeaf);
-    wrapperRecipeCard.appendChild(link);     
+    wrapperRecipeCard.appendChild(link);  
+    wrapperRecipeCard.style.viewTransitionName = "recipe-card-" + recipe.id;   
     return (wrapperRecipeCard);  
     
 }
