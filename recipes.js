@@ -179,6 +179,7 @@ function makeChip(label, onRemove){
     removeButton.classList.add("removeIcon");
     removeButton.addEventListener("click", onRemove);
     chip.appendChild(removeButton);
+    chip.dataset.label = label;
     return chip;
 
 }    
@@ -186,3 +187,34 @@ function makeChip(label, onRemove){
 displayRecipes({recipes:recipes});
 
 applyNavStrings();
+
+function readPositions(container){
+    const chips = container.querySelectorAll(".chip");
+    const rects = new Map();
+    for (const chipItem of chips){
+        rects.set(chipItem.dataset.label, chipItem.getBoundingClientRect());
+    }
+    return rects;
+}
+
+function playFlip(container, firstRects){
+     const lastRects = readPositions(container);
+    const updatedChips = container.querySelectorAll(".chip");
+    for (const chipItem of updatedChips){
+        const label = chipItem.dataset.label;
+        if(!firstRects.get(label)) continue;
+        const first = firstRects.get(label);
+       
+        const last = lastRects.get(label);
+        const dx = first.left - last.left;
+        const dy = first.top - last.top;
+        chipItem.style.transition = "none";
+        chipItem.style.transform = `translate(${dx}px,${dy}px)`;
+        void chipItem.offsetWidth;
+        chipItem.style.transform = "";
+        chipItem.style.transition = "";
+    }
+
+}
+
+   

@@ -27,9 +27,14 @@ The app is built to be **re-skinnable and localisable** — each brand/language 
 ## Next
 
 
-1. **Merge `photo-scan` → `main`.** Lands the scan feature; en + uk `fridgeScan` keys travel with it.
-2. **Add the two German `fridgeScan` keys to `strings.de.js` on `main`** — regain en/uk/de key parity (translations in notes). Only string not carried by the merge, since scan touched en + uk only.
-3. **Sync all branches to `main`** — `ukrainian-demo`, `german-demo`, `hohenloher-molkerei-demo`, `hubermuehle-demo`, `lifeway-demo` each merge `main`. Guard on lang branches: `grep -l "strings.en.js" *.html` empty.
+1. **Style update.** Look into recommendations from Claude Design.
+2. **Shimmer skeleton for the photo scan** — a shimmering placeholder while the vision model thinks.
+3. **Dark mode, driven by tokens.** 
+4. **Scroll-driven card reveal**
+5. **Toast / snackbar**
+6. **A count-up number on the fridge result**
+7. **Recip screenshot to digital conversion**
+8. **Sync all branches to `main`** — `ukrainian-demo`, `german-demo`, `hohenloher-molkerei-demo`, `hubermuehle-demo`, `lifeway-demo` each merge `main`. Guard on lang branches: `grep -l "strings.en.js" *.html` empty.
 
 ## Parked
 
@@ -54,6 +59,7 @@ _(tackle as a cluster before or with the photo-scan merge)_
 
 
 
+- **FLIP multi-row jump** — when chips wrap to 2+ rows, removing a chip from an upper row makes a lower-row chip animate diagonally/weirdly as it reflows up to the row above. FLIP handles x/y translation but the vertical row-jump reads as broken. 
 ### Features / decisions
 - **Add/edit-recipe ingredient suggestions** — chip row or autocomplete below the field. Decide static-staples vs. frequency-ranked-from-recipes (latter also canonicalises spelling → cleaner matching). Add-recipe has no suggestion row today, by design.
 - **Input error-hint affordance** — dupe feedback (message + retain typed text), clear-on-keystroke. Check if fridge + add-recipe both need it → shared `showFieldError(field, msg)`.

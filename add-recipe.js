@@ -77,7 +77,9 @@ function handleKeyDown(event) {
         }
 
 function renderIngredients(){
+    const firstRects = readPositions(chipsContainer);
     chipsContainer.textContent = "";
+    
     for (const [index,i] of currentIngredients.entries()){
         function handleRemoveIngredient(){
             
@@ -91,6 +93,8 @@ function renderIngredients(){
       
     }
     lucide.createIcons();
+    playFlip(chipsContainer, firstRects);
+
 }
 
 addRecipeAddIngredient.addEventListener("click", handleAddIngredient);

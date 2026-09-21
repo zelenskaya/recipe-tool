@@ -126,7 +126,6 @@ nav {
 .chip{
     background: transparent;
     border: 1px solid var(--ma-chip-in-input-border);
-    
     padding: var(--ma-pill-vertical-padding) var(--ma-pill-horizontal-padding);
     color: var(--ma-text);
     font-family: var(--ma-font-ui);
@@ -136,6 +135,7 @@ nav {
     border-radius: var(--ma-r-pill);
     align-items: center;
     gap: var(--ma-field-gap);
+    transition: transform 200ms ease;
 
 }
 
@@ -593,8 +593,7 @@ a {
     border: 1px solid var(--ma-input-border);
     background: var(--ma-surface);
     min-height: var(--ma-input-height);
-    
-    
+  
 }
 
 .chip-field__input {
