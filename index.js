@@ -187,30 +187,25 @@ function handleQuickPickSelection(event){
 }
 
 function renderSelectedChips(){
+    const firstRects = readPositions(fridgeSelectedIngredients);
     fridgeSelectedIngredients.textContent = "";
     for (const [index,i] of selectedIngredients.entries()){
         const chip = makeChip(i, handleRemoveIngredient);
         fridgeSelectedIngredients.append(chip);
         
-
         function handleRemoveIngredient(){
             selectedIngredients.splice(index,1);
             renderSelectedChips();
         }
-
-       
     }
-    fridgeSearchResultsClearSearch.classList.toggle("hidden", selectedIngredients.length === 0);
     lucide.createIcons();
-
+    fridgeSearchResultsClearSearch.classList.toggle("hidden", selectedIngredients.length === 0);
+    playFlip(fridgeSelectedIngredients, firstRects);
     handleFindRecipes();
+
 }
 
 
-
-
-
-/*fridgeFindRecipes.addEventListener("click", handleFindRecipes);*/
 
 function handleFindRecipes(){
     if (recipes.length === 0) {
