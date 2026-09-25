@@ -48,7 +48,8 @@ const UI = {
         description: "Recipe description",
         descriptionPlaceholder: "Enter recipe...",
         category: "Category",
-        selectCategory: "Select category"
+        selectCategory: "Select category",
+        sourceUrlLabel: "Source"
 
     },
 

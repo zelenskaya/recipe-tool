@@ -8,6 +8,8 @@ const recipeDescription = document.getElementById("recipe-description-text");
 const recipeBackCaption = document.getElementById("recipe-back-caption");
 const recipePageBackButton = document.getElementById("recipe-page-back-button");
 const recipeMethodLabel = document.getElementById("recipe-method-label");
+
+const displayedRecipeSourceUrlLabel = document.getElementById("displayed-recipe-source-url-label");
  
 
 const recipeId = recipeParameters.get("recipeId");
@@ -25,6 +27,7 @@ function applyRecipeStrings(){
     recipeEditButton.textContent = UI.common.edit;
     recipeDeleteButton.textContent = UI.common.delete;
     recipeMethodLabel.textContent = UI.recipe.method;
+    displayedRecipeSourceUrlLabel.textContent = UI.recipe.sourceUrlLabel;
     
 
 }
@@ -48,6 +51,9 @@ if (recipeItem === undefined){
     recipeCategory.textContent = recipeItem.category;
     recipeCategory.classList.add(`category-${recipeItem.category.toLowerCase()}`);
     recipeDescription.textContent = recipeItem.description;
+   /*if(!recipeItem.sourceUrl) {displayedRecipeSourceUrlLabel.classList.add("hidden");} else { displayedRecipeSourceUrlLabel.href = recipeItem.sourceUrl;}*/
+    displayedRecipeSourceUrlLabel.classList.toggle("hidden", !recipeItem.sourceUrl);
+    if (recipeItem.sourceUrl) {displayedRecipeSourceUrlLabel.href = recipeItem.sourceUrl;}
     recipeDeleteButton.addEventListener("click", handleDelete);
 
   

@@ -12,6 +12,8 @@ addRecipeBackButton.addEventListener("click", confirmLeaveIfUnsaved);
 const addRecipeBackCaption = document.getElementById("add-recipe-back-caption")
 const addRecipeIngredientsLabel = document.getElementById("add-recipe-ingredients-label");
 const recipeDescriptionLabel = document.getElementById("recipe-description-label");
+const recipeSourceUrlLabel = document.getElementById("recipe-source-url-label");
+const recipeSourceUrl = document.getElementById("recipe-source-url");
 const recipeDescriptionTextArea = document.getElementById("recipe-description-textarea");
 const addRecipeCategory = document.getElementById("add-recipe-category");
 const addRecipeSaveButton = document.getElementById("add-recipe-save-button");
@@ -42,6 +44,7 @@ function applyAddRecipeStrings(){
     document.title = UI.addRecipe.metaTitleAdd;
     addRecipeTitleLabel.textContent = UI.recipe.title;
     categoryPlaceholder.textContent = UI.addRecipe.selectCategory;
+    recipeSourceUrlLabel.textContent = UI.recipe.sourceUrlLabel;
 }
 
 function confirmLeaveIfUnsaved(event){
@@ -160,6 +163,7 @@ if (recipeItem){
     if(recipeItem.ingredients){
         currentIngredients = [...recipeItem.ingredients];
     }
+    if(recipeItem.sourceUrl) {recipeSourceUrl.value = recipeItem.sourceUrl;}
     renderIngredients();
 }
 
@@ -213,7 +217,8 @@ function handleSubmit(event){
         description: recipeDescriptionTextArea.value,
         category: categoryInput.value,
         id: recipeId,
-        ingredients: currentIngredients
+        ingredients: currentIngredients,
+        sourceUrl: recipeSourceUrl.value
         };
 
         if (recipeItem){

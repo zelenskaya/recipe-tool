@@ -47,7 +47,8 @@ const UI = {
         description: "Rezeptbeschreibung",
         descriptionPlaceholder: "Rezept eingeben...",
         category: "Kategorie",
-        selectCategory: "Kategorie wählen"
+        selectCategory: "Kategorie wählen",
+        sourceUrlLabel: "Quelle"
 
     },
 

@@ -47,7 +47,8 @@ const UI = {
         description: "Опис рецепта",
         descriptionPlaceholder: "Введіть рецепт...",
         category: "Категорія",
-        selectCategory: "Оберіть категорію"
+        selectCategory: "Оберіть категорію",
+        sourceUrlLabel: "Джерело"
 
     },
 

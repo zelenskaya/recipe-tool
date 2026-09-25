@@ -23,17 +23,33 @@ The app is built to be **re-skinnable and localisable** — each brand/language 
   - **Find-by-name** — nav search box on every page → `search.html?q=…`. Full-text match over name + description + ingredients.
 - **Cost decides the trigger:** cheap local actions (typing an ingredient) run reactively; expensive async ones (photo → ingredients via the vision API) get a deliberate button.
 
+## In progress
+**Recipe screenshot to digital conversion**
+Scope: change recipe ingredients to fused strings. Adding sourceUrl as optional field to the recipe onject, to link to recipe source. For the recipe that is generated from the screenshot, source field is left empty. 
+
+Steps for this scope:
+- Step 1, schema reshape + seed cut. Add sourceUrl to the recipe object (save path in add-recipe.js, and the shape the form reads). Cut the seed file to the few recipes I own.
+- Step 2, prefill the form from a plain object, no AI. Hand a hardcoded fake recipe object (fused-string ingredients, a category, a description) to the existing edit-prefill path and confirm it populates every field and saves.
+- Step 3, the AI call. 
+3a — upload → Function → echo back, no AI. File input, read to base64, POST to the Function; Function just replies "got it, N bytes, type X." Proves transport, media_type (the PNG fix lands here), Function routing, size sanity — the environment-specific stuff that breaks in weird ways. Isolate it before spending API calls on top. Verify: screenshot → Function acknowledges correct type + size.
+
+3b — Function calls the vision API, returns raw text. Adds exactly one thing: the API call. Model gets image + prompt; you return its raw answer, no parsing. This is where you iterate the prompt — your practice-AI core. Verify: real screenshot → recipe-shaped free text comes back. If it breaks, it's prompt/API, since 3a ruled out transport.
+
+3c — force strict JSON in your schema; parse + failure states. Tighten the prompt to emit only your recipe object as JSON (category from the enum, fused-string ingredients, method → short description). Client parses. Handle three new modes: unparseable JSON, valid-JSON-but-bad-category, "not a recipe." Verify: parses to a valid object; bad cases are caught, not crashes. This is the failure-state design work.
+
+3d — feed the parsed object to populateForm. Join to Step 2. Near-free because Step 2 built the seam. Verify: screenshot → filled editable form → save. Feature done.
+
 
 ## Next
 
 
-1. **Style update.** Look into recommendations from Claude Design.
+1. **React port and backend integration**
 2. **Shimmer skeleton for the photo scan** — a shimmering placeholder while the vision model thinks.
 3. **Dark mode, driven by tokens.** 
 4. **Scroll-driven card reveal**
 5. **Toast / snackbar**
 6. **A count-up number on the fridge result**
-7. **Recip screenshot to digital conversion**
+7. **Style update.** Look into recommendations from Claude Design.
 8. **Sync all branches to `main`** — `ukrainian-demo`, `german-demo`, `hohenloher-molkerei-demo`, `hubermuehle-demo`, `lifeway-demo` each merge `main`. Guard on lang branches: `grep -l "strings.en.js" *.html` empty.
 
 ## Parked
@@ -46,6 +62,8 @@ _(tackle as a cluster before or with the photo-scan merge)_
 - **File-format validation** — no check the upload is a supported image type. Untrusted-input guard, separate from the null-check.
 - **Clear-vs-retain photo on failure** — decision, not code: remove the photo (force re-pick) or keep it (allow retry)? A failure may be a fixable mislabel, not a bad photo.
 - **Remove/replace fridge photo** once uploaded — UX gap now the scan flow exists.
+- Plural mismatch in fridge matcher. Fridge and recipe ingredients must match in the same grammatical number, or a makeable recipe silently drops from results. Fridge "bananas" fails to match recipe "banana" (and vice versa). Cause: scoreRecipe compares whole words — fridgeIngredients.includes(word) — so "banana" !== "bananas". A false negative (hides recipes you can actually cook), worse than the accepted false positives like potato→sweet potato. Will be common once real content lands, since screenshots and user chips pluralize unpredictably.
+Not a one-line fix: normalize runs on the recipe side but not the fridge side, so any fix touches both; and English plurals aren't uniform (tomato→tomatoes, irregulars), so crude trailing-s stripping spawns new mismatches. Decide the approach at build time — canonicalize at source vs. fuzzy-match at compare (both discussed).
 
 ### Known bugs
 - **Edit-recipe: save-button label vanishes** after changing an ingredient (saves fine). Likely the same `applyStrings`/`textContent` family as other label-loss bugs. - not reproducing on main
