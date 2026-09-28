@@ -18,7 +18,7 @@ const recipeDescriptionTextArea = document.getElementById("recipe-description-te
 const addRecipeCategory = document.getElementById("add-recipe-category");
 const addRecipeSaveButton = document.getElementById("add-recipe-save-button");
 const addRecipeTitleLabel = document.getElementById("add-recipe-title-label");
-/*const categoryPlaceholder = document.getElementById("category-placeholder");*/
+
 const categorySelect = document.getElementById("recipe-category");
 
 for (const key in UI.categories) {
@@ -31,10 +31,6 @@ for (const key in UI.categories) {
 
 function applyAddRecipeStrings(){
     addRecipeBackCaption.textContent = UI.common.back;
-    
-    /*addRecipeTitle.textContent = UI.common.addRecipe;*/
-    
-    
     addRecipeIngredientsLabel.textContent = UI.recipe.ingredients;
     addRecipeAddIngredient.textContent = UI.common.add;
     recipeDescriptionLabel.textContent = UI.recipe.description;
@@ -43,7 +39,6 @@ function applyAddRecipeStrings(){
     addRecipeSaveButton.textContent = UI.common.save;
     document.title = UI.addRecipe.metaTitleAdd;
     addRecipeTitleLabel.textContent = UI.recipe.title;
-    /*categoryPlaceholder.textContent = UI.categories.uncategorized;*/
     recipeSourceUrlLabel.textContent = UI.recipe.sourceUrlLabel;
 }
 
@@ -139,28 +134,23 @@ function applyAddRecipeStringsTitle(){
 }
 applyAddRecipeStringsTitle();
 
-/*if (recipeItem!==undefined) {
-    
-    addRecipeTitle.textContent = UI.common.editRecipe;
-    document.title = UI.addRecipe.metaTitleEdit;
-    
-}*/
+
 
 const addRecipeForm = document.getElementById("add-recipe-form");
 const titleInput = document.getElementById("recipe-title");
 
-/*const categoryInput = document.getElementById("recipe-category");*/
+
 
 
 function populateForm(recipe) {
     if (recipe){
-        titleInput.value = recipe.title;
-        recipeDescriptionTextArea.value = recipe.description;
-        categorySelect.value = recipe.category;
-        if (recipe.ingredients){
-            currentIngredients = [...recipe.ingredients];
-        }
-        if (recipe.sourceUrl) {recipeSourceUrl.value = recipe.sourceUrl;}
+        const category = recipe.category?.toLowerCase();
+        categorySelect.value = Object.hasOwn(UI.categories, category) ? category : "uncategorized";
+        titleInput.value = recipe.title ?? "";
+        recipeDescriptionTextArea.value = recipe.description ?? "";
+        
+        currentIngredients = [...(recipe.ingredients ?? [])];
+        recipeSourceUrl.value = recipe.sourceUrl ?? "";
         renderIngredients();
         }
         else {
@@ -171,18 +161,6 @@ function populateForm(recipe) {
 
 populateForm(recipeItem);
 
-
-
-/*if (recipeItem){
-    titleInput.value=recipeItem.title;
-    recipeDescriptionTextArea.value=recipeItem.description;
-    categoryInput.value=recipeItem.category;
-    if(recipeItem.ingredients){
-        currentIngredients = [...recipeItem.ingredients];
-    }
-    if(recipeItem.sourceUrl) {recipeSourceUrl.value = recipeItem.sourceUrl;}
-    renderIngredients();
-}*/
 
 function inputIsValid(formFieldID, validationMessage) {
     const formFieldElement = document.getElementById(formFieldID);
