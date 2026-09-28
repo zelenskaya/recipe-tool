@@ -222,6 +222,11 @@ nav {
     color: var(--ma-category-soups-color);
 }
 
+.category-uncategorized {
+    background: var(--ma-category-uncategorized-background);
+    color: var(--ma-category-uncategorized-color);
+}
+
 .recipe-card {
     background: var(--ma-surface);
     padding: var(--ma-card-padding);

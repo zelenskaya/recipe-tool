@@ -18,7 +18,7 @@ const recipeDescriptionTextArea = document.getElementById("recipe-description-te
 const addRecipeCategory = document.getElementById("add-recipe-category");
 const addRecipeSaveButton = document.getElementById("add-recipe-save-button");
 const addRecipeTitleLabel = document.getElementById("add-recipe-title-label");
-const categoryPlaceholder = document.getElementById("category-placeholder");
+/*const categoryPlaceholder = document.getElementById("category-placeholder");*/
 const categorySelect = document.getElementById("recipe-category");
 
 for (const key in UI.categories) {
@@ -43,7 +43,7 @@ function applyAddRecipeStrings(){
     addRecipeSaveButton.textContent = UI.common.save;
     document.title = UI.addRecipe.metaTitleAdd;
     addRecipeTitleLabel.textContent = UI.recipe.title;
-    categoryPlaceholder.textContent = UI.addRecipe.selectCategory;
+    /*categoryPlaceholder.textContent = UI.categories.uncategorized;*/
     recipeSourceUrlLabel.textContent = UI.recipe.sourceUrlLabel;
 }
 
@@ -162,6 +162,9 @@ function populateForm(recipe) {
         }
         if (recipe.sourceUrl) {recipeSourceUrl.value = recipe.sourceUrl;}
         renderIngredients();
+        }
+        else {
+            categorySelect.value = "uncategorized";
         }
    
 }

@@ -53,7 +53,7 @@ const UI = {
     },
 
     categories: {
-        breakfast:"Frühstück", vegetables: "Gemüse", soups: "Suppen", snacks: "Snacks", meat: "Fleisch", uncategorized: "Ohne Kategorie"
+        uncategorized: "Ohne Kategorie", breakfast:"Frühstück", vegetables: "Gemüse", soups: "Suppen", snacks: "Snacks", meat: "Fleisch"
     },
    
     addRecipe: {
