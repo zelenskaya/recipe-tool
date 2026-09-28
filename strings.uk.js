@@ -53,7 +53,7 @@ const UI = {
     },
 
     categories: {
-        breakfast:"Сніданок", vegetables: "Овочі", soups: "Супи", snacks: "Перекуси", meat: "Мʼясо"
+        breakfast:"Сніданок", vegetables: "Овочі", soups: "Супи", snacks: "Перекуси", meat: "Мʼясо", uncategorized: "Без категорії"
     },
    
     addRecipe: {

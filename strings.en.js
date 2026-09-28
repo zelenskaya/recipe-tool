@@ -54,7 +54,7 @@ const UI = {
     },
 
     categories: {
-        breakfast:"Breakfast", vegetables: "Vegetables", soups: "Soups", snacks: "Snacks", meat: "Meat"
+        breakfast:"Breakfast", vegetables: "Vegetables", soups: "Soups", snacks: "Snacks", meat: "Meat", uncategorized: "Uncategorized"
     },
    
     addRecipe: {

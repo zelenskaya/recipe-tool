@@ -72,6 +72,7 @@ Not a one-line fix: normalize runs on the recipe side but not the fridge side, s
 - **Food only** — medicine should not go to ingredients
 - **Only absent from fridge in suggested chips** — if an ingredient is recognized in the fridge contents it should disappear from the suggested chips
 - **Missing cards ingredient alignment** — in the recipe cards on the index page, in the MISSING part on the card bottom, where the missing ingredients are displayed, if there are more than one line of missing ingredients, lines with the missing ingredients should be top aligned with that MISSING label. now they are center aligned.
+- **Categories localization** - whenever a recipe is displayed, either as a separate page or a list of recipes, all categories are in English even for Ukrainian and German demos.
 
 
 

@@ -54,7 +54,7 @@ function confirmLeaveIfUnsaved(event){
         if (
             titleInput.value !== recipeItem.title ||
             recipeDescriptionTextArea.value !== recipeItem.description ||
-            categoryInput.value !== recipeItem.category ||
+            categorySelect.value !== recipeItem.category ||
             JSON.stringify(currentIngredients) !== JSON.stringify(recipeItem.ingredients ?? [])
         ){
             const leavePage = confirm(UI.common.confirmLeave);
@@ -149,14 +149,28 @@ applyAddRecipeStringsTitle();
 const addRecipeForm = document.getElementById("add-recipe-form");
 const titleInput = document.getElementById("recipe-title");
 
-const categoryInput = document.getElementById("recipe-category");
+/*const categoryInput = document.getElementById("recipe-category");*/
+
+
+function populateForm(recipe) {
+    if (recipe){
+        titleInput.value = recipe.title;
+        recipeDescriptionTextArea.value = recipe.description;
+        categorySelect.value = recipe.category;
+        if (recipe.ingredients){
+            currentIngredients = [...recipe.ingredients];
+        }
+        if (recipe.sourceUrl) {recipeSourceUrl.value = recipe.sourceUrl;}
+        renderIngredients();
+        }
+   
+}
+
+populateForm(recipeItem);
 
 
 
-
-
-
-if (recipeItem){
+/*if (recipeItem){
     titleInput.value=recipeItem.title;
     recipeDescriptionTextArea.value=recipeItem.description;
     categoryInput.value=recipeItem.category;
@@ -165,7 +179,7 @@ if (recipeItem){
     }
     if(recipeItem.sourceUrl) {recipeSourceUrl.value = recipeItem.sourceUrl;}
     renderIngredients();
-}
+}*/
 
 function inputIsValid(formFieldID, validationMessage) {
     const formFieldElement = document.getElementById(formFieldID);
@@ -215,7 +229,7 @@ function handleSubmit(event){
         const recipe={
         title: titleInput.value,
         description: recipeDescriptionTextArea.value,
-        category: categoryInput.value,
+        category: categorySelect.value,
         id: recipeId,
         ingredients: currentIngredients,
         sourceUrl: recipeSourceUrl.value
@@ -245,7 +259,7 @@ function handleSubmit(event){
                 titleInput.addEventListener(validationRules.title.event, function () {
                     inputIsValid(validationRules.title.id, validationRules.title.message);
                 } );
-                categoryInput.addEventListener(validationRules.category.event, function(){
+                categorySelect.addEventListener(validationRules.category.event, function(){
                     inputIsValid(validationRules.category.id, validationRules.category.message);
             });
         }
