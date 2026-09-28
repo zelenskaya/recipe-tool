@@ -28,9 +28,9 @@ The app is built to be **re-skinnable and localisable** — each brand/language 
 Scope: change recipe ingredients to fused strings. Adding sourceUrl as optional field to the recipe onject, to link to recipe source. For the recipe that is generated from the screenshot, source field is left empty. 
 
 Steps for this scope:
-- Step 1, schema reshape + seed cut. Add sourceUrl to the recipe object (save path in add-recipe.js, and the shape the form reads). Cut the seed file to the few recipes I own.
-- Step 2, prefill the form from a plain object, no AI. Hand a hardcoded fake recipe object (fused-string ingredients, a category, a description) to the existing edit-prefill path and confirm it populates every field and saves.
-- Step 3, the AI call. 
+- DONE Step 1, schema reshape + seed cut. Add sourceUrl to the recipe object (save path in add-recipe.js, and the shape the form reads). Cut the seed file to the few recipes I own.
+- DONE Step 2, prefill the form from a plain object, no AI. Hand a hardcoded fake recipe object (fused-string ingredients, a category, a description) to the existing edit-prefill path and confirm it populates every field and saves.
+- Step 3, the AI call. The AI's JSON must use exactly these field names: title, description, category, ingredients, sourceUrl. populateForm replaces every field, lowercases the category, and uses "uncategorized" for a missing or invalid category.
 3a — upload → Function → echo back, no AI. File input, read to base64, POST to the Function; Function just replies "got it, N bytes, type X." Proves transport, media_type (the PNG fix lands here), Function routing, size sanity — the environment-specific stuff that breaks in weird ways. Isolate it before spending API calls on top. Verify: screenshot → Function acknowledges correct type + size.
 
 3b — Function calls the vision API, returns raw text. Adds exactly one thing: the API call. Model gets image + prompt; you return its raw answer, no parsing. This is where you iterate the prompt — your practice-AI core. Verify: real screenshot → recipe-shaped free text comes back. If it breaks, it's prompt/API, since 3a ruled out transport.
@@ -73,6 +73,7 @@ Not a one-line fix: normalize runs on the recipe side but not the fridge side, s
 - **Only absent from fridge in suggested chips** — if an ingredient is recognized in the fridge contents it should disappear from the suggested chips
 - **Missing cards ingredient alignment** — in the recipe cards on the index page, in the MISSING part on the card bottom, where the missing ingredients are displayed, if there are more than one line of missing ingredients, lines with the missing ingredients should be top aligned with that MISSING label. now they are center aligned.
 - **Categories localization** - whenever a recipe is displayed, either as a separate page or a list of recipes, all categories are in English even for Ukrainian and German demos.
+- **Browser-languagr validation messages** - on add/edit recipe page, if input field has invalid data or if a required field's data is missing, browser shows a default error and that error is in browser's language
 
 
 
