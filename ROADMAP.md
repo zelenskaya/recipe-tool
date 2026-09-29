@@ -30,11 +30,17 @@ Scope: change recipe ingredients to fused strings. Adding sourceUrl as optional 
 Steps for this scope:
 - DONE Step 1, schema reshape + seed cut. Add sourceUrl to the recipe object (save path in add-recipe.js, and the shape the form reads). Cut the seed file to the few recipes I own.
 - DONE Step 2, prefill the form from a plain object, no AI. Hand a hardcoded fake recipe object (fused-string ingredients, a category, a description) to the existing edit-prefill path and confirm it populates every field and saves.
-- Step 3, the AI call. The AI's JSON must use exactly these field names: title, description, category, ingredients, sourceUrl. 
+- Step 3, the AI call. The AI's JSON must use exactly these field names: title, description, category, ingredients, sourceUrl.
+
+- decisions for step 3
+- The server reports the error type, not just ok/not-ok.
+Retry network failures and 5xx/529, never 4xx.
+The Client timeout covers the whole Server budget.
+Clear the file on parse failure.
 - populateForm replaces every field, lowercases the category, and uses "uncategorized" for a missing or invalid category.
 - 3a — upload → Function → echo back, no AI. File input, valid file? , read to base64, POST to the Function; Function just replies "got it, N bytes, type X." Proves transport, media_type (the PNG fix lands here), Function routing, size sanity — the environment-specific stuff that breaks in weird ways. Isolate it before spending API calls on top. Verify: screenshot → Function acknowledges correct type + size. disable/enable controls.
 - 3a1. Client status check. Make the echo return an error on purpose to test it
-- 3a.2. Client timeout. Make the echo return an error on purpose to test it.
+- 3a.2. Client timeout. Make the echo return an error on purpose to test it. Extract the shared transport helper, switch the fridge scan to it.
 
 3b — Function calls the vision API, returns raw text. Adds exactly one thing: the API call. Model gets image + prompt; you return its raw answer, no parsing. This is where you iterate the prompt — your practice-AI core. Verify: real screenshot → recipe-shaped free text comes back. If it breaks, it's prompt/API, since 3a ruled out transport.
 
@@ -71,6 +77,7 @@ _(tackle as a cluster before or with the photo-scan merge)_
 - **Remove/replace fridge photo** once uploaded — UX gap now the scan flow exists.
 - Plural mismatch in fridge matcher. Fridge and recipe ingredients must match in the same grammatical number, or a makeable recipe silently drops from results. Fridge "bananas" fails to match recipe "banana" (and vice versa). Cause: scoreRecipe compares whole words — fridgeIngredients.includes(word) — so "banana" !== "bananas". A false negative (hides recipes you can actually cook), worse than the accepted false positives like potato→sweet potato. Will be common once real content lands, since screenshots and user chips pluralize unpredictably.
 Not a one-line fix: normalize runs on the recipe side but not the fridge side, so any fix touches both; and English plurals aren't uniform (tomato→tomatoes, irregulars), so crude trailing-s stripping spawns new mismatches. Decide the approach at build time — canonicalize at source vs. fuzzy-match at compare (both discussed).
+- HEIC format is not parseable yet
 
 ### Known bugs
 - **Edit-recipe: save-button label vanishes** after changing an ingredient (saves fine). Likely the same `applyStrings`/`textContent` family as other label-loss bugs. - not reproducing on main
