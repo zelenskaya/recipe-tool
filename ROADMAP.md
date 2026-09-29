@@ -30,12 +30,19 @@ Scope: change recipe ingredients to fused strings. Adding sourceUrl as optional 
 Steps for this scope:
 - DONE Step 1, schema reshape + seed cut. Add sourceUrl to the recipe object (save path in add-recipe.js, and the shape the form reads). Cut the seed file to the few recipes I own.
 - DONE Step 2, prefill the form from a plain object, no AI. Hand a hardcoded fake recipe object (fused-string ingredients, a category, a description) to the existing edit-prefill path and confirm it populates every field and saves.
-- Step 3, the AI call. The AI's JSON must use exactly these field names: title, description, category, ingredients, sourceUrl. populateForm replaces every field, lowercases the category, and uses "uncategorized" for a missing or invalid category.
-3a — upload → Function → echo back, no AI. File input, read to base64, POST to the Function; Function just replies "got it, N bytes, type X." Proves transport, media_type (the PNG fix lands here), Function routing, size sanity — the environment-specific stuff that breaks in weird ways. Isolate it before spending API calls on top. Verify: screenshot → Function acknowledges correct type + size.
+- Step 3, the AI call. The AI's JSON must use exactly these field names: title, description, category, ingredients, sourceUrl. 
+- populateForm replaces every field, lowercases the category, and uses "uncategorized" for a missing or invalid category.
+- 3a — upload → Function → echo back, no AI. File input, valid file? , read to base64, POST to the Function; Function just replies "got it, N bytes, type X." Proves transport, media_type (the PNG fix lands here), Function routing, size sanity — the environment-specific stuff that breaks in weird ways. Isolate it before spending API calls on top. Verify: screenshot → Function acknowledges correct type + size. disable/enable controls.
+- 3a1. Client status check. Make the echo return an error on purpose to test it
+- 3a.2. Client timeout. Make the echo return an error on purpose to test it.
 
 3b — Function calls the vision API, returns raw text. Adds exactly one thing: the API call. Model gets image + prompt; you return its raw answer, no parsing. This is where you iterate the prompt — your practice-AI core. Verify: real screenshot → recipe-shaped free text comes back. If it breaks, it's prompt/API, since 3a ruled out transport.
 
-3c — force strict JSON in your schema; parse + failure states. Tighten the prompt to emit only your recipe object as JSON (category from the enum, fused-string ingredients, method → short description). Client parses. Handle three new modes: unparseable JSON, valid-JSON-but-bad-category, "not a recipe." Verify: parses to a valid object; bad cases are caught, not crashes. This is the failure-state design work.
+3b1. server timeout
+
+3b2. retry once
+
+3c — "parced?" and "valid recipe", with their error states.force strict JSON in your schema; parse + failure states. Tighten the prompt to emit only your recipe object as JSON (category from the enum, fused-string ingredients, method → short description). Client parses. Handle three new modes: unparseable JSON, valid-JSON-but-bad-category, "not a recipe." Verify: parses to a valid object; bad cases are caught, not crashes. This is the failure-state design work.
 
 3d — feed the parsed object to populateForm. Join to Step 2. Near-free because Step 2 built the seam. Verify: screenshot → filled editable form → save. Feature done.
 
