@@ -1,4 +1,5 @@
 export async function onRequest(context){
-    return new Response(context.request.method);
+    const body = await context.request.text();
+    return new Response(body);
     
 }
