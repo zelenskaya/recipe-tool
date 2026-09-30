@@ -1,4 +1,4 @@
 export async function onRequest(context){
-    return new Response ("hi");
+    return new Response(context.request.method);
     
 }
