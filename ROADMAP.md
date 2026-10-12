@@ -33,6 +33,7 @@ Steps for this scope:
 - Step 3, the AI call. The AI's JSON must use exactly these field names: title, description, category, ingredients, sourceUrl.
 
 - decisions for step 3
+- scan of the image is add-only, adding scan to the edit recipe view increases cognitive load without adding much value.
 - The server reports the error type, not just ok/not-ok.
 Retry network failures and 5xx/529, never 4xx.
 The Client timeout covers the whole Server budget.
