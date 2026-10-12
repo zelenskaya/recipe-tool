@@ -18,6 +18,7 @@ const recipeDescriptionTextArea = document.getElementById("recipe-description-te
 const addRecipeCategory = document.getElementById("add-recipe-category");
 const addRecipeSaveButton = document.getElementById("add-recipe-save-button");
 const addRecipeTitleLabel = document.getElementById("add-recipe-title-label");
+const recipeScanButton = document.getElementById("recipe-scan-button");
 
 const categorySelect = document.getElementById("recipe-category");
 
@@ -40,7 +41,23 @@ function applyAddRecipeStrings(){
     document.title = UI.addRecipe.metaTitleAdd;
     addRecipeTitleLabel.textContent = UI.recipe.title;
     recipeSourceUrlLabel.textContent = UI.recipe.sourceUrlLabel;
+    recipeScanButton.textContent = UI.addRecipe.scanRecipe;
 }
+
+function readFileAsDataURL(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        
+        reader.addEventListener("load", () => {
+            resolve(reader.result);
+        });
+        reader.addEventListener("error", () => {
+            reject(reader.error);
+        });
+        reader.readAsDataURL(file);
+    });
+}
+
 
 function confirmLeaveIfUnsaved(event){
     

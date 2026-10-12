@@ -59,7 +59,8 @@ const UI = {
     addRecipe: {
         metaTitleAdd: "Rezept-Tool · Rezept hinzufügen",
         metaTitleEdit: "Rezept-Tool · Rezept bearbeiten",
-        selectCategory: "Kategorie wählen"
+        selectCategory: "Kategorie wählen",
+        scanRecipe: "Rezept aus Bild scannen"
     },
 
     validationRules: {

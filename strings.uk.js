@@ -59,7 +59,8 @@ const UI = {
     addRecipe: {
         metaTitleAdd: "Кулінарна книга · Додати рецепт",
         metaTitleEdit: "Кулінарна книга · Редагувати рецепт",
-        selectCategory: "Оберіть категорію"
+        selectCategory: "Оберіть категорію",
+        scanRecipe: "Відсканувати рецепт із зображення"
     },
 
     validationRules: {

@@ -51,6 +51,7 @@ const UI = {
         selectCategory: "Select category",
         sourceUrlLabel: "Source"
 
+
     },
 
     categories: {
@@ -60,7 +61,8 @@ const UI = {
     addRecipe: {
         metaTitleAdd: "Recipe tool · Add recipe",
         metaTitleEdit: "Recipe tool · Edit recipe",
-        selectCategory: "Select category"
+        selectCategory: "Select category",
+        scanRecipe: "Scan recipe from image"
     },
 
     validationRules: {
