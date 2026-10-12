@@ -1,5 +1,6 @@
 
 let currentIngredients = [];
+let uploadedImage = null;
 const ingredientItem = document.getElementById("ingredient-item");
 const addRecipeAddIngredient = document.getElementById("add-recipe-add-ingredient");
 const chipsContainer = document.getElementById("chips-container");
@@ -21,6 +22,15 @@ const addRecipeTitleLabel = document.getElementById("add-recipe-title-label");
 const recipeScanButton = document.getElementById("recipe-scan-button");
 const scanImageBlock = document.getElementById("scan-image-block");
 const categorySelect = document.getElementById("recipe-category");
+const recipeUploadImage = document.getElementById("recipe-upload-image");
+
+recipeUploadImage.addEventListener("change", recipeUploadImageHandler);
+
+function recipeUploadImageHandler(event){
+    uploadedImage = event.target.files[0];
+    console.log(uploadedImage);
+
+}
 
 for (const key in UI.categories) {
     const option = document.createElement("option");

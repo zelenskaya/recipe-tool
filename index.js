@@ -65,8 +65,6 @@ function applyIndexStrings(){
 function fridgePhotoUploadHandler(event){
     selectedFile = event.target.files[0];
     console.log(selectedFile);
-    
-    
 }
 
 async function handleScanFridge(){
