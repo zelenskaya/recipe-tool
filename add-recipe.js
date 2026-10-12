@@ -19,7 +19,7 @@ const addRecipeCategory = document.getElementById("add-recipe-category");
 const addRecipeSaveButton = document.getElementById("add-recipe-save-button");
 const addRecipeTitleLabel = document.getElementById("add-recipe-title-label");
 const recipeScanButton = document.getElementById("recipe-scan-button");
-
+const scanImageBlock = document.getElementById("scan-image-block");
 const categorySelect = document.getElementById("recipe-category");
 
 for (const key in UI.categories) {
@@ -138,6 +138,8 @@ const validationRules = {
 };
 
 const recipeItem = recipes.find(recipe => recipe.id === recipeId);
+
+scanImageBlock.classList.toggle("hidden", recipeItem!==undefined);
 
 function applyAddRecipeStringsTitle(){
     addRecipeTitle.textContent = recipeItem !== undefined
