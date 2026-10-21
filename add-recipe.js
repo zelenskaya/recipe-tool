@@ -26,9 +26,16 @@ const recipeUploadImage = document.getElementById("recipe-upload-image");
 
 recipeUploadImage.addEventListener("change", recipeUploadImageHandler);
 
-function recipeUploadImageHandler(event){
+async function recipeUploadImageHandler(event){
     uploadedImage = event.target.files[0];
-    console.log(uploadedImage);
+    const convertedImage = await readFileAsDataURL(uploadedImage);
+    const response = await fetch ("/api/scanned-recipe", 
+        {
+            method: "POST",
+            body: JSON.stringify({file:convertedImage})
+        });
+    const responseText = await response.text();    
+    console.log(responseText);
 
 }
 
