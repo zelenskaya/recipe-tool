@@ -23,6 +23,17 @@ const recipeScanButton = document.getElementById("recipe-scan-button");
 const scanImageBlock = document.getElementById("scan-image-block");
 const categorySelect = document.getElementById("recipe-category");
 const recipeUploadImage = document.getElementById("recipe-upload-image");
+let recipeScanStatus = "idle";
+const recipeScanSpinner = document.getElementById("recipe-scan-spinner");
+const recipeScanStatusMessage = document.getElementById("recipe-scan-status");
+const recipeScanConfig = {
+    idle: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: false},
+    fileReady: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: true, scanButtonDisabled: false, errorShown: false},
+    inFlight: { spinnerShown: true, fileInputDisabled: true, scanButtonShown: true, scanButtonDisabled: true, errorShown: false},
+    success: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: false},
+    failedCanRetry: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: true, scanButtonDisabled: false, errorShown: true},
+    failedInvalidImage: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: true},
+};
 
 recipeUploadImage.addEventListener("change", recipeUploadImageHandler);
 
@@ -34,9 +45,19 @@ async function recipeUploadImageHandler(event){
             method: "POST",
             body: JSON.stringify({file:convertedImage})
         });
-    const responseText = await response.text();    
-    console.log(responseText);
+    if (response.ok){
+    const responseText = await response.text();
+    console.log(responseText);}
+}
 
+function renderRecipeScanStatus(){
+   
+    const ui = recipeScanConfig[recipeScanStatus];
+    recipeScanSpinner.classList.toggle("hidden", !ui.spinnerShown);
+    recipeUploadImage.disabled = ui.fileInputDisabled;
+    recipeScanButton.classList.toggle("hidden", !ui.scanButtonShown);
+    recipeScanButton.disabled = ui.scanButtonDisabled;
+    recipeScanStatusMessage.classList.toggle("hidden", !ui.errorShown);
 }
 
 for (const key in UI.categories) {
