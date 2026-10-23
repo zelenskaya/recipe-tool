@@ -35,20 +35,41 @@ const recipeScanConfig = {
     failedInvalidImage: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: true},
 };
 
+renderRecipeScanStatus();
 recipeUploadImage.addEventListener("change", recipeUploadImageHandler);
 
-async function recipeUploadImageHandler(event){
+function recipeUploadImageHandler(event){
     uploadedImage = event.target.files[0];
+    recipeScanStatus = "fileReady";
+    renderRecipeScanStatus();
+    
+}
+
+recipeScanButton.addEventListener("click", scanButtonClickHandler);
+
+async function scanButtonClickHandler (){
+    recipeScanStatus = "inFlight";
+    renderRecipeScanStatus();
     const convertedImage = await readFileAsDataURL(uploadedImage);
-    const response = await fetch ("/api/scanned-recipe", 
+    const response = await fetch ("/api/scanned-recipe",
         {
             method: "POST",
             body: JSON.stringify({file:convertedImage})
-        });
-    if (response.ok){
-    const responseText = await response.text();
-    console.log(responseText);}
+        }
+    );
+    if(response.ok){
+        recipeScanStatus = "success";
+        const responseText = await response.text();
+        console.log(responseText);
+    }
+    else {
+        recipeScanStatus = "failedCanRetry";
+        recipeScanStatusMessage.textContent = "error";
+    }
+    renderRecipeScanStatus();
 }
+
+
 
 function renderRecipeScanStatus(){
    
