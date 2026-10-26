@@ -95,6 +95,12 @@ const UI = {
 
     fridgeScan: {
         scanStatusFailed: "Auf unserer Seite ist etwas schiefgelaufen. Versuchen Sie es erneut oder geben Sie die Zutaten manuell ein.",
-        scanStatusSuccessEmpty: "Keine Zutaten gefunden. Geben Sie die Zutaten manuell ein oder achten Sie darauf, dass die Lebensmittel gut sichtbar und ausreichend beleuchtet sind."
+        scanStatusSuccessEmpty: "Keine Zutaten gefunden. Gib die Zutaten manuell ein oder achte darauf, dass die Lebensmittel gut sichtbar und ausreichend beleuchtet sind."
+    },
+
+    recipeScan: {
+        scanStatusFailedCanRetry: "Auf unserer Seite ist etwas schiefgelaufen. Versuche es erneut oder gib das Rezept manuell ein.",
+        scanStatusFailedInvalidImage: "Bitte lade eine gültige Bilddatei hoch: jpg, jpeg oder png. HEIC-Unterstützung kommt bald.",
+        scanStatusFailedNoRecipe: "Kein Rezept gefunden. Versuche es erneut oder gib das Rezept manuell ein."
     }
 };

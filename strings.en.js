@@ -98,5 +98,11 @@ const UI = {
     fridgeScan: {
         scanStatusFailed: "Something went wrong on our side. Try again, or enter ingredients manually.",
         scanStatusSuccessEmpty: "No ingredients found. Enter ingredients manually, or make sure the food is visible and well-lit."
+    },
+
+    recipeScan: {
+        scanStatusFailedCanRetry: "Something went wrong on our side. Try again, or enter the recipe manually.",
+        scanStatusFailedInvalidImage: "Please upload a valid image file: jpg, jpeg or png. HEIC format support is on the way.",
+        scanStatusFailedNoRecipe: "No recipe found. Try again, or enter the recipe manually."
     }
 };

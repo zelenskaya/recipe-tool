@@ -17,6 +17,7 @@ body {
     max-width: var(--ma-max-content-width);
     margin-inline: auto;
     font-family: var(--ma-font-ui);
+    text-wrap: pretty;
    
 }
 

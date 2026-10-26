@@ -45,7 +45,7 @@ function recipeUploadImageHandler(event){
     }
     else {
         recipeScanStatus = "failedInvalidImage";
-        recipeScanStatusMessage.textContent = "Please upload a valid image file."
+        recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedInvalidImage;
     }
     renderRecipeScanStatus();
     
@@ -76,13 +76,13 @@ async function scanButtonClickHandler (){
     }
     else {
         recipeScanStatus = "failedCanRetry";
-        recipeScanStatusMessage.textContent = "There was a mistake on our side. Please try again.";
+        recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedCanRetry;
     }
     }
 
     catch (error) {
         recipeScanStatus = "failedCanRetry";
-        recipeScanStatusMessage.textContent = "There was a mistake on our side. Please try again.";
+        recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedCanRetry;
     }
 
     finally {
