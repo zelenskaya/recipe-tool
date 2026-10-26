@@ -40,7 +40,13 @@ recipeUploadImage.addEventListener("change", recipeUploadImageHandler);
 
 function recipeUploadImageHandler(event){
     uploadedImage = event.target.files[0];
-    recipeScanStatus = "fileReady";
+     if (uploadedImage.type.startsWith("image/")){
+        recipeScanStatus = "fileReady";
+    }
+    else {
+        recipeScanStatus = "failedInvalidImage";
+        recipeScanStatusMessage.textContent = "Please upload a valid image file."
+    }
     renderRecipeScanStatus();
     
 }
@@ -70,19 +76,23 @@ async function scanButtonClickHandler (){
     }
     else {
         recipeScanStatus = "failedCanRetry";
-        recipeScanStatusMessage.textContent = "error";
+        recipeScanStatusMessage.textContent = "There was a mistake on our side. Please try again.";
     }
     }
 
     catch (error) {
         recipeScanStatus = "failedCanRetry";
-        recipeScanStatusMessage.textContent = "error";
+        recipeScanStatusMessage.textContent = "There was a mistake on our side. Please try again.";
     }
 
     finally {
          clearTimeout(timeoutId);
     }
     
+    
+
+   
+
     renderRecipeScanStatus();
 }
 
