@@ -48,15 +48,21 @@ function recipeUploadImageHandler(event){
 recipeScanButton.addEventListener("click", scanButtonClickHandler);
 
 async function scanButtonClickHandler (){
+
     recipeScanStatus = "inFlight";
     renderRecipeScanStatus();
     const convertedImage = await readFileAsDataURL(uploadedImage);
-    const response = await fetch ("/api/scanned-recipe",
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 30000);
+    try {
+        const response = await fetch ("/api/scanned-recipe",
         {
             method: "POST",
-            body: JSON.stringify({file:convertedImage})
+            body: JSON.stringify({file:convertedImage}),
+            signal: controller.signal
         }
     );
+   
     if(response.ok){
         recipeScanStatus = "success";
         const responseText = await response.text();
@@ -66,6 +72,17 @@ async function scanButtonClickHandler (){
         recipeScanStatus = "failedCanRetry";
         recipeScanStatusMessage.textContent = "error";
     }
+    }
+
+    catch (error) {
+        recipeScanStatus = "failedCanRetry";
+        recipeScanStatusMessage.textContent = "error";
+    }
+
+    finally {
+         clearTimeout(timeoutId);
+    }
+    
     renderRecipeScanStatus();
 }
 
