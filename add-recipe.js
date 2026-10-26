@@ -57,7 +57,19 @@ async function scanButtonClickHandler (){
 
     recipeScanStatus = "inFlight";
     renderRecipeScanStatus();
-    const convertedImage = await readFileAsDataURL(uploadedImage);
+    let convertedImage;
+    try {
+        
+        convertedImage = await readFileAsDataURL(uploadedImage);
+    }
+
+    catch (error) {
+        recipeScanStatus = "failedInvalidImage";
+        recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedInvalidImage;
+        renderRecipeScanStatus();
+        return;
+    }
+    
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 30000);
     try {
