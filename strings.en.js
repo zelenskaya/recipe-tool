@@ -101,6 +101,7 @@ const UI = {
     },
 
     recipeScan: {
+        recipeUploadImageLabel: "Handwritten note, a screenshot or a photo. Anything goes.",
         scanStatusFailedCanRetry: "Something went wrong on our side. Try again, or enter the recipe manually.",
         scanStatusFailedInvalidImage: "Please upload a valid image file: jpg, jpeg or png. HEIC format support is on the way.",
         scanStatusFailedNoRecipe: "No recipe found. Try again, or enter the recipe manually."

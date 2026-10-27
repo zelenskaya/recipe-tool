@@ -99,6 +99,7 @@ const UI = {
     },
 
     recipeScan: {
+        recipeUploadImageLabel: "Handschriftliche Notiz, ein Screenshot oder ein Foto. Hier geht alles.",
         scanStatusFailedCanRetry: "Auf unserer Seite ist etwas schiefgelaufen. Versuche es erneut oder gib das Rezept manuell ein.",
         scanStatusFailedInvalidImage: "Bitte lade eine gültige Bilddatei hoch: jpg, jpeg oder png. HEIC-Unterstützung kommt bald.",
         scanStatusFailedNoRecipe: "Kein Rezept gefunden. Versuche es erneut oder gib das Rezept manuell ein."

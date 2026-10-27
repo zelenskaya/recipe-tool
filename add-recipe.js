@@ -34,6 +34,10 @@ const recipeScanConfig = {
     failedCanRetry: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: true, scanButtonDisabled: false, errorShown: true},
     failedInvalidImage: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: true},
 };
+const recipeUploadImageLabel = document.getElementById("recipe-upload-image-label");
+
+recipeUploadImageLabel.textContent = UI.recipeScan.recipeUploadImageLabel;
+
 
 renderRecipeScanStatus();
 recipeUploadImage.addEventListener("change", recipeUploadImageHandler);

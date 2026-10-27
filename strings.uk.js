@@ -99,6 +99,7 @@ const UI = {
     },
 
     recipeScan: {
+        recipeUploadImageLabel: "Рукописна нотатка, скріншот або фото. Тут можна все",
         scanStatusFailedCanRetry: "Щось пішло не так з нашого боку. Спробуйте ще раз або введіть рецепт вручну.",
         scanStatusFailedInvalidImage: "Будь ласка, завантажте коректний файл зображення: jpg, jpeg або png. Підтримка формату HEIC уже не за горами.",
         scanStatusFailedNoRecipe: "Рецепт не знайдено. Спробуйте ще раз або введіть рецепт вручну."
