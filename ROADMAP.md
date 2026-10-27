@@ -39,11 +39,13 @@ Retry network failures and 5xx/529, never 4xx.
 The Client timeout covers the whole Server budget.
 Clear the file on parse failure.
 - populateForm replaces every field, lowercases the category, and uses "uncategorized" for a missing or invalid category.
-- 3a — upload → Function → echo back, no AI. File input, valid file? , read to base64, POST to the Function; Function just replies "got it, N bytes, type X." Proves transport, media_type (the PNG fix lands here), Function routing, size sanity — the environment-specific stuff that breaks in weird ways. Isolate it before spending API calls on top. Verify: screenshot → Function acknowledges correct type + size. disable/enable controls.
-- 3a1. Client status check. Make the echo return an error on purpose to test it
-- 3a.2. Client timeout. Make the echo return an error on purpose to test it. Extract the shared transport helper, switch the fridge scan to it.
+-DONE 3a — upload → Function → echo back, no AI. File input, valid file? , read to base64, POST to the Function; Function just replies "got it, N bytes, type X." Proves transport, media_type (the PNG fix lands here), Function routing, size sanity — the environment-specific stuff that breaks in weird ways. Isolate it before spending API calls on top. Verify: screenshot → Function acknowledges correct type + size. disable/enable controls.
+- DONE 3a1. Client status check. Make the echo return an error on purpose to test it
+-  3a.2. Client timeout: DONE. Make the echo return an error on purpose to test it. Extract the shared transport helper, switch the fridge scan to it. - this was descoped: “extract the shared transport + switch fridge scan to it” (deferred, since I'm hiding fridge scan)
+- DONE (off-roadmap, part of the 3a client work): valid-file check (image MIME -> failedInvalidImage), convert-failure catch -> failedInvalidImage, keyed error messages en/uk/de (UI.recipeScan.*), and the upload helper label. Full client state machine - idle / fileReady / inFlight / success / failedCanRetry / failedInvalidImage - complete and config-driven.
 
 3b — Function calls the vision API, returns raw text. Adds exactly one thing: the API call. Model gets image + prompt; you return its raw answer, no parsing. This is where you iterate the prompt — your practice-AI core. Verify: real screenshot → recipe-shaped free text comes back. If it breaks, it's prompt/API, since 3a ruled out transport.
+Decided: extract the FULL object (title; description = method as prose; category from the enum; ingredients as fused strings; sourceUrl empty). Return raw text, no parsing yet (that’s 3c). ingredients.js is the reference Function; API key already in .dev.vars from the fridge scan.
 
 3b1. server timeout
 
@@ -73,7 +75,7 @@ _(tackle as a cluster before or with the photo-scan merge)_
 
 - **Repeat-scan stacks duplicates** — pressing Scan twice pushes the same ingredients again. Check whether the shared-dedupe item below fixes it, or if scan needs its own re-run guard.
 - **Shared `addIngredient(name)` + dedupe** — fridge + add-recipe + scan all push without trim/lowercase/dedupe. One guarded function for all three. (Live proof: scan read "bananas", recipe had "banana" → no match.)
-- **File-format validation** — no check the upload is a supported image type. Untrusted-input guard, separate from the null-check.
+- DONE **File-format validation** — no check the upload is a supported image type. Untrusted-input guard, separate from the null-check.
 - **Clear-vs-retain photo on failure** — decision, not code: remove the photo (force re-pick) or keep it (allow retry)? A failure may be a fixable mislabel, not a bad photo.
 - **Remove/replace fridge photo** once uploaded — UX gap now the scan flow exists.
 - Plural mismatch in fridge matcher. Fridge and recipe ingredients must match in the same grammatical number, or a makeable recipe silently drops from results. Fridge "bananas" fails to match recipe "banana" (and vice versa). Cause: scoreRecipe compares whole words — fridgeIngredients.includes(word) — so "banana" !== "bananas". A false negative (hides recipes you can actually cook), worse than the accepted false positives like potato→sweet potato. Will be common once real content lands, since screenshots and user chips pluralize unpredictably.
