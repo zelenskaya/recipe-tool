@@ -30,7 +30,7 @@ Scope: change recipe ingredients to fused strings. Adding sourceUrl as optional 
 Steps for this scope:
 - DONE Step 1, schema reshape + seed cut. Add sourceUrl to the recipe object (save path in add-recipe.js, and the shape the form reads). Cut the seed file to the few recipes I own.
 - DONE Step 2, prefill the form from a plain object, no AI. Hand a hardcoded fake recipe object (fused-string ingredients, a category, a description) to the existing edit-prefill path and confirm it populates every field and saves.
-- Step 3, the AI call. The AI's JSON must use exactly these field names: title, description, category, ingredients, sourceUrl.
+- Step 3, the AI call. The AI's JSON must use exactly these field names: title, description, category, ingredients.
 
 - decisions for step 3
 - scan of the image is add-only, adding scan to the edit recipe view increases cognitive load without adding much value.
@@ -52,7 +52,7 @@ Decided: extract the FULL object (title; description = prose or steps, one per l
 
 3b2. retry once
 
-3c — "parced?" and "valid recipe", with their error states.force strict JSON in your schema; parse + failure states. Tighten the prompt to emit only your recipe object as JSON (category from the enum, fused-string ingredients, method → steps if original recipe is formatted in steps). Client parses. Handle three new modes: unparseable JSON, valid-JSON-but-bad-category, "not a recipe." Verify: parses to a valid object; bad cases are caught, not crashes. Log failure modes: stop_reaon and max_tokens (trunkated reply)
+3c — "parced?" and "valid recipe", with their error states.force strict JSON in your schema; parse + failure states. Tighten the prompt to emit only your recipe object as JSON (category from the enum, fused-string ingredients, method → steps if original recipe is formatted in steps). Client parses. Handle three new modes: unparseable JSON, valid-JSON-but-bad-category, "not a recipe." Verify: parses to a valid object; bad cases are caught, not crashes. Log failure modes: stop_reaon and max_tokens (trunkated reply). After parsing, code adds sourceUrl: ""
 
 3d — feed the parsed object to populateForm. Join to Step 2. Near-free because Step 2 built the seam. Verify: screenshot → filled editable form → save. 
 3d1. recipe page: white-space: pre-line on the description div, so that line breaks don't collapse. Feature done.
