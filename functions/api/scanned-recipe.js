@@ -21,7 +21,8 @@ Extract the JSON object with these exact keys:
     - Each step must sit on its own line.
 - category: exactly one of: breakfast, vegetables, soups, snacks, meat, uncategorized. Use uncategorized if unsure
 - ingredients: an array of strings, each with its quantity. 
-    - If an ingredient has no quantity specified, keep the original wording for it. for example: "oil for frying", "a pinch of salt" , "pepper to taste". This means the original wording stays: "сіль за смаком", "щіпка солі". 
+    - Use the neutral, non-diminutive, non-slang, non-surzhik form of the ingredient name: "водичка → вода", "яєчки → яйця", "мука → борошно (if recipe is in Ukrainian)"
+    - If an ingredient has no quantity specified, keep the original wording for it, but still use the neutral name. for example: "oil for frying", "a pinch of salt" , "pepper to taste". This means the original wording stays: "сіль за смаком", "щіпка солі". 
     - When you write ingredients, name goes first, then the amount, separated by a space only: "flour 200gr", "eggs 2", "яйця 1 шт".
     - Keep countable ingredients plural even when the quantity is 1.
     - Name must be in nominative: "борошно", not "борошна".
