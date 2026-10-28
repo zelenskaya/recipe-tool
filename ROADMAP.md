@@ -56,6 +56,7 @@ Decided: extract the FULL object (title; description = method as prose; category
 
 3d — feed the parsed object to populateForm. Join to Step 2. Near-free because Step 2 built the seam. Verify: screenshot → filled editable form → save. 
 3d1. recipe page: white-space: pre-line on the description div, so that line breaks don't collapse. Feature done.
+3d2. "AI can make mistakes" warning
 
 
 ## Next

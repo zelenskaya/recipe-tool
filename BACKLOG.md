@@ -35,6 +35,7 @@ Trigger unless stated: users need it, or complain about something it solves
 - **Input error-hint affordance** — dupe feedback (message + retain typed text), clear-on-keystroke. Check if fridge + add-recipe both need it → shared `showFieldError(field, msg)`.
 - **search.html no-results → "Browse all recipes" link** to index.html (decided, not built).
 - **Confirm ingredient-chip page count** — does a separate edit-recipe page exist? If so it needs the same `.chip-field`. If add-recipe is the only one, this is closed.
+- **Scanning into user's selected language** - As for now, images are scanned into the language they are in. Once I introduce language switching recipes are scanned and translated into user's selectedlanguae
 
 
 
@@ -46,3 +47,4 @@ Trigger unless stated: users need it, or complain about something it solves
 - **Optional ingredients section** - if a recipe includes variations or optional ingredients per taste then optional ingredients go to the optional ingredients section
 - **Regex check for a model response** - if a model's response mixes Latin and Cyrillic letters, regex check flags words mixing Latin and Cyrillic. models re-checks them.
 - **Name + quantity only rule for each ingredient** - work to have only these in the ingredients. for now, ingredients is a long string if there is vaque wording.
+- **Localization** a switch that allows users to switch languages
