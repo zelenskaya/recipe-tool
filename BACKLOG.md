@@ -13,6 +13,7 @@ _(tackle as a cluster before or with the photo-scan merge)_
 - Plural mismatch in fridge matcher. Fridge and recipe ingredients must match in the same grammatical number, or a makeable recipe silently drops from results. Fridge "bananas" fails to match recipe "banana" (and vice versa). Cause: scoreRecipe compares whole words — fridgeIngredients.includes(word) — so "banana" !== "bananas". A false negative (hides recipes you can actually cook), worse than the accepted false positives like potato→sweet potato. Will be common once real content lands, since screenshots and user chips pluralize unpredictably.
 Not a one-line fix: normalize runs on the recipe side but not the fridge side, so any fix touches both; and English plurals aren't uniform (tomato→tomatoes, irregulars), so crude trailing-s stripping spawns new mismatches. Decide the approach at build time — canonicalize at source vs. fuzzy-match at compare (both discussed).
 -  HEIC format is not parseable yet. Triggered by: when an iPhone user's upload fails:
+- **ViewTransition console error** Uncaught (in promise) InvalidStateError: Transition was aborted... opt-in disabled on add-recipe, seen during a recipe scan. It comes from @view-transition { navigation: auto }. 
 
 ### Known bugs
 - **Edit-recipe: save-button label vanishes** after changing an ingredient (saves fine). Likely the same `applyStrings`/`textContent` family as other label-loss bugs. - not reproducing on main
@@ -48,4 +49,4 @@ Trigger unless stated: users need it, or complain about something it solves
 - **Regex check for a model response** - if a model's response mixes Latin and Cyrillic letters, regex check flags words mixing Latin and Cyrillic. models re-checks them.
 - **Name + quantity only rule for each ingredient** - work to have only these in the ingredients. for now, ingredients is a long string if there is vaque wording.
 - **Localization** a switch that allows users to switch languages
-- **ViewTransition console error** Uncaught (in promise) InvalidStateError: Transition was aborted... opt-in disabled on add-recipe, seen during a recipe scan. It comes from @view-transition { navigation: auto }. 
+

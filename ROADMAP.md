@@ -45,14 +45,14 @@ Clear the file on parse failure.
 -  3a.2. Client timeout: DONE. Make the echo return an error on purpose to test it. Extract the shared transport helper, switch the fridge scan to it. - this was descoped: “extract the shared transport + switch fridge scan to it” (deferred, since I'm hiding fridge scan)
 - DONE (off-roadmap, part of the 3a client work): valid-file check (image MIME -> failedInvalidImage), convert-failure catch -> failedInvalidImage, keyed error messages en/uk/de (UI.recipeScan.*), and the upload helper label. Full client state machine - idle / fileReady / inFlight / success / failedCanRetry / failedInvalidImage - complete and config-driven.
 
-3b — Function calls the vision API, returns raw text. Adds exactly one thing: the API call. Model gets image + prompt; you return its raw answer, no parsing. This is where you iterate the prompt — your practice-AI core. Verify: real screenshot → recipe-shaped free text comes back. If it breaks, it's prompt/API, since 3a ruled out transport.
-Decided: extract the FULL object (title; description = method as prose; category from the enum; ingredients as fused strings; sourceUrl empty). Return raw text, no parsing yet (that’s 3c). ingredients.js is the reference Function; API key already in .dev.vars from the fridge scan.
+3b DONE — Function calls the vision API, returns raw text. Adds exactly one thing: the API call. Model gets image + prompt; you return its raw answer, no parsing. This is where you iterate the prompt — your practice-AI core. Verify: real screenshot → recipe-shaped free text comes back. If it breaks, it's prompt/API, since 3a ruled out transport.
+Decided: extract the FULL object (title; description = prose or steps, one per line, unnumbered - steps only if original recipe is formatted in steps; category from the enum; ingredients as fused strings; sourceUrl empty). Return raw text, no parsing yet (that’s 3c). ingredients.js is the reference Function; API key already in .dev.vars from the fridge scan.
 
 3b1. server timeout
 
 3b2. retry once
 
-3c — "parced?" and "valid recipe", with their error states.force strict JSON in your schema; parse + failure states. Tighten the prompt to emit only your recipe object as JSON (category from the enum, fused-string ingredients, method → short description). Client parses. Handle three new modes: unparseable JSON, valid-JSON-but-bad-category, "not a recipe." Verify: parses to a valid object; bad cases are caught, not crashes. This is the failure-state design work.
+3c — "parced?" and "valid recipe", with their error states.force strict JSON in your schema; parse + failure states. Tighten the prompt to emit only your recipe object as JSON (category from the enum, fused-string ingredients, method → steps if original recipe is formatted in steps). Client parses. Handle three new modes: unparseable JSON, valid-JSON-but-bad-category, "not a recipe." Verify: parses to a valid object; bad cases are caught, not crashes. Log failure modes: stop_reaon and max_tokens (trunkated reply)
 
 3d — feed the parsed object to populateForm. Join to Step 2. Near-free because Step 2 built the seam. Verify: screenshot → filled editable form → save. 
 3d1. recipe page: white-space: pre-line on the description div, so that line breaks don't collapse. Feature done.
