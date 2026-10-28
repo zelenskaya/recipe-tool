@@ -15,9 +15,18 @@ Extract the JSON object with these exact keys:
   If there is no title:
     - Create a title for a recipe that you read in this image.
     - Make title short and descriptive.
-- description: the cooking method, as prose. If the image has separate steps for the recipe, convert them to steps in the description, but these steps should not be numbered. Each step must sit on its own line.
+- description: the cooking method, as prose if this is what's in the image; or as unnumbered steps if the image shows description in steps, numbered or not.
+    - If the image has separate steps for the recipe, convert them to steps in the description.
+    - These steps should not be numbered.
+    - Each step must sit on its own line.
 - category: exactly one of: breakfast, vegetables, soups, snacks, meat, uncategorized. Use uncategorized if unsure
-- ingredients: an array of strings, each with its quantity, e.g. "200g flour". If an ingredient has no quantity specified, keep the original wording for it. for example: "oil for frying", "a pinch of salt" , "pepper to taste"
+- ingredients: an array of strings, each with its quantity. 
+    - If an ingredient has no quantity specified, keep the original wording for it. for example: "oil for frying", "a pinch of salt" , "pepper to taste". This means the original wording stays: "сіль за смаком", "щіпка солі". 
+    - When you write ingredients, name goes first, then the amount, separated by a space only: "flour 200gr", "eggs 2", "яйця 1 шт".
+    - Keep countable ingredients plural even when the quantity is 1.
+    - Name must be in nominative: "борошно", not "борошна".
+    - Countable ingredients should be in plural, uncountable stay as they are. 
+    - Leave water out of the ingredients' list unless there is an exact amount in the recipe. 
 - sourceUrl: empty string`
    const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
