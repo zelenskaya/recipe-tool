@@ -53,7 +53,8 @@ Decided: extract the FULL object (title; description = method as prose; category
 
 3c — "parced?" and "valid recipe", with their error states.force strict JSON in your schema; parse + failure states. Tighten the prompt to emit only your recipe object as JSON (category from the enum, fused-string ingredients, method → short description). Client parses. Handle three new modes: unparseable JSON, valid-JSON-but-bad-category, "not a recipe." Verify: parses to a valid object; bad cases are caught, not crashes. This is the failure-state design work.
 
-3d — feed the parsed object to populateForm. Join to Step 2. Near-free because Step 2 built the seam. Verify: screenshot → filled editable form → save. Feature done.
+3d — feed the parsed object to populateForm. Join to Step 2. Near-free because Step 2 built the seam. Verify: screenshot → filled editable form → save. 
+3d1. recipe page: white-space: pre-line on the description div, so that line breaks don't collapse. Feature done.
 
 
 ## Next
