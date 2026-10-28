@@ -48,3 +48,4 @@ Trigger unless stated: users need it, or complain about something it solves
 - **Regex check for a model response** - if a model's response mixes Latin and Cyrillic letters, regex check flags words mixing Latin and Cyrillic. models re-checks them.
 - **Name + quantity only rule for each ingredient** - work to have only these in the ingredients. for now, ingredients is a long string if there is vaque wording.
 - **Localization** a switch that allows users to switch languages
+- **ViewTransition console error** Uncaught (in promise) InvalidStateError: Transition was aborted... opt-in disabled on add-recipe, seen during a recipe scan. It comes from @view-transition { navigation: auto }. 
