@@ -5,7 +5,13 @@ export async function onRequest(context){
     const [dataURLPrefix, fileBase64] = file.split(",");
     const mediaType = dataURLPrefix.split(":")[1].split(";")[0];
     const sizeBytes = fileBase64.length * 3 / 4;
-    const prompt = `This is most probably a screenshot of a recipe or a photo of a written recipe. I need to extract a JSON object from it. No prose, no markdown code fences. Use the language that the text is using, except for categories: these are in english.
+    const prompt = `This is most probably a screenshot of a recipe or a photo of a written recipe.
+    Users upload screenshots from social media, photos of cookbooks, or photos of handwritten notes with many recipes.
+    The image may contain more than one recipe, or parts of recipes cut off at the edges.
+    Extract only one recipe: the most complete one. If several are equally complete, choose the one the post or page is mainly about.
+    Never merge recipes. 
+    Ignore everything that belongs to other recipes.
+    I need to extract a JSON object from it. No prose, no markdown code fences. Use the language that the text is using, except for categories: these are in english.
 
 Extract the JSON object with these exact keys:
 
