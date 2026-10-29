@@ -1,6 +1,7 @@
 
 let currentIngredients = [];
 let uploadedImage = null;
+const BROWSER_RECIPE_SCAN_TIMEOUT_MS = 40_000; /* needs to be larger than timeout value in scanned-recipe.js in SERVER_RECIPE_SCAN_TIMEOUT_MS, so there is room to retry */
 const ingredientItem = document.getElementById("ingredient-item");
 const addRecipeAddIngredient = document.getElementById("add-recipe-add-ingredient");
 const chipsContainer = document.getElementById("chips-container");
@@ -75,7 +76,8 @@ async function scanButtonClickHandler (){
     }
     
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000);
+    
+    const timeoutId = setTimeout(() => controller.abort(), BROWSER_RECIPE_SCAN_TIMEOUT_MS);
     try {
         const response = await fetch ("/api/scanned-recipe",
         {

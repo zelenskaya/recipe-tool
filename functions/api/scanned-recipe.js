@@ -5,6 +5,9 @@ export async function onRequest(context){
     const [dataURLPrefix, fileBase64] = file.split(",");
     const mediaType = dataURLPrefix.split(":")[1].split(";")[0];
     const sizeBytes = fileBase64.length * 3 / 4;
+    const SERVER_RECIPE_SCAN_TIMEOUT_MS = 25_000; 
+
+    
     const prompt = `This is most probably a screenshot of a recipe or a photo of a written recipe.
     Users upload screenshots from social media, photos of cookbooks, or photos of handwritten notes with many recipes.
     The image may contain more than one recipe, or parts of recipes cut off at the edges.
@@ -38,7 +41,13 @@ Extract the JSON object with these exact keys:
     - Keep countable ingredients plural even when the quantity is 1. Uncountable stay as they are.
     - Name must be in nominative: "борошно", not "борошна". 
     - Leave water out of the ingredients' list unless there is an exact amount in the recipe. `
-   const apiRes = await fetch("https://api.anthropic.com/v1/messages", {
+    
+    const serverAbortController = new AbortController();
+    const timeoutId = setTimeout(() => serverAbortController.abort(), SERVER_RECIPE_SCAN_TIMEOUT_MS);
+    
+    let apiRes;
+    try {
+        apiRes = await fetch("https://api.anthropic.com/v1/messages", {
         method: "POST",
         headers: {
             "x-api-key": context.env.ANTHROPIC_API_KEY,
@@ -58,7 +67,21 @@ Extract the JSON object with these exact keys:
                     ],
                 }],
             }),
+            signal: serverAbortController.signal
         });
+    }
+    catch (error)
+    {
+        if (error.name ==="AbortError")
+            {
+                return Response.json ({error: "replyTooSlow"}, {status: 504});
+            } else {
+                return Response.json ({error: "apiUnreachable"}, {status: 502});
+            }
+    }
+finally {
+         clearTimeout(timeoutId);
+    }
         if (!apiRes.ok) {
             console.log(apiRes.status);
             return Response.json({ error: "upstream failed" }, { status: 500 });
@@ -71,8 +94,11 @@ Extract the JSON object with these exact keys:
         }
         const dataText = data.content.find(item => item.type === "text");
         return new Response(dataText.text);
+
+    }
+    
         
         
         
     
-}
+
