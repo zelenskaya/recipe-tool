@@ -1,7 +1,7 @@
 
 const SERVER_RECIPE_SCAN_TIMEOUT_MS = 25_000;
 const SERVER_TOTAL_TIME_BUDGET_MS = 35_000;
-async function tryToCallAI(prompt, context, mediaType, fileBase64) {
+async function tryToCallAI(prompt, apiKey, mediaType, fileBase64) {
     const serverAbortController = new AbortController();
     const timeoutId = setTimeout(() => serverAbortController.abort(), SERVER_RECIPE_SCAN_TIMEOUT_MS);
 
@@ -10,7 +10,7 @@ async function tryToCallAI(prompt, context, mediaType, fileBase64) {
         apiRes = await fetch("https://api.anthropic.com/v1/messages", {
             method: "POST",
             headers: {
-                "x-api-key": context,
+                "x-api-key": apiKey,
                 "anthropic-version": "2023-06-01",
                 "content-type": "application/json",
 
@@ -30,6 +30,7 @@ async function tryToCallAI(prompt, context, mediaType, fileBase64) {
             }),
             signal: serverAbortController.signal
         });
+        return apiRes;
     }
     catch (error) {
         if (error.name === "AbortError") {
@@ -89,13 +90,13 @@ Extract the JSON object with these exact keys:
     - Name must be in nominative: "борошно", not "борошна". 
     - Leave water out of the ingredients' list unless there is an exact amount in the recipe. `
 
-    tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
+    const resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
 
-    if (!apiRes.ok) {
+    if (!resultAI) {
         console.log(apiRes.status);
         return Response.json({ error: "upstream failed" }, { status: 500 });
     }
-    const data = await apiRes.json();
+    const data = await resultAI.json();
     const types = data.content.map(item => item.type);
     console.log(data.stop_reason, data.usage.output_tokens, types);
     if (data.stop_reason === "max_tokens") {
