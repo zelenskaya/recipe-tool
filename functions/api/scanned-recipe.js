@@ -48,7 +48,7 @@ Extract the JSON object with these exact keys:
         },
         body: JSON.stringify({
             model: "claude-sonnet-5-5",
-            max_tokens: 2000,
+            max_tokens: 3000,
             messages: [{
                 role: "user",
                 content: [
