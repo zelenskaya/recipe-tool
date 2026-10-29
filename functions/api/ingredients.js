@@ -32,6 +32,7 @@ export async function onRequest(context) {
         const data = await apiRes.json();
         console.log(JSON.stringify(data));
         const text = data.content[0].text;
+        
         const cleaned = text.replaceAll("```json", "").replaceAll("```","").trim();
         try {
             const list = JSON.parse(cleaned);

@@ -55,7 +55,8 @@ Extract the JSON object with these exact keys:
             return Response.json({ error: "upstream failed" }, { status: 500 });
         } 
         const data = await apiRes.json();
-        console.log(data.stop_reason, data.usage.output_tokens);
+        const types = data.content.map(item => item.type);
+        console.log(data.stop_reason, data.usage.output_tokens, types);
         return new Response(data.content[0].text);
         
         
