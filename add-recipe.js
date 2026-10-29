@@ -91,14 +91,23 @@ async function scanButtonClickHandler (){
         console.log(responseText);
     }
     else {
-        recipeScanStatus = "failedCanRetry";
-        recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedCanRetry;
+        
+        const errorBody = await response.json();
+        if (errorBody.error === "replyTooLong") {
+                recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedNoRecipe;
+                recipeScanStatus = "failedInvalidImage";
+        } else {
+                recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedCanRetry;
+                recipeScanStatus = "failedCanRetry";
+        }
+        
     }
     }
 
     catch (error) {
         recipeScanStatus = "failedCanRetry";
         recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedCanRetry;
+       
     }
 
     finally {

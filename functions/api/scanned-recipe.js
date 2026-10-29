@@ -57,7 +57,11 @@ Extract the JSON object with these exact keys:
         const data = await apiRes.json();
         const types = data.content.map(item => item.type);
         console.log(data.stop_reason, data.usage.output_tokens, types);
-        return new Response(data.content[0].text);
+        if (data.stop_reason === "max_tokens") {
+            return Response.json({ error: "replyTooLong" }, {status: 422 });
+        }
+        const dataText = data.content.find(item => item.type === "text");
+        return new Response(dataText.text);
         
         
         
