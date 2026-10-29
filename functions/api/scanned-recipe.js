@@ -8,8 +8,9 @@ export async function onRequest(context){
     const prompt = `This is most probably a screenshot of a recipe or a photo of a written recipe.
     Users upload screenshots from social media, photos of cookbooks, or photos of handwritten notes with many recipes.
     The image may contain more than one recipe, or parts of recipes cut off at the edges.
-    Extract only one recipe: the most complete one. If several are equally complete, choose the one the post or page is mainly about.
-    Never merge recipes. 
+    - Parts of one meal described together in one text (e.g. meat with a side dish) are one recipe: keep all parts.
+    - Separate recipes usually have their own titles or headings. If there are several, extract only one: the most complete one.
+    If several are equally complete, choose the one the post or page is mainly about. Never merge separate recipes.
     Ignore everything that belongs to other recipes.
     I need to extract a JSON object from it. No prose, no markdown code fences. Use the language that the text is using, except for categories: these are in english.
 
@@ -19,7 +20,7 @@ Extract the JSON object with these exact keys:
     - If the title in this image was in all caps, convert to normal capitalization for the title's language.
     - Remove emojis, if that does not reduce meaning of the title.
   If there is no title:
-    - Create a title for a recipe that you read in this image.
+    - Create a title for a recipe that you read in this image. If parts of one meal are described together in one text (e.g. meat with a side dish), put the recipe's focus first.
     - Make title short and descriptive.
 - description: the cooking method, as prose if this is what's in the image; or as unnumbered steps if the image shows description in steps, numbered or not.
     - Each step must sit on its own line.
