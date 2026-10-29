@@ -1,13 +1,60 @@
-export async function onRequest(context){
-    
+
+const SERVER_RECIPE_SCAN_TIMEOUT_MS = 25_000;
+const SERVER_TOTAL_TIME_BUDGET_MS = 35_000;
+async function tryToCallAI(prompt, context, mediaType, fileBase64) {
+    const serverAbortController = new AbortController();
+    const timeoutId = setTimeout(() => serverAbortController.abort(), SERVER_RECIPE_SCAN_TIMEOUT_MS);
+
+    let apiRes;
+    try {
+        apiRes = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+                "x-api-key": context,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json",
+
+            },
+            body: JSON.stringify({
+                model: "claude-sonnet-5-5",
+                max_tokens: 3000,
+                messages: [{
+                    role: "user",
+                    content: [
+                        {
+                            type: "image", source: { type: "base64", media_type: mediaType, data: fileBase64, }
+                        },
+                        { type: "text", text: prompt },
+                    ],
+                }],
+            }),
+            signal: serverAbortController.signal
+        });
+    }
+    catch (error) {
+        if (error.name === "AbortError") {
+            return Response.json({ error: "replyTooSlow" }, { status: 504 });
+        } else {
+            return Response.json({ error: "apiUnreachable" }, { status: 502 });
+        }
+    }
+    finally {
+        clearTimeout(timeoutId);
+    }
+
+}
+
+
+export async function onRequest(context) {
+
     const body = await context.request.json();
     const file = body.file;
     const [dataURLPrefix, fileBase64] = file.split(",");
     const mediaType = dataURLPrefix.split(":")[1].split(";")[0];
     const sizeBytes = fileBase64.length * 3 / 4;
-    const SERVER_RECIPE_SCAN_TIMEOUT_MS = 25_000; 
 
-    
+
+
     const prompt = `This is most probably a screenshot of a recipe or a photo of a written recipe.
     Users upload screenshots from social media, photos of cookbooks, or photos of handwritten notes with many recipes.
     The image may contain more than one recipe, or parts of recipes cut off at the edges.
@@ -41,64 +88,26 @@ Extract the JSON object with these exact keys:
     - Keep countable ingredients plural even when the quantity is 1. Uncountable stay as they are.
     - Name must be in nominative: "борошно", not "борошна". 
     - Leave water out of the ingredients' list unless there is an exact amount in the recipe. `
-    
-    const serverAbortController = new AbortController();
-    const timeoutId = setTimeout(() => serverAbortController.abort(), SERVER_RECIPE_SCAN_TIMEOUT_MS);
-    
-    let apiRes;
-    try {
-        apiRes = await fetch("https://api.anthropic.com/v1/messages", {
-        method: "POST",
-        headers: {
-            "x-api-key": context.env.ANTHROPIC_API_KEY,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
 
-        },
-        body: JSON.stringify({
-            model: "claude-sonnet-5-5",
-            max_tokens: 3000,
-            messages: [{
-                role: "user",
-                content: [
-                    {
-                        type: "image", source: { type: "base64", media_type: mediaType, data: fileBase64, } },
-                        { type: "text", text: prompt},
-                    ],
-                }],
-            }),
-            signal: serverAbortController.signal
-        });
-    }
-    catch (error)
-    {
-        if (error.name ==="AbortError")
-            {
-                return Response.json ({error: "replyTooSlow"}, {status: 504});
-            } else {
-                return Response.json ({error: "apiUnreachable"}, {status: 502});
-            }
-    }
-finally {
-         clearTimeout(timeoutId);
-    }
-        if (!apiRes.ok) {
-            console.log(apiRes.status);
-            return Response.json({ error: "upstream failed" }, { status: 500 });
-        } 
-        const data = await apiRes.json();
-        const types = data.content.map(item => item.type);
-        console.log(data.stop_reason, data.usage.output_tokens, types);
-        if (data.stop_reason === "max_tokens") {
-            return Response.json({ error: "replyTooLong" }, {status: 422 });
-        }
-        const dataText = data.content.find(item => item.type === "text");
-        return new Response(dataText.text);
+    tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
 
+    if (!apiRes.ok) {
+        console.log(apiRes.status);
+        return Response.json({ error: "upstream failed" }, { status: 500 });
     }
-    
-        
-        
-        
-    
+    const data = await apiRes.json();
+    const types = data.content.map(item => item.type);
+    console.log(data.stop_reason, data.usage.output_tokens, types);
+    if (data.stop_reason === "max_tokens") {
+        return Response.json({ error: "replyTooLong" }, { status: 422 });
+    }
+    const dataText = data.content.find(item => item.type === "text");
+    return new Response(dataText.text);
+
+}
+
+
+
+
+
 
