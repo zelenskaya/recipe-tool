@@ -23,8 +23,10 @@ Extract the JSON object with these exact keys:
     - Make title short and descriptive.
 - description: the cooking method, as prose if this is what's in the image; or as unnumbered steps if the image shows description in steps, numbered or not.
     - Each step must sit on its own line.
-    - Cut from the recipe description: commentary, encouragement, jokes, repetition. Never change: doneness cue ("until soft", "until golden"), safety warning from the source, every action, quantity, time, temperature, and their order. Variations of recipe stay, condensed by the same rule.
+    -  Cut from the recipe description: commentary, encouragement, jokes, repetition. Never change: doneness cue ("until soft", "until golden"), every action, quantity, time, temperature, and their order. Variations of recipe stay, condensed by the same rule.
+    - Keep every safety note from the source, in its original place: digestive effects ("can loosen stool"), storage ("keep in the fridge", "eat within 2 days"), burn risk ("very hot inside", "oil may spatter"), age or allergy notes ("not for children under 1", "contains nuts"). These are examples; keep any similar warning.
     - No new words or steps that aren't in the source
+    - If the source is ambigious (e.g. "add the onion" when there are two onion portions), keep it ambigious. Do not add words to clarify.
    
 - category: exactly one of: breakfast, vegetables, soups, snacks, meat, uncategorized. Use uncategorized if unsure
 - ingredients: an array of strings. If the recipe source provides ingredient quantity, such an ingredient is listed with their quantity. 
