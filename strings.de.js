@@ -94,7 +94,7 @@ const UI = {
     },
 
     fridgeScan: {
-        scanStatusFailed: "Auf unserer Seite ist etwas schiefgelaufen. Versuchen Sie es erneut oder geben Sie die Zutaten manuell ein.",
+        scanStatusFailed: "Auf unserer Seite ist etwas schiefgelaufen. Versuch es erneut oder gib die Zutaten manuell ein.",
         scanStatusSuccessEmpty: "Keine Zutaten gefunden. Gib die Zutaten manuell ein oder achte darauf, dass die Lebensmittel gut sichtbar und ausreichend beleuchtet sind."
     },
 
@@ -102,6 +102,6 @@ const UI = {
         recipeUploadImageLabel: "Handschriftliche Notiz, ein Screenshot oder ein Foto. Hier geht alles.",
         scanStatusFailedCanRetry: "Auf unserer Seite ist etwas schiefgelaufen. Versuche es erneut oder gib das Rezept manuell ein.",
         scanStatusFailedInvalidImage: "Bitte lade eine gültige Bilddatei hoch: jpg, jpeg oder png. HEIC-Unterstützung kommt bald.",
-        scanStatusFailedNoRecipe: "Kein Rezept gefunden. Versuche es erneut oder gib das Rezept manuell ein."
+        scanStatusFailedNoRecipe: "Kein Rezept gefunden, oder das Bild war zu schwer zu entziffern. Versuche es erneut oder gib das Rezept manuell ein."
     }
 };
