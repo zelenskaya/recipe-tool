@@ -101,8 +101,8 @@ Extract the JSON object with these exact keys:
     for (let attempt = 1; attempt <= 2; attempt++) {
         if (attempt === 2) { await wait(RETRY_DELAY_MS); }
         try {
-            if (attempt === 1) { resultAI =  new Response(null, { status: 503});}
-            else { resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);}
+             resultAI =  new Response(null, { status: 503});
+             /*resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);*/
             
             if (resultAI.ok) break;
             const responseBody = await resultAI.text();
