@@ -47,6 +47,10 @@ function canRetryToCallAI(attempt, startTime) {
 
 }
 
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve,ms));
+}
+
 export async function onRequest(context) {
 
     const startTime = Date.now();
@@ -98,19 +102,28 @@ Extract the JSON object with these exact keys:
             resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
             if (resultAI.ok) break;
             const responseBody = await resultAI.text();
-            console.log(responseBody);
+            console.log(resultAI.status, responseBody);
             if ((resultAI.status === 400) || (resultAI.status === 413)) {
-                console.log(resultAI.status);
+
                 return Response.json({ error: "invalidImage" }, { status: 422 });
             } else {
 
-                if ((resultAI.status > 400) && (resultAI.status <= 499)) {
+                if ((resultAI.status > 400) && (resultAI.status <= 499) && (resultAI.status !== 429)) {
                     return Response.json({ error: "aiRejectedRequest" }, { status: 500 });
                 }
                 else {
-                    if (!canRetryToCallAI(attempt, startTime)) {
-                        return Response.json({ error: "aiServerIssue" }, { status: 502 });
+                    if (resultAI.status === 429) {
+                        if (!canRetryToCallAI(attempt, startTime)) {
+                            return Response.json({ error: "tooManyRequests" }, { status: 502 });
+
+                        }
                     }
+                    else {
+                        if (!canRetryToCallAI(attempt, startTime)) {
+                            return Response.json({ error: "aiServerIssue" }, { status: 502 });
+                        }
+                    }
+
                 }
 
             }
