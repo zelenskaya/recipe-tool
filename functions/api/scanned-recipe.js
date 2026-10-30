@@ -102,7 +102,7 @@ Extract the JSON object with these exact keys:
         if (attempt === 2) { await wait(RETRY_DELAY_MS); }
         try {
              
-             resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, "image/gif", fileBase64);
+             resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
             
             if (resultAI.ok) break;
             const responseBody = await resultAI.text();
