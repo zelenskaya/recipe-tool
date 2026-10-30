@@ -1,6 +1,7 @@
 
 const SERVER_RECIPE_SCAN_TIMEOUT_MS = 25_000;
 const SERVER_TOTAL_TIME_BUDGET_MS = 35_000;
+
 async function tryToCallAI(prompt, apiKey, mediaType, fileBase64) {
     const serverAbortController = new AbortController();
     const timeoutId = setTimeout(() => serverAbortController.abort(), SERVER_RECIPE_SCAN_TIMEOUT_MS);
@@ -32,13 +33,7 @@ async function tryToCallAI(prompt, apiKey, mediaType, fileBase64) {
         });
         return apiRes;
     }
-    catch (error) {
-        if (error.name === "AbortError") {
-            return Response.json({ error: "replyTooSlow" }, { status: 504 });
-        } else {
-            return Response.json({ error: "apiUnreachable" }, { status: 502 });
-        }
-    }
+
     finally {
         clearTimeout(timeoutId);
     }
@@ -90,10 +85,21 @@ Extract the JSON object with these exact keys:
     - Name must be in nominative: "борошно", not "борошна". 
     - Leave water out of the ingredients' list unless there is an exact amount in the recipe. `
 
-    const resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
+    try {
+        const resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
 
-    if (!resultAI) {
-        console.log(apiRes.status);
+    }
+
+    catch (error) {
+        if (error.name === "AbortError") {
+            return Response.json({ error: "replyTooSlow" }, { status: 504 });
+        } else {
+            return Response.json({ error: "apiUnreachable" }, { status: 502 });
+        }
+    }
+
+    if (!resultAI.ok) {
+        console.log(resultAI.status);
         return Response.json({ error: "upstream failed" }, { status: 500 });
     }
     const data = await resultAI.json();
