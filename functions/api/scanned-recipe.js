@@ -85,8 +85,9 @@ Extract the JSON object with these exact keys:
     - Name must be in nominative: "борошно", not "борошна". 
     - Leave water out of the ingredients' list unless there is an exact amount in the recipe. `
 
+    let resultAI;
     try {
-        const resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
+        resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
 
     }
 
