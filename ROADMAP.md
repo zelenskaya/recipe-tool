@@ -36,7 +36,11 @@ Steps for this scope:
 - scan of the image is add-only, adding scan to the edit recipe view increases cognitive load without adding much value.
 - If a recipe contains base ingredients as well as optional ingredients, then only base ingredients are populated into the ingredients section. 
 -  The server reports the error type, not just ok/not-ok.
-Retry network failures and 5xx/529, never 4xx.
+- Retried once: network failures, 5xx (including 529), and 429
+- Retry only if a full attempt still fits in the time budget, after a 1s pause
+- If AI returns 400 or 413 , return to user an error that the upload image was invalid, don't retry.
+- Any other 4xx means the request was rejected, don't retry.
+- AI call timeouts are never retried: a timed-out attempt has already used 25s, so a second one can't fit the 35s budget.
 The Client timeout covers the whole Server budget.
 Clear the file on parse failure.
 - populateForm replaces every field, lowercases the category, and uses "uncategorized" for a missing or invalid category.
@@ -48,9 +52,9 @@ Clear the file on parse failure.
 3b DONE — Function calls the vision API, returns raw text. Adds exactly one thing: the API call. Model gets image + prompt; you return its raw answer, no parsing. This is where you iterate the prompt — your practice-AI core. Verify: real screenshot → recipe-shaped free text comes back. If it breaks, it's prompt/API, since 3a ruled out transport.
 Decided: extract the FULL object (title; description = prose or steps, one per line, unnumbered - steps only if original recipe is formatted in steps; category from the enum; ingredients as fused strings; sourceUrl empty). Return raw text, no parsing yet (that’s 3c). ingredients.js is the reference Function; API key already in .dev.vars from the fridge scan.
 
-3b1. server timeout
+3b1. DONE server timeout
 
-3b2. retry once
+3b2. DONE retry once
 
 3c — "parced?" and "valid recipe", with their error states.force strict JSON in your schema; parse + failure states. Tighten the prompt to emit only your recipe object as JSON (category from the enum, fused-string ingredients, method → steps if original recipe is formatted in steps). Client parses. Handle three new modes: unparseable JSON, valid-JSON-but-bad-category, "not a recipe." Verify: parses to a valid object; bad cases are caught, not crashes. Log failure modes: stop_reaon and max_tokens (trunkated reply). After parsing, code adds sourceUrl: ""
 
