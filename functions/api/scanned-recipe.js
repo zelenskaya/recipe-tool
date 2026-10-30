@@ -87,18 +87,38 @@ Extract the JSON object with these exact keys:
     - Leave water out of the ingredients' list unless there is an exact amount in the recipe. `
 
     let resultAI;
-    try {
-        resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
+    for (let attempt = 1; attempt <= 2; attempt++) {
+        try {
+            resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
+            if (resultAI.ok) break;
+            if ((resultAI.status === 400) || (resultAI.status === 413)) {
+                console.log(resultAI.status);
+                return Response.json({ error: "invalidImage" }, { status: 422 });
+            } else {
+                if ((resultAI.status > 400) && (resultAI.status <= 499)) {
+                    return Response.json({ error: "upstream failed" }, { status: 500 });
+                }
 
-    }
+            }
 
-    catch (error) {
-        if (error.name === "AbortError") {
-            return Response.json({ error: "replyTooSlow" }, { status: 504 });
-        } else {
-            return Response.json({ error: "apiUnreachable" }, { status: 502 });
         }
+
+        catch (error) {
+            if (error.name === "AbortError") {
+                return Response.json({ error: "replyTooSlow" }, { status: 504 });
+            } else {
+                const timeLeft = (SERVER_TOTAL_TIME_BUDGET_MS - (Date.now() - startTime));
+                const canRetry = (!((attempt === 1) && (timeLeft >= SERVER_RECIPE_SCAN_TIMEOUT_MS)));
+                if (canRetry) {
+                    return Response.json({ error: "apiUnreachable" }, { status: 502 });
+                }
+
+            }
+        }
+
     }
+
+
 
     if (!resultAI.ok) {
         console.log(resultAI.status);
