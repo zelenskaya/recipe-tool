@@ -43,7 +43,7 @@ async function tryToCallAI(prompt, apiKey, mediaType, fileBase64) {
 function canRetryToCallAI(attempt, startTime) {
     const timeLeft = (SERVER_TOTAL_TIME_BUDGET_MS - (Date.now() - startTime));
     return (((attempt === 1) && (timeLeft >= SERVER_RECIPE_SCAN_TIMEOUT_MS)));
-    
+
 
 }
 
@@ -97,20 +97,21 @@ Extract the JSON object with these exact keys:
         try {
             resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
             if (resultAI.ok) break;
+            const responseBody = await resultAI.text();
+            console.log(responseBody);
             if ((resultAI.status === 400) || (resultAI.status === 413)) {
                 console.log(resultAI.status);
                 return Response.json({ error: "invalidImage" }, { status: 422 });
             } else {
-                const responseBody = await resultAI.body;
-                console.log(responseBody);
+
                 if ((resultAI.status > 400) && (resultAI.status <= 499)) {
                     return Response.json({ error: "aiRejectedRequest" }, { status: 500 });
                 }
                 else {
                     if (!canRetryToCallAI(attempt, startTime)) {
-                        return Response.json({error: "aiServerIssue"}, {status: 502});
+                        return Response.json({ error: "aiServerIssue" }, { status: 502 });
                     }
-                     }
+                }
 
             }
 
@@ -120,7 +121,7 @@ Extract the JSON object with these exact keys:
             if (error.name === "AbortError") {
                 return Response.json({ error: "replyTooSlow" }, { status: 504 });
             } else {
-                
+
                 if (!canRetryToCallAI(attempt, startTime)) {
                     return Response.json({ error: "apiUnreachable" }, { status: 502 });
                 }
@@ -132,7 +133,7 @@ Extract the JSON object with these exact keys:
 
 
 
-    
+
     const data = await resultAI.json();
     const types = data.content.map(item => item.type);
     console.log(data.stop_reason, data.usage.output_tokens, types);
