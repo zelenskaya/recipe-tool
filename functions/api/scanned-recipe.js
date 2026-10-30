@@ -1,6 +1,7 @@
 
 const SERVER_RECIPE_SCAN_TIMEOUT_MS = 25_000;
 const SERVER_TOTAL_TIME_BUDGET_MS = 35_000;
+const RETRY_DELAY_MS = 1000;
 
 async function tryToCallAI(prompt, apiKey, mediaType, fileBase64) {
     const serverAbortController = new AbortController();
@@ -41,14 +42,14 @@ async function tryToCallAI(prompt, apiKey, mediaType, fileBase64) {
 }
 
 function canRetryToCallAI(attempt, startTime) {
-    const timeLeft = (SERVER_TOTAL_TIME_BUDGET_MS - (Date.now() - startTime));
+    const timeLeft = (SERVER_TOTAL_TIME_BUDGET_MS - (Date.now() - startTime) - RETRY_DELAY_MS);
     return (((attempt === 1) && (timeLeft >= SERVER_RECIPE_SCAN_TIMEOUT_MS)));
 
 
 }
 
 function wait(ms) {
-    return new Promise(resolve => setTimeout(resolve,ms));
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 export async function onRequest(context) {
@@ -98,6 +99,7 @@ Extract the JSON object with these exact keys:
 
     let resultAI;
     for (let attempt = 1; attempt <= 2; attempt++) {
+        if (attempt === 2) { await wait(RETRY_DELAY_MS); }
         try {
             resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
             if (resultAI.ok) break;
