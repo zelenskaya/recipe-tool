@@ -43,6 +43,7 @@ async function tryToCallAI(prompt, apiKey, mediaType, fileBase64) {
 
 export async function onRequest(context) {
 
+    const startTime = Date.now();
     const body = await context.request.json();
     const file = body.file;
     const [dataURLPrefix, fileBase64] = file.split(",");
