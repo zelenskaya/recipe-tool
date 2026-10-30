@@ -9,7 +9,7 @@ async function tryToCallAI(prompt, apiKey, mediaType, fileBase64) {
 
     let apiRes;
     try {
-        apiRes = await fetch("https://api.anthropic.com/v1/messages", {
+        apiRes = await fetch(/*"https://api.anthropic.com/v1/messages"*/"https://api.anthropic.invalid", {
             method: "POST",
             headers: {
                 "x-api-key": apiKey,
@@ -101,8 +101,8 @@ Extract the JSON object with these exact keys:
     for (let attempt = 1; attempt <= 2; attempt++) {
         if (attempt === 2) { await wait(RETRY_DELAY_MS); }
         try {
-             resultAI =  new Response(null, { status: 503});
-             /*resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);*/
+             
+             resultAI = await tryToCallAI(prompt, context.env.ANTHROPIC_API_KEY, mediaType, fileBase64);
             
             if (resultAI.ok) break;
             const responseBody = await resultAI.text();
@@ -135,6 +135,7 @@ Extract the JSON object with these exact keys:
         }
 
         catch (error) {
+            console.log(error.name, error.message);
             if (error.name === "AbortError") {
                 return Response.json({ error: "replyTooSlow" }, { status: 504 });
             } else {
