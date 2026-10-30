@@ -53,3 +53,10 @@ Trigger unless stated: users need it, or complain about something it solves
 - **Name + quantity only rule for each ingredient** - work to have only these in the ingredients. for now, ingredients is a long string if there is vaque wording.
 - **Localization** a switch that allows users to switch languages
 
+-  **Shimmer skeleton for the photo scan** — a shimmering placeholder while the vision model thinks.
+-  **Dark mode, driven by tokens.** 
+-  **Scroll-driven card reveal**
+-  **Toast / snackbar**
+-  **A count-up number on the fridge result**
+- **Style update.** Look into recommendations from Claude Design.
+

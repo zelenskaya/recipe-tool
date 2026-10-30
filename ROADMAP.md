@@ -74,11 +74,5 @@ Decided: extract the FULL object (title; description = prose or steps, one per l
 - "AI can make mistakes" warning
 - recipe page: white-space: pre-line on the description div, so that line breaks don't collapse.
 
-2. **Shimmer skeleton for the photo scan** — a shimmering placeholder while the vision model thinks.
-3. **Dark mode, driven by tokens.** 
-4. **Scroll-driven card reveal**
-5. **Toast / snackbar**
-6. **A count-up number on the fridge result**
-7. **Style update.** Look into recommendations from Claude Design.
 
 ## Parked work and decisions: see BACKLOG.md
