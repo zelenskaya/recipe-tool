@@ -28,12 +28,12 @@ let recipeScanStatus = "idle";
 const recipeScanSpinner = document.getElementById("recipe-scan-spinner");
 const recipeScanStatusMessage = document.getElementById("recipe-scan-status");
 const recipeScanConfig = {
-    idle: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: false},
-    fileReady: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: true, scanButtonDisabled: false, errorShown: false},
-    inFlight: { spinnerShown: true, fileInputDisabled: true, scanButtonShown: true, scanButtonDisabled: true, errorShown: false},
-    success: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: false},
-    failedCanRetry: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: true, scanButtonDisabled: false, errorShown: true},
-    failedInvalidImage: {spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: true},
+    idle: { spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: false },
+    fileReady: { spinnerShown: false, fileInputDisabled: false, scanButtonShown: true, scanButtonDisabled: false, errorShown: false },
+    inFlight: { spinnerShown: true, fileInputDisabled: true, scanButtonShown: true, scanButtonDisabled: true, errorShown: false },
+    success: { spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: false },
+    failedCanRetry: { spinnerShown: false, fileInputDisabled: false, scanButtonShown: true, scanButtonDisabled: false, errorShown: true },
+    failedInvalidImage: { spinnerShown: false, fileInputDisabled: false, scanButtonShown: false, scanButtonDisabled: false, errorShown: true },
 };
 const recipeUploadImageLabel = document.getElementById("recipe-upload-image-label");
 
@@ -43,9 +43,9 @@ recipeUploadImageLabel.textContent = UI.recipeScan.recipeUploadImageLabel;
 renderRecipeScanStatus();
 recipeUploadImage.addEventListener("change", recipeUploadImageHandler);
 
-function recipeUploadImageHandler(event){
+function recipeUploadImageHandler(event) {
     uploadedImage = event.target.files[0];
-     if (uploadedImage.type.startsWith("image/")){
+    if (uploadedImage.type.startsWith("image/")) {
         recipeScanStatus = "fileReady";
     }
     else {
@@ -53,18 +53,18 @@ function recipeUploadImageHandler(event){
         recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedInvalidImage;
     }
     renderRecipeScanStatus();
-    
+
 }
 
 recipeScanButton.addEventListener("click", scanButtonClickHandler);
 
-async function scanButtonClickHandler (){
+async function scanButtonClickHandler() {
 
     recipeScanStatus = "inFlight";
     renderRecipeScanStatus();
     let convertedImage;
     try {
-        
+
         convertedImage = await readFileAsDataURL(uploadedImage);
     }
 
@@ -74,59 +74,66 @@ async function scanButtonClickHandler (){
         renderRecipeScanStatus();
         return;
     }
-    
+
     const controller = new AbortController();
-    
+
     const timeoutId = setTimeout(() => controller.abort(), BROWSER_RECIPE_SCAN_TIMEOUT_MS);
     try {
-        const response = await fetch ("/api/scanned-recipe",
-        {
-            method: "POST",
-            body: JSON.stringify({file:convertedImage}),
-            signal: controller.signal
+        const response = await fetch("/api/scanned-recipe",
+            {
+                method: "POST",
+                body: JSON.stringify({ file: convertedImage }),
+                signal: controller.signal
+            }
+        );
+
+        if (response.ok) {
+            recipeScanStatus = "success";
+            const responseText = await response.text();
+            console.log(responseText);
         }
-    );
-   
-    if(response.ok){
-        recipeScanStatus = "success";
-        const responseText = await response.text();
-        console.log(responseText);
-    }
-    else {
-        
-        const errorBody = await response.json();
-        if (errorBody.error === "replyTooLong") {
+        else {
+
+            const errorBody = await response.json();
+            if (errorBody.error === "replyTooLong") {
                 recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedNoRecipe;
                 recipeScanStatus = "failedInvalidImage";
-        } else {
-                recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedCanRetry;
-                recipeScanStatus = "failedCanRetry";
+            } else {
+                if (errorBody.error === "invalidImage") {
+                    recipeScanStatus = "failedInvalidImage";
+                    recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedInvalidImage;
+                }
+                else {
+                    recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedCanRetry;
+                    recipeScanStatus = "failedCanRetry";
+                }
+
+            }
+
         }
-        
-    }
     }
 
     catch (error) {
         recipeScanStatus = "failedCanRetry";
         recipeScanStatusMessage.textContent = UI.recipeScan.scanStatusFailedCanRetry;
-       
+
     }
 
     finally {
-         clearTimeout(timeoutId);
+        clearTimeout(timeoutId);
     }
-    
-    
 
-   
+
+
+
 
     renderRecipeScanStatus();
 }
 
 
 
-function renderRecipeScanStatus(){
-   
+function renderRecipeScanStatus() {
+
     const ui = recipeScanConfig[recipeScanStatus];
     recipeScanSpinner.classList.toggle("hidden", !ui.spinnerShown);
     recipeUploadImage.disabled = ui.fileInputDisabled;
@@ -143,7 +150,7 @@ for (const key in UI.categories) {
 }
 
 
-function applyAddRecipeStrings(){
+function applyAddRecipeStrings() {
     addRecipeBackCaption.textContent = UI.common.back;
     addRecipeIngredientsLabel.textContent = UI.recipe.ingredients;
     addRecipeAddIngredient.textContent = UI.common.add;
@@ -160,7 +167,7 @@ function applyAddRecipeStrings(){
 function readFileAsDataURL(file) {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
-        
+
         reader.addEventListener("load", () => {
             resolve(reader.result);
         });
@@ -172,53 +179,53 @@ function readFileAsDataURL(file) {
 }
 
 
-function confirmLeaveIfUnsaved(event){
-    
+function confirmLeaveIfUnsaved(event) {
+
     if (recipeItem) {
-        
+
         if (
             titleInput.value !== recipeItem.title ||
             recipeDescriptionTextArea.value !== recipeItem.description ||
             categorySelect.value !== recipeItem.category ||
             JSON.stringify(currentIngredients) !== JSON.stringify(recipeItem.ingredients ?? [])
-        ){
+        ) {
             const leavePage = confirm(UI.common.confirmLeave);
 
-            if(!leavePage){
+            if (!leavePage) {
                 event.preventDefault();
                 return;
-            } 
+            }
         }
     }
-    
+
     returnBack(event);
 }
 
 
 ingredientItem.addEventListener("keydown", handleKeyDown);
 function handleKeyDown(event) {
-            if(event.key === "Enter"){
-                event.preventDefault();
-                handleAddIngredient();
-            }
+    if (event.key === "Enter") {
+        event.preventDefault();
+        handleAddIngredient();
+    }
 
-        }
+}
 
-function renderIngredients(){
+function renderIngredients() {
     const firstRects = readPositions(chipsContainer);
     chipsContainer.textContent = "";
-    
-    for (const [index,i] of currentIngredients.entries()){
-        function handleRemoveIngredient(){
-            
-            currentIngredients.splice(index,1);
+
+    for (const [index, i] of currentIngredients.entries()) {
+        function handleRemoveIngredient() {
+
+            currentIngredients.splice(index, 1);
             renderIngredients();
         }
 
         const chip = makeChip(i, handleRemoveIngredient);
         chipsContainer.append(chip);
 
-      
+
     }
     lucide.createIcons();
     playFlip(chipsContainer, firstRects);
@@ -227,11 +234,11 @@ function renderIngredients(){
 
 addRecipeAddIngredient.addEventListener("click", handleAddIngredient);
 
-function handleAddIngredient(){
+function handleAddIngredient() {
     const ingredientName = ingredientItem.value.trim().toLowerCase();
-    if (ingredientName!==""){
+    if (ingredientName !== "") {
         currentIngredients.push(ingredientName);
-        ingredientItem.value="";
+        ingredientItem.value = "";
         renderIngredients();
     }
 }
@@ -252,9 +259,9 @@ const validationRules = {
 
 const recipeItem = recipes.find(recipe => recipe.id === recipeId);
 
-scanImageBlock.classList.toggle("hidden", recipeItem!==undefined);
+scanImageBlock.classList.toggle("hidden", recipeItem !== undefined);
 
-function applyAddRecipeStringsTitle(){
+function applyAddRecipeStringsTitle() {
     addRecipeTitle.textContent = recipeItem !== undefined
         ? UI.common.editRecipe
         : UI.common.addRecipe;
@@ -275,20 +282,20 @@ const titleInput = document.getElementById("recipe-title");
 
 
 function populateForm(recipe) {
-    if (recipe){
+    if (recipe) {
         const category = recipe.category?.toLowerCase();
         categorySelect.value = Object.hasOwn(UI.categories, category) ? category : "uncategorized";
         titleInput.value = recipe.title ?? "";
         recipeDescriptionTextArea.value = recipe.description ?? "";
-        
+
         currentIngredients = [...(recipe.ingredients ?? [])];
         recipeSourceUrl.value = recipe.sourceUrl ?? "";
         renderIngredients();
-        }
-        else {
-            categorySelect.value = "uncategorized";
-        }
-   
+    }
+    else {
+        categorySelect.value = "uncategorized";
+    }
+
 }
 
 populateForm(recipeItem);
@@ -302,82 +309,80 @@ function inputIsValid(formFieldID, validationMessage) {
             .closest(".form-field")
             .querySelector(".form-field_error");
 
-    errorElement.textContent = "";        
+    errorElement.textContent = "";
 
     if (!formFieldElement.checkValidity()) {
         errorElement.textContent = validationMessage;
         return false;
     }
 
-   
+
     return true;
 }
 
-function formIsValid(){
+function formIsValid() {
     const titleIsValid = inputIsValid(validationRules.title.id, validationRules.title.message);
     const categoryIsValid = inputIsValid(validationRules.category.id, validationRules.category.message);
-    
+
     return titleIsValid && categoryIsValid;
 }
 
-addRecipeForm.addEventListener("submit",handleSubmit);
+addRecipeForm.addEventListener("submit", handleSubmit);
 
-function handleSubmit(event){
+function handleSubmit(event) {
     event.preventDefault();
-    
+
     if (formIsValid()) {
         let recipeId;
 
-         if (recipeItem){
-            
+        if (recipeItem) {
+
             recipeId = recipeItem.id;
         }
-            
-         else
-        {
-            
-            recipeId= crypto.randomUUID();
+
+        else {
+
+            recipeId = crypto.randomUUID();
         }
 
-        const recipe={
-        title: titleInput.value,
-        description: recipeDescriptionTextArea.value,
-        category: categorySelect.value,
-        id: recipeId,
-        ingredients: currentIngredients,
-        sourceUrl: recipeSourceUrl.value
+        const recipe = {
+            title: titleInput.value,
+            description: recipeDescriptionTextArea.value,
+            category: categorySelect.value,
+            id: recipeId,
+            ingredients: currentIngredients,
+            sourceUrl: recipeSourceUrl.value
         };
 
-        if (recipeItem){
+        if (recipeItem) {
             const recipeIndex = recipes.findIndex(recipe => recipe.id === recipeId);
-            recipes[recipeIndex]=recipe;
-           
+            recipes[recipeIndex] = recipe;
+
         }
-            
-         else
-        {
+
+        else {
             recipes.push(recipe);
-            
+
         }
-       
-        
-        localStorage.setItem("recipesKey",JSON.stringify(recipes));
-        
-        location.href="index.html";
+
+
+        localStorage.setItem("recipesKey", JSON.stringify(recipes));
+
+        location.href = "index.html";
     }
 
     else {
         if (!liveValidationStarted) {
-                liveValidationStarted = true;
-                titleInput.addEventListener(validationRules.title.event, function () {
-                    inputIsValid(validationRules.title.id, validationRules.title.message);
-                } );
-                categorySelect.addEventListener(validationRules.category.event, function(){
-                    inputIsValid(validationRules.category.id, validationRules.category.message);
+            liveValidationStarted = true;
+            titleInput.addEventListener(validationRules.title.event, function () {
+                inputIsValid(validationRules.title.id, validationRules.title.message);
+            });
+            categorySelect.addEventListener(validationRules.category.event, function () {
+                inputIsValid(validationRules.category.id, validationRules.category.message);
             });
         }
 
-    }    
+    }
 }
 
 applyAddRecipeStrings();

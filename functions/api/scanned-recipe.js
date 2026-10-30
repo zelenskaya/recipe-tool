@@ -102,11 +102,11 @@ Extract the JSON object with these exact keys:
                 return Response.json({ error: "invalidImage" }, { status: 422 });
             } else {
                 if ((resultAI.status > 400) && (resultAI.status <= 499)) {
-                    return Response.json({ error: "upstream failed" }, { status: 500 });
+                    return Response.json({ error: "aiRejectedRequest" }, { status: 500 });
                 }
                 else {
                     if (!canRetryToCallAI(attempt, startTime)) {
-                        return Response.json({error: "replyTooSlow"}, {status: 504});
+                        return Response.json({error: "aiServerIssue"}, {status: 502});
                     }
                      }
 
@@ -130,10 +130,7 @@ Extract the JSON object with these exact keys:
 
 
 
-    if (!resultAI.ok) {
-        console.log(resultAI.status);
-        return Response.json({ error: "upstream failed" }, { status: 500 });
-    }
+    
     const data = await resultAI.json();
     const types = data.content.map(item => item.type);
     console.log(data.stop_reason, data.usage.output_tokens, types);
