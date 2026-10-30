@@ -58,21 +58,27 @@ Decided: extract the FULL object (title; description = prose or steps, one per l
 
 3c — "parced?" and "valid recipe", with their error states.force strict JSON in your schema; parse + failure states. Tighten the prompt to emit only your recipe object as JSON (category from the enum, fused-string ingredients, method → steps if original recipe is formatted in steps). Client parses. Handle three new modes: unparseable JSON, valid-JSON-but-bad-category, "not a recipe." Verify: parses to a valid object; bad cases are caught, not crashes. Log failure modes: stop_reaon and max_tokens (trunkated reply). After parsing, code adds sourceUrl: ""
 
-3d — feed the parsed object to populateForm. Join to Step 2. Near-free because Step 2 built the seam. Verify: screenshot → filled editable form → save. 
-3d1. recipe page: white-space: pre-line on the description div, so that line breaks don't collapse. Feature done.
-3d2. "AI can make mistakes" warning
+3d — feed the parsed object to populateForm. 
 
 
 ## Next
 
 
-1. **React port and backend integration**
+
+- **Larger controls on mobile** Change sizes via @media (pointer: coarse) OR global bump trhough theme tokens 
+- **more focus on homepage search box for finding recipes via ingredients** - white space? size? less focus on default infredients?
+- **Handle user typing ingredients for search as one sentence** - Stronger hint then test, maybe also turn leftover text into chip automatically 
+- **Sync ukrainain branch to `main`** — `Guard on lang branches: `grep -l "strings.en.js" *.html` empty.
+- **Backend integration**
+- **Quick-save a link** move the URL field to the top of add-recipe, with a hint that user can just paste a link; autofill title from that where possible
+- "AI can make mistakes" warning
+- recipe page: white-space: pre-line on the description div, so that line breaks don't collapse.
+
 2. **Shimmer skeleton for the photo scan** — a shimmering placeholder while the vision model thinks.
 3. **Dark mode, driven by tokens.** 
 4. **Scroll-driven card reveal**
 5. **Toast / snackbar**
 6. **A count-up number on the fridge result**
 7. **Style update.** Look into recommendations from Claude Design.
-8. **Sync all branches to `main`** — `ukrainian-demo`, `german-demo`, `hohenloher-molkerei-demo`, `hubermuehle-demo`, `lifeway-demo` each merge `main`. Guard on lang branches: `grep -l "strings.en.js" *.html` empty.
 
 ## Parked work and decisions: see BACKLOG.md
