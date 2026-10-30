@@ -9,7 +9,7 @@ async function tryToCallAI(prompt, apiKey, mediaType, fileBase64) {
 
     let apiRes;
     try {
-        apiRes = await fetch(/*"https://api.anthropic.com/v1/messages"*/"https://api.anthropic.invalid", {
+        apiRes = await fetch("https://api.anthropic.com/v1/messages", {
             method: "POST",
             headers: {
                 "x-api-key": apiKey,
