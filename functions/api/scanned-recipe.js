@@ -40,6 +40,12 @@ async function tryToCallAI(prompt, apiKey, mediaType, fileBase64) {
 
 }
 
+function canRetryToCallAI(attempt, startTime) {
+    const timeLeft = (SERVER_TOTAL_TIME_BUDGET_MS - (Date.now() - startTime));
+    return (((attempt === 1) && (timeLeft >= SERVER_RECIPE_SCAN_TIMEOUT_MS)));
+    
+
+}
 
 export async function onRequest(context) {
 
@@ -98,6 +104,11 @@ Extract the JSON object with these exact keys:
                 if ((resultAI.status > 400) && (resultAI.status <= 499)) {
                     return Response.json({ error: "upstream failed" }, { status: 500 });
                 }
+                else {
+                    if (!canRetryToCallAI(attempt, startTime)) {
+                        return Response.json({error: "replyTooSlow"}, {status: 504});
+                    }
+                     }
 
             }
 
@@ -107,9 +118,8 @@ Extract the JSON object with these exact keys:
             if (error.name === "AbortError") {
                 return Response.json({ error: "replyTooSlow" }, { status: 504 });
             } else {
-                const timeLeft = (SERVER_TOTAL_TIME_BUDGET_MS - (Date.now() - startTime));
-                const canRetry = (!((attempt === 1) && (timeLeft >= SERVER_RECIPE_SCAN_TIMEOUT_MS)));
-                if (canRetry) {
+                
+                if (!canRetryToCallAI(attempt, startTime)) {
                     return Response.json({ error: "apiUnreachable" }, { status: 502 });
                 }
 
