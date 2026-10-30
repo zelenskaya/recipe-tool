@@ -101,6 +101,8 @@ Extract the JSON object with these exact keys:
                 console.log(resultAI.status);
                 return Response.json({ error: "invalidImage" }, { status: 422 });
             } else {
+                const responseBody = await resultAI.body;
+                console.log(responseBody);
                 if ((resultAI.status > 400) && (resultAI.status <= 499)) {
                     return Response.json({ error: "aiRejectedRequest" }, { status: 500 });
                 }
